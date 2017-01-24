@@ -1,0 +1,2 @@
+module InspectionsControllerHelper
+end
