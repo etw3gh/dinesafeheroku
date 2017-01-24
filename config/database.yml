@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: dinesafe_production
+  url: <%= ENV['HEROKU_POSTGRESQL_TEAL_URL'] %>
   username: ds
   password: <%= ENV['DINESAFE_DATABASE_PASSWORD'] %>
