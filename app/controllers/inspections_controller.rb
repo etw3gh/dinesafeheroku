@@ -9,7 +9,7 @@ class InspectionsController < ApplicationController
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
-    json_result['venue'] = venue
+    json_result['name'] = venue.venuename
     json_result['address'] = "#{address.num} #{address.streetname}"
     json_result['lat'] = address.lat
     json_result['lng'] = address.lng
@@ -19,6 +19,11 @@ class InspectionsController < ApplicationController
     json_result['inspections'] = ilist
 
     render :json => json_result
+  end
+
+
+  def find
+  
   end
 
   # try out a direct sql join.....
