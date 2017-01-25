@@ -2,24 +2,26 @@ class InspectionsController < ApplicationController
   def get
     json_result = {}
     json_result['inspections'] = []
-    ilist = Inspection.where(:venue_id => params[:venue_id])
-    ilist.each do |inspection|
-      #inspection_obj = {'inspection': {}, 'venue': {}, 'address': {}}
-      
-      inspection_obj = {}
+    
+    vid = params[:venue_id]
 
-      venue = Venue.where(:id => inspection.venue_id).first
-      inspection_obj['venue'] = venue
+    ilist = Inspection.where(:venue_id => vid)
+    venue = Venue.where(:id => vid).first
+    address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
-      address = Address.where(:id=>venue['address_id']).first
-      inspection_obj['address'] = address
+    json_result['venue'] = venue
+    json_result['address'] = "#{address.num} #{address.streetname}"
+    json_result['lat'] = address.lat
+    json_result['lng'] = address.lng
+    json_result['mun'] = address.mun
+    json_result['locname'] = address.locname
 
-      inspection_obj['inspection'] = inspection
+    json_result['inspections'] = ilist
 
-      json_result['inspections'].push(inspection_obj)
-    end
     render :json => json_result
   end
+
+  # try out a direct sql join.....
   def getj
     vid = params[:venue_id]
     query = "SELECT * FROM venues v INNER JOIN inspections i ON v.eid=i.eid INNER JOIN addresses a ON a.id=v.address_id WHERE v.id=#{vid}" 
