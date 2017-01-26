@@ -113,24 +113,26 @@ class InspectionsController < ApplicationController
     limit = params[:limit].to_i
     address = nil
     q = nil
+    acount = 0
     if num.numeric?
       nint = num.to_i
       vint = variance.to_i
       q = "lo > #{nint - vint} AND lo < #{nint + vint} AND streetname like '#{street}%'"
       address = Address.where(q)
     else
-      address = Address.where("num='#{num}' AND streetname like '#{street}%'") 
+      address = Address.where("num='#{num}' AND streetname like '#{street}%'")       
     end
 
     if address.blank?
       render :json => {'result': 'no results', 'num': num, 'street': street, 'q': q}
     else
       begin
+        acount = address.count
         a = address.first
         lat = a['lat'].to_f
         lng = a['lng'].to_f
         results = geoloc(lat, lng, limit.to_i)
-        render :json => {'result': results, 'num': num, 'street': street}
+        render :json => {'result': results, 'num': num, 'street': street, 'count': acount}
       rescue Exception => e
         render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
       end
