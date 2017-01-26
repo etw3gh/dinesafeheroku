@@ -27,8 +27,7 @@ class Downloader
     JSON.parse(res.body)
   end
 
-  def download(domain, pat
-h)
+  def download(domain, path)
     url = URI.parse(domain)
     puts url
     puts path
