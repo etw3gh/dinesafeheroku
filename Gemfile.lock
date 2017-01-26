@@ -41,6 +41,10 @@ GEM
     acts_as_singleton (0.0.8)
       activerecord (>= 3.1.0)
     arel (7.1.4)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     builder (3.2.3)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -53,6 +57,7 @@ GEM
     coffee-script-source (1.12.2)
     colorize (0.8.1)
     concurrent-ruby (1.0.4)
+    connection_pool (2.2.1)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     diffy (3.1.0)
@@ -144,6 +149,13 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    react-rails (1.10.0)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -209,6 +221,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.0)
+  react-rails
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

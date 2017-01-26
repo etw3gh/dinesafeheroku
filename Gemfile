@@ -76,5 +76,5 @@ gem 'acts_as_singleton', '~> 0.0.8'
 gem 'finishing_moves'
 
 gem 'database_cleaner'
-
+gem 'react-rails'
 ruby '2.2.2'

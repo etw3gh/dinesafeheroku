@@ -1,4 +1,17 @@
+require 'net/http'
+require 'uri'
+
 class InspectionsController < ApplicationController
+  
+
+  # http://stackoverflow.com/questions/2234204/latitude-longitude-find-nearest-latitude-longitude-complex-sql-or-complex-calc
+  
+ 
+  def distance_clause(lat, lng)
+    km_factor = 6371    
+    "(#{km_factor} * acos(cos(radians(#{lat})) * cos(radians(lat)) * cos(radians(lng) - radians(#{lng})) + sin(radians(#{lat})) * sin(radians(lat )))) AS distance "
+  end
+
   def get
     json_result = {}
     json_result['inspections'] = []
@@ -21,20 +34,114 @@ class InspectionsController < ApplicationController
     render :json => json_result
   end
 
-  def near
-    lat = params[:lat]
-    lng = params[:lng]
-    limit = params[:limit]
-
-    # http://stackoverflow.com/questions/2234204/latitude-longitude-find-nearest-latitude-longitude-complex-sql-or-complex-calc
-    distance_clause = "(6371 * acos(cos(radians(#{lat})) * cos(radians(lat)) * cos(radians(lng) - radians(#{lng})) + sin(radians(#{lat})) * sin(radians(lat )))) AS distance"
-    nearby_query = "SELECT a.streetname, a.num, #{distance_clause} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{limit}"
-    results = ActiveRecord::Base.connection.execute(nearby_query)
-    render :json => {'result': results, 'count': results.count, 'query': {'lat': lat, 'lng': lng, 'limit': limit}}
-
+  def islocalhost(ip)
+    ip.starts_with?('10') || ip.starts_with?('127') || ip.startswith?('172') || ip.startswith?('192') || ip.startswith?('localhost')
   end
 
+  def nearsearch
+    street = params[:street]
+    num = params[:num]
+    term = params[:term]
+    qlimit = 50
 
+    venue_query = "SELECT lat, lng FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
+                   WHERE 
+                   v.venuename like '%#{term}%' AND a.num='#{num}' AND a.streetname like '#{street}%'  
+                   AND a.version = (select max(version) from addresses)"
+    venue = ActiveRecord::Base.connection.execute(venue_query).first
+    
+    if venue.nil? || venue.empty?
+      render :json => {'result': 'no results', 'vq': venue_query, 'term': term}
+      return
+    end
+    lat = venue['lat']
+    lng = venue['lng']
+
+    nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{qlimit}"
+    results = ActiveRecord::Base.connection.execute(nearby_query)
+    render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'term': term}}
+    
+  end
+
+  def near
+    ip = request.remote_ip
+    ipapi = "http://ip-api.com/json/#{ip}"
+
+    #default to mi pho song vu on localhost
+    dlat = 43.7186761904
+    dlng = -79.5075579683
+
+    lat = params[:lat]
+    lng = params[:lng]  
+
+    #get lat/lng from ip 
+    if !lat.numeric? || !lng.numeric?
+      if islocalhost(ip)
+        lat = dlat
+        lng = dlng
+      else 
+        uri = URI.parse(ipapi)
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+        ipresponse = JSON.parse(response.body)
+        lat = ipresponse['lat'].to_f
+        lng = ipresponse['lon'].to_f
+      end
+    end
+
+    limit = params[:limit]
+
+    # add one to account for case of limit=1 and distance=0
+    # in this case we'd still like to return the nearest place instead of just the current location
+    if limit.numeric?
+      qlimit = limit.to_i + 1
+    else
+      qlimit = 10
+    end
+
+
+    results = geoloc(lat,lng,qlimit)
+    render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'ip': ip}}
+
+  end
+  
+  def byaddr
+    num = params[:num]
+    street = params[:street]
+    variance = params[:numvariance].to_i
+    limit = params[:limit].to_i
+    address = nil
+    q = nil
+    if num.numeric?
+      nint = num.to_i
+      vint = variance.to_i
+      q = "lo > #{nint - vint} AND lo < #{nint + vint} AND streetname like '#{street}%'"
+      address = Address.where(q)
+    else
+      address = Address.where("num='#{num}' AND streetname like '#{street}%'") 
+    end
+
+    if address.blank?
+      render :json => {'result': 'no results', 'num': num, 'street': street, 'q': q}
+    else
+      begin
+        a = address.first
+        lat = a['lat'].to_f
+        lng = a['lng'].to_f
+        results = geoloc(lat, lng, limit.to_i)
+        render :json => {'result': results, 'num': num, 'street': street}
+      rescue Exception => e
+        render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
+      end
+      
+    end
+  end
+
+  def geoloc(lat, lng, limit)
+    nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{limit}"
+    ActiveRecord::Base.connection.execute(nearby_query)
+  end
   def find
     term = params[:term]
     query = "SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id WHERE v.venuename like '% #{term} %' and a.version = (select max(version) from addresses)"
