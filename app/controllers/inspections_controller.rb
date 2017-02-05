@@ -12,13 +12,21 @@ class InspectionsController < ApplicationController
     "(#{km_factor} * acos(cos(radians(#{lat})) * cos(radians(lat)) * cos(radians(lng) - radians(#{lng})) + sin(radians(#{lat})) * sin(radians(lat )))) AS distance "
   end
 
+  def byaddress
+    lat = params[:lat].to_f
+    lng = params[:lng].to_f
+    limit = params[:limit].to_f
+    status = params[:status]
+
+  end
+
   def get
     json_result = {}
     json_result['inspections'] = []
     
     vid = params[:venue_id]
 
-    ilist = Inspection.where(:venue_id => vid)
+    ilist = Inspection.where(:venue_id=>id, :status=>status).order(:date=>:desc)limit(limit) )
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
@@ -57,8 +65,8 @@ class InspectionsController < ApplicationController
     lat = venue['lat']
     lng = venue['lng']
 
-    nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{qlimit}"
-    results = ActiveRecord::Base.connection.execute(nearby_query)
+    #nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{qlimit}"
+    results = geoloc(lat,lng,qlimit)
     render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'term': term}}
     
   end
