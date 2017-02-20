@@ -26,7 +26,7 @@ class InspectionsController < ApplicationController
     
     vid = params[:venue_id]
 
-    ilist = Inspection.where(:venue_id=>id, :status=>status).order(:date=>:desc)limit(limit) )
+    ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc)  #.limit(limit)
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
