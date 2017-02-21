@@ -77,4 +77,7 @@ gem 'finishing_moves'
 
 gem 'database_cleaner'
 gem 'react-rails'
+
+gem 'rack-cors'
+
 ruby '2.2.2'
