@@ -149,7 +149,7 @@ class InspectionsController < ApplicationController
   end
 
   def geoloc(lat, lng, limit)
-    nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{limit}"
+    nearby_query = "SELECT v.venuename as name, a.num, a.lat, a.lng || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{limit}"
     ActiveRecord::Base.connection.execute(nearby_query)
   end
   def find
