@@ -9,7 +9,7 @@ Rails.application.routes.draw do |map|
   # gives a list of nearby venues
   get '/byadddress/:lat/:lng' => 'inspections#byadddress'
 
-  
+  get '/pho' => 'venues#pho'
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
