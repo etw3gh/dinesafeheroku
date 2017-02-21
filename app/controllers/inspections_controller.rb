@@ -14,7 +14,7 @@ class InspectionsController < ApplicationController
     lng = params[:lng].to_f
     limit = params[:limit].to_f
     status = params[:status]
-
+    return 'ok'
   end
 
   def get
@@ -78,7 +78,7 @@ class InspectionsController < ApplicationController
 
     lat = params[:lat]
     lng = params[:lng]  
-
+    
     #get lat/lng from ip 
     if !lat.numeric? || !lng.numeric?
       if islocalhost(ip)
@@ -106,7 +106,7 @@ class InspectionsController < ApplicationController
     end
 
 
-    results = geoloc(lat,lng,qlimit)
+    results = geoloc(lat, lng, qlimit)
     render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'ip': ip}}
 
   end

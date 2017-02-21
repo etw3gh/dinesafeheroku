@@ -7,6 +7,14 @@ class VenuesController < ApplicationController
   def phoWhere
     " where #{phoClause}"
   end
+
+  def nearby
+    lat = params[:lat]
+    lng = params[:lng]
+    limit = params[:limit].to_f
+    results = geoloc(lat, lng, limit, phoWhere)
+    render :json => results
+  end 
   def pho
     result = []
     venues =  Venue.where(phoClause)
@@ -25,10 +33,5 @@ class VenuesController < ApplicationController
   end
 
   # pho nearby: pho by
-  def phoby
-    lat = params[:lat]
-    lng = params[:lng]
-    results = geoloc(lat, lng, qlimit, phoWhere)
-    render :json => results
-  end
+
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do |map|
   get '/byadddress/:lat/:lng' => 'inspections#byadddress'
 
   get '/pho' => 'venues#pho'
-  get '/phoby/:lat/:lng/:limit' => 'venues#phoby', :defaults => {:limit=>10}
+  get '/phoby' => 'venues#nearby'
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
   get '/near/:term/:num/:street' => 'inspections#nearsearch'
