@@ -11,7 +11,7 @@ class VenuesController < ApplicationController
     result = []
     venues =  Venue.where("venuename like '% pho %' or venuename like 'pho %'")
     venues.each do |v|
-      a = Address.where(:id => venue.address_id)
+      a = Address.where(:id => v.address_id)
       item = {}
       item['address'] = "#{a.num} #{a.streetname}"
       item['lat'] = a.lat
