@@ -17,7 +17,7 @@ class VenuesController < ApplicationController
       item['lat'] = a.lat
       item['lng'] = a.lng
       item['mun'] = a.mun
-      item['name'] = v.venuename
+      item['name'] = v.venuename.gsub('former Toronto', 'Downtown')
       item['vid'] = v.id
       result.push(item)
     end
