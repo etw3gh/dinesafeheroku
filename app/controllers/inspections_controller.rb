@@ -7,10 +7,7 @@ class InspectionsController < ApplicationController
   # http://stackoverflow.com/questions/2234204/latitude-longitude-find-nearest-latitude-longitude-complex-sql-or-complex-calc
   
  
-  def distance_clause(lat, lng)
-    km_factor = 6371    
-    "(#{km_factor} * acos(cos(radians(#{lat})) * cos(radians(lat)) * cos(radians(lng) - radians(#{lng})) + sin(radians(#{lat})) * sin(radians(lat )))) AS distance "
-  end
+
 
   def byaddress
     lat = params[:lat].to_f
@@ -148,10 +145,7 @@ class InspectionsController < ApplicationController
     end
   end
 
-  def geoloc(lat, lng, limit)
-    nearby_query = "SELECT v.venuename as name, a.lat, a.lng, a.num, a.num  || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{limit}"
-    ActiveRecord::Base.connection.execute(nearby_query)
-  end
+
   def find
     term = params[:term]
     query = "SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id WHERE v.venuename like '% #{term} %' and a.version = (select max(version) from addresses)"

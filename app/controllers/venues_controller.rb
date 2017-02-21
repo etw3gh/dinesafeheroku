@@ -1,15 +1,15 @@
 
 class VenuesController < ApplicationController
-
-  def test
-    render :json => params
+  
+  def phoClause
+    " venuename like '% pho %' or venuename like 'pho %' "
   end
-  def index
-    @venues = Venue.all
+  def phoWhere
+    " where #{phoClause}"
   end
   def pho
     result = []
-    venues =  Venue.where("venuename like '% pho %' or venuename like 'pho %'")
+    venues =  Venue.where(phoClause)
     venues.each do |v|
       a = Address.where(:id => v.address_id).first
       item = {}
@@ -22,5 +22,13 @@ class VenuesController < ApplicationController
       result.push(item)
     end
     render :json => result
+  end
+
+  # pho nearby: pho by
+  def phoby
+    lat = params[:lat]
+    lng = params[:lng]
+    results = geoloc(lat, lng, qlimit, phoWhere)
+    render :json => results
   end
 end
