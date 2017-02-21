@@ -18,6 +18,7 @@ Rails.application.routes.draw do |map|
   get '/byaddr/:num/:street/:numvariance/:limit' => 'inspections#byaddr', :defaults => {:numvariance=>10, :limit=>20}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get '/mun' => 'addresses#mun'
   
   root 'welcome#index'
    
