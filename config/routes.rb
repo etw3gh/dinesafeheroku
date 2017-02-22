@@ -23,6 +23,7 @@ Rails.application.routes.draw do |map|
   get '/streets' => 'addresses#streets'
   get '/numbers'=> 'addresses#numbers'
   get '/venue' => 'venues#get'
+  get '/venues' => 'venues#all'
   root 'welcome#index'
    
 
