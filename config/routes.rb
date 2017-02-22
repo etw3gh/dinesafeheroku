@@ -1,7 +1,7 @@
 Rails.application.routes.draw do |map|
   
   # a Query from populated dropdowns will have exact values
-  get '/inspections/:venue_id/:status/:limit' => 'inspections#get', :defaults =>{:status=> 'pass', :limit =>20}
+  get '/inspections' => 'inspections#get', :defaults =>{:status=> 'pass', :limit =>20}
 
   # get nearby from dropdown
   # give street name, then populate street numbers

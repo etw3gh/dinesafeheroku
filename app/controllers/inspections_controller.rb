@@ -20,10 +20,10 @@ class InspectionsController < ApplicationController
   def get
     json_result = {}
     json_result['inspections'] = []
-    
+    status = params[:status]
     vid = params[:venue_id]
-
-    ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc)  #.limit(limit)
+    limit = params[:limit].to_int
+    ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc).limit(limit)
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
