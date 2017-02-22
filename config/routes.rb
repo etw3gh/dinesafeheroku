@@ -22,7 +22,7 @@ Rails.application.routes.draw do |map|
   get '/mun' => 'addresses#mun'
   get '/streets' => 'addresses#streets'
   get '/numbers'=> 'addresses#numbers'
-
+  get '/venue' => 'venues#get'
   root 'welcome#index'
    
 

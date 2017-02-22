@@ -7,7 +7,10 @@ class VenuesController < ApplicationController
   def phoWhere
     " where #{phoClause}"
   end
-
+  def get
+    vid = params[:vid].to_i
+    render :json => Venue.where(:id => vid)
+  end
   def nearby
     lat = params[:lat]
     lng = params[:lng]
