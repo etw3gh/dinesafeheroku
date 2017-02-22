@@ -17,6 +17,6 @@ class AddressesController < ApplicationController
   # returns just the numbers in ascending order for a given street
   def numbers
     street = params[:street].downcase
-    render :json => Address.where(:streetname=>street).order(:num).pluck(:num)
+    render :json => Address.where("streetname like '#{street}%'").order(:num).pluck(:num).sort_by(&:to_i)
   end
 end
