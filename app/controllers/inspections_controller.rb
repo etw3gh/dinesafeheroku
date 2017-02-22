@@ -23,17 +23,18 @@ class InspectionsController < ApplicationController
       status = params[:status].downcase
     end
 
-    vid = params[:vid]
+    vid = params[:vid].to_i
     
     if params[:limit].nil?
       limit = params[:limit].to_i
     else
       limit = 100
     end
+    ilist = []
     if status == 'all'
-      ilist = Inspection.where(:venue_id=>vid).order(:date=>:desc).limit(limit)
+      ilist = Inspection.where(:venue_id=>vid).order(:date=>:desc)#.limit(limit)
     else
-      ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc).limit(limit)
+      ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc)#.limit(limit)
     end
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
