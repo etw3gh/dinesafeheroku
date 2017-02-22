@@ -17,11 +17,11 @@ Rails.application.routes.draw do |map|
   get '/test/:a/:b' => 'venues#test'
   get '/byaddr/:num/:street/:numvariance/:limit' => 'inspections#byaddr', :defaults => {:numvariance=>10, :limit=>20}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
+  get '/munstreets' => 'addresses#munstreets' 
   get '/mun' => 'addresses#mun'
   get '/streets' => 'addresses#streets'
   get '/numbers'=> 'addresses#numbers'
-  
+
   root 'welcome#index'
    
 
