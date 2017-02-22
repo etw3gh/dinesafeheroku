@@ -3,27 +3,38 @@ require 'uri'
 
 class InspectionsController < ApplicationController
   
-
-  # http://stackoverflow.com/questions/2234204/latitude-longitude-find-nearest-latitude-longitude-complex-sql-or-complex-calc
-  
- 
-
+  def statuses
+    render :json => Inspection.order(:status).distinct.pluck(:status)
+  end
 
   def byaddress
-    lat = params[:lat].to_f
-    lng = params[:lng].to_f
-    limit = params[:limit].to_f
-    status = params[:status]
+    address = params[:address].to_f
+
     return 'ok'
   end
 
+  #/inspections?venue_id=7185&limit=5-&status=pass
   def get
     json_result = {}
     json_result['inspections'] = []
-    status = params[:status]
-    vid = params[:venue_id]
-    limit = params[:limit].to_int
-    ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc).limit(limit)
+    if params[:status].nil?
+      status = 'all'
+    else
+      status = params[:status].downcase
+    end
+
+    vid = params[:vid]
+    
+    if params[:limit].nil?
+      limit = params[:limit].to_i
+    else
+      limit = 100
+    end
+    if status == 'all'
+      ilist = Inspection.where(:venue_id=>vid).order(:date=>:desc).limit(limit)
+    else
+      ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc).limit(limit)
+    end
     venue = Venue.where(:id => vid).first
     address = Address.where(:id=>venue['address_id']).order('version DESC').first
 
@@ -33,7 +44,7 @@ class InspectionsController < ApplicationController
     json_result['lng'] = address.lng
     json_result['mun'] = address.mun
     json_result['locname'] = address.locname
-
+    json_result['bystatus'] = status
     json_result['inspections'] = ilist
 
     render :json => json_result
