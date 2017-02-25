@@ -10,7 +10,8 @@ class VenuesController < ApplicationController
 
   def get
     vid = params[:vid].to_i
-    render :json => Venue.where(:id => vid)
+    result = Venue.where(:id => vid)
+    render :json => {result: result, count: result.count} 
   end
   
   def all

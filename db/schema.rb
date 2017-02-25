@@ -77,6 +77,12 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.string   "streetname"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string "title"
+    t.string "note"
+    t.bigint "created_at"
+  end
+
   create_table "notfounds", force: :cascade do |t|
     t.integer  "iid"
     t.integer  "venue_id"
@@ -91,6 +97,14 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.integer  "timestamp"
     t.boolean  "found"
     t.string   "streetname"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first"
+    t.string "last"
+    t.string "email"
+    t.bigint "created_at"
+    t.string "pwd"
   end
 
   create_table "venues", force: :cascade do |t|
