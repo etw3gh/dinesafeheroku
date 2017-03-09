@@ -39,17 +39,17 @@ namespace :get do
           start_processing = Time.now.to_i
           updater = UpdateGeo.new(geo_path, @VERBOSE, timestamp)
           end_processing = Time.now.to_i
-          record_count = Inspections.where(:created_at => timestamp).count
-          if Achive.where(:filename => xml_file).blank?
+          record_count = Address.where(:version => timestamp).count
+          if Achive.where(:filename => geo_file).blank?
             #insert case 
             Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
                           :count => record_count,
                           :version => timestamp,
                           :processed => true,
-                          :is_geo @XML_CASE).first_or_create(:filename => xml_file)
+                          :is_geo @GEO_CASE).first_or_create(:filename => geo_file)
           else
-            archive = Archive.where(:filename => xml_file).first
+            archive = Archive.where(:filename => geo_file).first
             archive.update(:processed => true,
                            :startprocessing => start_processing,
                            :endprocessing => end_processing,
