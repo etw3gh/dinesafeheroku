@@ -47,7 +47,7 @@ namespace :get do
                           :count => record_count,
                           :version => timestamp,
                           :processed => true,
-                          :is_geo @GEO_CASE).first_or_create(:filename => geo_file)
+                          :is_geo => @GEO_CASE).first_or_create(:filename => geo_file)
           else
             archive = Archive.where(:filename => geo_file).first
             archive.update(:processed => true,
@@ -74,7 +74,7 @@ namespace :get do
                           :count => record_count,
                           :version => timestamp,
                           :processed => true,
-                          :is_geo @XML_CASE).first_or_create(:filename => xml_file)
+                          :is_geo => @XML_CASE).first_or_create(:filename => xml_file)
           else
             archive = Archive.where(:filename => xml_file).first
             archive.update(:processed => true,
