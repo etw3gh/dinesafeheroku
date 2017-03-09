@@ -26,7 +26,7 @@ A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped fil
 
 #### Get all filenames
 
-Get a list of all archive files
+Get a list of all archive files. Arrays are sorted in descending order (by timestamp)
 
     `rake get:all`
 
