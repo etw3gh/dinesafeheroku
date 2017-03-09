@@ -1,3 +1,5 @@
+# DEPRECIATED
+
 require_relative '../dinesafe/update_geo'
 require_relative '../dinesafe/update_dinesafe'
 

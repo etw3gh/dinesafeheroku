@@ -1,3 +1,5 @@
+# DEPRECIATED
+
 require_relative('../dinesafe/downloader')
 require 'open-uri'
 
