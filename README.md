@@ -22,7 +22,7 @@ The shapefiles are processed and saved in a more useful JSON format.
 
 A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks. 
 
-### Rake tasks
+### Rake tasks (lib/tasks)
 
 #### Get all filenames
 
