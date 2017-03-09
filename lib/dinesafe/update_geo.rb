@@ -14,7 +14,7 @@ class UpdateGeo
     @timestamp = timestamp
   end
 
-  def process()
+  def process
     @geo.keys.each do |street|
       
       address = @geo[street]

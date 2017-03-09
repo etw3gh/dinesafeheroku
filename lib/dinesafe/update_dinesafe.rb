@@ -2,20 +2,11 @@ class UpdateDinesafe
 
   attr_accessor :noko, :timestamp, :logerrs, :verbose
 
-  def initialize(xmlpath, verbose, timestamp, byUrl = false)
+  def initialize(xmlpath, verbose, timestamp)
     # get a nokogiri object & drill down to the row object level
     # each inspection is a row
 
-
-    # keep old code working for now but will be refactored to accept only 
-    # urls instead of downloaded files
-    # if byUrl=true, xmlpath will be a URL instead of a filepath
-    if byUrl
-      @noko = Nokogiri::XML(File.open(xmlpath)).css('ROWDATA ROW')
-    else
-      @noko = Nokogiri::XML(open(xmlpath)).css('ROWDATA ROW')
-    end
-
+    @noko = Nokogiri::XML(open(xmlpath)).css('ROWDATA ROW')
     @timestamp = timestamp 
 
     @verbose = verbose

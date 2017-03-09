@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309011742) do
+ActiveRecord::Schema.define(version: 20170117231058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.string   "mun"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "version"
     t.index ["streetname", "num"], name: "index_addresses_on_streetname_and_num", using: :btree
   end
 
@@ -45,37 +44,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.index ["filename"], name: "index_archives_on_filename", unique: true, using: :btree
   end
 
-  create_table "downloads", force: :cascade do |t|
-    t.string   "latest_xml"
-    t.string   "latest_geo"
-    t.boolean  "xml_done"
-    t.boolean  "geo_done"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "geoversion"
-    t.integer  "xmlversion"
-  end
-
-  create_table "inspections", force: :cascade do |t|
-    t.integer  "rid"
-    t.integer  "eid"
-    t.integer  "iid"
-    t.string   "etype"
-    t.string   "status"
-    t.string   "details"
-    t.string   "date"
-    t.string   "severity"
-    t.string   "action"
-    t.string   "outcome"
-    t.integer  "mipy"
-    t.integer  "version"
-    t.integer  "venue_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["eid"], name: "index_inspections_on_eid", using: :btree
-    t.index ["iid"], name: "index_inspections_on_iid", unique: true, using: :btree
-  end
-
   create_table "multiples", force: :cascade do |t|
     t.integer  "iid"
     t.integer  "venue_id"
@@ -87,8 +55,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.string   "hisuf"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "timestamp"
-    t.string   "streetname"
   end
 
   create_table "notfounds", force: :cascade do |t|
@@ -102,9 +68,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.string   "hisuf"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "timestamp"
-    t.boolean  "found"
-    t.string   "streetname"
   end
 
   create_table "venues", force: :cascade do |t|

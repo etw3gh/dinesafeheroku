@@ -7,7 +7,6 @@ namespace :get do
   @all_archives_service = 'https://openciti.ca/cgi-bin/ds/all'
   @ocurl = 'https://openciti.ca/ds/'
 
-  @BY_URL = true
   @VERBOSE = true
 
   # for is_geo column in Archive model
@@ -32,16 +31,20 @@ namespace :get do
       
 
       geo.each do |geo_file|
+        puts geo_file
         geo_path = @ocurl + geo_file
         timestamp = extract_timestamp_from_filename(geo_path)
-
-        if Archive.where(:filename => geo_file, :processed => true).blank?
-          start_processing = Time.now.to_i
+        archive_processed = Archive.where(:filename => geo_file, :processed => true).first
+        puts archive_processed
+        if archive_processed.blank?
+          start_processing = Time.now
           updater = UpdateGeo.new(geo_path, @VERBOSE, timestamp)
-          end_processing = Time.now.to_i
+          updater.process
+          end_processing = Time.now
           record_count = Address.where(:version => timestamp).count
-          if Achive.where(:filename => geo_file).blank?
+          if Archive.where(:filename => geo_file).blank?
             #insert case 
+            puts 'inserting...'
             Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
                           :count => record_count,
@@ -49,6 +52,7 @@ namespace :get do
                           :processed => true,
                           :is_geo => @GEO_CASE).first_or_create(:filename => geo_file)
           else
+            puts 'updating...'
             archive = Archive.where(:filename => geo_file).first
             archive.update(:processed => true,
                            :startprocessing => start_processing,
@@ -64,9 +68,10 @@ namespace :get do
         timestamp = extract_timestamp_from_filename(xml_path)
 
         if Archive.where(:filename => xml_file, :processed => true).blank?
-          start_processing = Time.now.to_i
-          updater = UpdateDinesafe.new(xml_path, @VERBOSE, timestamp, @BY_URL)
-          end_processing = Time.now.to_i
+          start_processing = Time.now
+          updater = UpdateDinesafe.new(xml_path, @VERBOSE, timestamp)
+          updater.process
+          end_processing = Time.now
           record_count = Inspections.where(:created_at => timestamp).count
           if Achive.where(:filename => xml_file).blank?
             #insert case 
