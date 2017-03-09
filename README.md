@@ -1,31 +1,67 @@
-# README
+# Dinesafe backend 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+Dinesafe is a system for restaurant inspections for the city of Toronto
 
-* Ruby version
+### Data sources
 
-* System dependencies
+Restaurant inspections are made available once or twice a month as a zipped XML archive.
 
-* Configuration
+Geographic data is available as a zipped group of shapefiles.
 
-* Database creation
+Since Dinesafe data is restricted to the city of Toronto we can use the shapefiles to get geolocation data without Google Maps.
 
-* Database initialization
+### Python Submodule
 
-* How to run the test suite
+A [linux service](https://github.com/openciti/dinesafemicroservices) monitors the city website for new version of the geo and xml data.
 
-* Services (job queues, cache servers, search engines, etc.)
+The XML data is unzipped and the file is saved with a timestamp in the filename.
 
-* Deployment instructions
+The shapefiles are processed and saved in a more useful JSON format.
 
-* ...
+A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks. 
 
-## Download singleton
+### Rake tasks
 
-To update in the rails console:
- 
-Download.instance.update(:xml_done=>false)
+#### Get all filenames
+
+Get a list of all archive files
+
+    `rake get:all`
+
+#### Process geo data
+
+Process the geographic data first.
+
+This data changes infrequently but its still versioned by timestamp.
+
+TODO: determine what to do upon getting a new version
+
+    `rake process:geo`
+
+Will check timestamp against the Archive model to see if it needs processing.
+
+If so, it will populate the Address model and update the Archive model.
+    
+#### Process xml data
+
+    `rake process:xml`
+
+Will check timestamp against the Archive model to see if it needs processing.
+
+If so, it will populate the Venue and Inspection models linking to Address as well as updating the Archive model.
+
+#### Refactor
+
+No longer downloading files (for Heroku), but processing them in memory on the heroku instance.
+
+
+
+-------
+
+##### to reset
+`bin/rails db:environment:set RAILS_ENV=development`
+
+`rake db:drop db:create db:migrate`
 

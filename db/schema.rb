@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121030501) do
+ActiveRecord::Schema.define(version: 20170309011742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.datetime "updated_at", null: false
     t.integer  "version"
     t.index ["streetname", "num"], name: "index_addresses_on_streetname_and_num", using: :btree
+  end
+
+  create_table "archives", force: :cascade do |t|
+    t.string   "filename"
+    t.boolean  "is_geo"
+    t.boolean  "processed"
+    t.datetime "startprocessing"
+    t.datetime "endprocessing"
+    t.integer  "count"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["filename"], name: "index_archives_on_filename", unique: true, using: :btree
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -60,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["eid"], name: "index_inspections_on_eid", using: :btree
+    t.index ["iid"], name: "index_inspections_on_iid", unique: true, using: :btree
   end
 
   create_table "multiples", force: :cascade do |t|
@@ -75,12 +88,6 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.datetime "updated_at", null: false
     t.integer  "timestamp"
     t.string   "streetname"
-  end
-
-  create_table "notes", force: :cascade do |t|
-    t.string "title"
-    t.string "note"
-    t.bigint "created_at"
   end
 
   create_table "notfounds", force: :cascade do |t|
@@ -99,20 +106,13 @@ ActiveRecord::Schema.define(version: 20170121030501) do
     t.string   "streetname"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first"
-    t.string "last"
-    t.string "email"
-    t.bigint "created_at"
-    t.string "pwd"
-  end
-
   create_table "venues", force: :cascade do |t|
     t.integer  "address_id"
     t.string   "venuename"
     t.integer  "eid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["eid"], name: "index_venues_on_eid", unique: true, using: :btree
   end
 
 end

@@ -17,6 +17,19 @@ class Downloader
     connection.get.headers
   end
 
+
+  # should be renamed as this is a generic method
+=begin
+
+e@eli76:~/railsp/dinesafe$ grep -rin check_latest lib
+lib/tasks/getarchive.rake:88:    check = dl.check_latest(@latest_service)
+lib/tasks/getarchive.rake:132:    check = dl.check_latest(@latest_service)
+lib/tasks/downloadall.rake:24:    archive_response = downloader.check_latest(@all_archives_service)
+lib/dinesafe/downloader.rb:22:  def check_latest(service_url)
+
+
+=end
+
   def check_latest(service_url)
     uri = URI.parse(service_url)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -26,6 +39,7 @@ class Downloader
     res = http.request(request)
     JSON.parse(res.body)
   end
+
 
   def download(domain, path)
     url = URI.parse(domain)

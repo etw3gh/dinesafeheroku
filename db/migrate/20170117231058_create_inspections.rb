@@ -18,6 +18,7 @@ class CreateInspections < ActiveRecord::Migration[5.0]
         t.timestamps
       end
       add_index :inspections, :eid
+      add_index :inspections, :iid, :unique => true
     end
   end
 end

@@ -7,7 +7,7 @@ class CreateVenues < ActiveRecord::Migration[5.0]
         t.integer  :eid
         t.timestamps
       end
-
+      add_index :venues, :eid, :unique => true
     end
   end
   def down

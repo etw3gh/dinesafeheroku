@@ -1,30 +1,25 @@
 class UpdateDinesafe
 
-  attr_accessor :noko, :timestamp, :logpath, :logerrs, :verbose
+  attr_accessor :noko, :timestamp, :logerrs, :verbose
 
-  def initialize(xmlpath, verbose, timestamp)
+  def initialize(xmlpath, verbose, timestamp, byUrl = false)
     # get a nokogiri object & drill down to the row object level
     # each inspection is a row
-    @noko = Nokogiri::XML(File.open(xmlpath)).css('ROWDATA ROW')
+
+
+    # keep old code working for now but will be refactored to accept only 
+    # urls instead of downloaded files
+    if byUrl
+      @noko = Nokogiri::XML(File.open(xmlpath)).css('ROWDATA ROW')
+    else
+      @noko = Nokogiri::XML(open(xmlpath)).css('ROWDATA ROW')
+    end
 
     @timestamp = timestamp 
-    
-    # log errors in saving objects here
-    logstamp = Time.now.to_i
-    @logpath = "log/#{logstamp}_dinesafeupdate.log"
-    @logerrs = []
 
     @verbose = verbose
   end
    
-  def write_log()
-    File.open(@logpath, 'a') do |f|
-      @logerrs.each do |err|
-        f.write(err)
-        puts err if @verbose
-      end
-    end
-  end
 
   def process
     addr = nil
@@ -116,7 +111,6 @@ class UpdateDinesafe
           unless add.nil?
             if add.length > 1
               multi = "More than one address found for #{sn} #{street_name}\n"
-              @logerrs.push(multi)
               puts multi if @verbose
               multiple_error = true
             end
@@ -126,7 +120,6 @@ class UpdateDinesafe
         if addr.nil?
           msg = "Address Not Found for iid #{iid}: #{address} == #{street_name} #{street_number}\n"
           puts msg if @verbose
-          @logerrs.push(msg)          
           address_id = -1
           notfound_error = true
         else
@@ -142,7 +135,6 @@ class UpdateDinesafe
       if venue.nil?
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose
-        @logerrs.push(msg)
         venue_id = -1
       else
         venue_id = venue.id
@@ -172,7 +164,6 @@ class UpdateDinesafe
       if insp.nil?
         msg = "Inspection Error for iid: #{iid}, rid: #{rid}, venue: #{name}"
         puts msg if @verbose        
-        @logerrs.push(msg)  
       end
 
     end
@@ -184,7 +175,6 @@ class UpdateDinesafe
     if multiple > 0
       puts "#{multiple} Venues with muliple addresses not found. An approximate one has been assigned"
     end
-    write_log
   end
   
   def split_alpha_from_numeric(s)

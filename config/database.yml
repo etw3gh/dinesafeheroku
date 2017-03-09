@@ -61,7 +61,7 @@ test:
   username: ds
   password: <%= ENV['DINESAFE_DATABASE_PASSWORD'] %>
 # As with config/secrets.yml, you never want to store sensitive information,
-# like your database password, in your source code. If your source code is
+# like your databaspostgres://mfryjfjihlkegk:6b546e26fae0ff3b2856a30d0b74abd2bd1f0a0df4a3cb025f7937040d2f09a1@ec2-107-22-244-62.compute-1.amazonaws.com:5432/db5hu1sv0m7alre password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
 #
 # Instead, provide the password as a unix environment variable when you boot
@@ -82,6 +82,6 @@ test:
 production:
   <<: *default
   database: dinesafe_production
-  url: <%= ENV['HEROKU_POSTGRESQL_TEAL_URL'] %>
+  url: <%= ENV['HEROKU_POSTGRESQL_DS_URL'] %>
   username: ds
   password: <%= ENV['DINESAFE_DATABASE_PASSWORD'] %>
