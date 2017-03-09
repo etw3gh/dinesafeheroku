@@ -8,9 +8,12 @@ class UpdateGeo
 
   def initialize(jsonpath, verbose, timestamp)
     jsonfilecontent = File.read(jsonpath)
-    #downloader = D
-    @geo = JSON.parse(jsonfilecontent)
+    
+    downloader = Downloader.new(jsonpath)
 
+    #@geo = JSON.parse(jsonfilecontent)
+    @geo = downloader.get_data_object(jsonpath)
+    
     @verbose = verbose
     @timestamp = timestamp
   end
