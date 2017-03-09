@@ -6,14 +6,10 @@ require 'json'
 class UpdateGeo
   attr_accessor :geo, :verbose, :timestamp
 
-  def initialize(jsonpath, verbose, timestamp)
-    jsonfilecontent = File.read(jsonpath)
-    
+  def initialize(jsonpath, verbose, timestamp)    
     downloader = Downloader.new(jsonpath)
-
-    #@geo = JSON.parse(jsonfilecontent)
     @geo = downloader.get_data_object(jsonpath)
-    
+
     @verbose = verbose
     @timestamp = timestamp
   end
