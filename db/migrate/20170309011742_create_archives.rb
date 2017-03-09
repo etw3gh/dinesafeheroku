@@ -8,6 +8,7 @@ class CreateArchives < ActiveRecord::Migration[5.0]
         t.datetime :startprocessing
         t.datetime :endprocessing
         t.integer :count
+        t.integer :version
         t.timestamps
       end
       add_index :archives, :filename, :unique => true

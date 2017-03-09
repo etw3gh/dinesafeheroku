@@ -1,11 +1,16 @@
+require_relative('../dinesafe/downloader')
 require 'json'
 
+# refactor: jsonpath is a url not a filename
+# this will break discontinued code 
 class UpdateGeo
   attr_accessor :geo, :verbose, :timestamp
 
   def initialize(jsonpath, verbose, timestamp)
     jsonfilecontent = File.read(jsonpath)
+    #downloader = D
     @geo = JSON.parse(jsonfilecontent)
+
     @verbose = verbose
     @timestamp = timestamp
   end

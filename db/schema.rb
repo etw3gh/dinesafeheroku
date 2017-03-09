@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.datetime "startprocessing"
     t.datetime "endprocessing"
     t.integer  "count"
+    t.integer  "version"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["filename"], name: "index_archives_on_filename", unique: true, using: :btree
