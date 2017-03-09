@@ -54,7 +54,8 @@ namespace :get do
                            :startprocessing => start_processing,
                            :endprocessing => end_processing,
                            :count => record_count)
-          end        
+          end
+        end        
       end
 
 
@@ -85,6 +86,9 @@ namespace :get do
         end
       end
 
-    end
-  end
-end
+    end #end status == 200
+
+
+  end #end task
+
+end #end namespace
