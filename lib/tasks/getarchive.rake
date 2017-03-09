@@ -85,7 +85,7 @@ namespace :arch do
     
     # if file exists, set values in Download model
     dl = Downloader.new()
-    check = dl.check_latest(@latest_service)     
+    check = dl.get_data_object(@latest_service)     
     status = check['status']
 
     if status == 200
@@ -129,7 +129,7 @@ namespace :arch do
   task :get => :environment do
 
     dl = Downloader.new()
-    check = dl.check_latest(@latest_service)     
+    check = dl.get_data_object(@latest_service)     
     status = check['status']
 
     if status == 200

@@ -21,7 +21,7 @@ namespace :get do
   desc "get all archives"
   task :all => :environment do
     downloader = Downloader.new()
-    archive_response = downloader.check_latest(@all_archives_service)
+    archive_response = downloader.get_data_object(@all_archives_service)
     if archive_response['status'] == 200
       xml = archive_response['xml']
       geo = archive_response['geo']
