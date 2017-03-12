@@ -1,5 +1,6 @@
 require_relative('../dinesafe/downloader')
 require_relative('../dinesafe/update_dinesafe')
+require_relative('../dinesafe/update_geo')
 require 'open-uri'
 
 namespace :get do 
