@@ -42,7 +42,7 @@ namespace :get do
       # menu indices (add one for filename pos in arrays)
       xml_start = 0
       geo_start = xml.count
-      all_xml = xml.count + geo.count
+      all_xml = xml.count + geo.count + 1
       all_geo = all_xml + 1
 
       puts "XML"
@@ -75,10 +75,10 @@ namespace :get do
         end 
 
       end
-      menu_dict[all_xml] = "#{all_xml} All XML"
+      menu_dict[all_xml] = "#{all_xml}: All XML"
       puts menu_dict[all_xml]
-      menu_dict[all_geo] = "#{all_geo} ALL GEO"
-      menu_dict[all_geo]
+      menu_dict[all_geo] = "#{all_geo}: ALL GEO"
+      puts menu_dict[all_geo]
       return xml, geo, menu_dict      
     rescue Exception => e
       puts e.message
