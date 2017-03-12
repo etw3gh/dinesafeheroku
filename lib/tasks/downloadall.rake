@@ -34,7 +34,7 @@ namespace :get do
     end
   end 
 
-  def print_filenames_return_menu_dict
+  def print_filenames_return_menu_dict(printmenuoptions=true)
     menu_dict = {}
     begin
       xml, geo = get_archive_filenames
@@ -44,7 +44,7 @@ namespace :get do
       geo_start = xml.count
       all_xml = xml.count + geo.count + 1
       all_geo = all_xml + 1
-
+      all_archives = all_geo + 1
       puts "XML"
       xml.to_enum.with_index(1) do |xml_file, i|
         xml_archive = Archive.where(:filename => xml_file).first
@@ -75,14 +75,19 @@ namespace :get do
         end 
 
       end
-      puts
+
       menu_dict[all_xml] = "#{all_xml}: All XML"
-      puts menu_dict[all_xml]
       menu_dict[all_geo] = "#{all_geo}: ALL GEO"
-      puts menu_dict[all_geo]
-      puts
+      menu_dict[all_archives] = "#{all_archives}: GET EVERYTHING"
       menu_dict['q'] = "q: Quit"
-      puts menu_dict['q']
+      if printmenuoptions
+        puts menu_dict[all_xml]
+        puts
+        puts menu_dict[all_geo]
+        puts menu_dict[all_archives]
+        puts 
+        puts menu_dict['q']
+      end
       return xml, geo, menu_dict      
     rescue Exception => e
       puts e.message
@@ -93,7 +98,8 @@ namespace :get do
   # 
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
   task :filenames => :environment do
-    print_filenames_return_menu_dict
+    #print filenames without menu options (all xml, all geo, quit)
+    print_filenames_return_menu_dict(false)
   end
 
   # accepts an array of URI's or a single URI
@@ -182,9 +188,20 @@ namespace :get do
   end
 
   desc "interactive rake task to process one or more archives or archive groups"
-  task :all => :environment do
+  task :menu => :environment do
     xml, geo, menu_dict = print_filenames_return_menu_dict
     puts menu_dict
+  end
+
+  desc "goes over all archive URIs and will process if required"
+  task :all => :environment do
+    xml, geo, menu_dict = print_filenames_return_menu_dict
+    input = STDID.gets.strip.downcase
+    if input.key?(menu_dict)
+      puts "processing #{menu_dict[input]}"
+    else
+      puts 'Invalid menu option, try again'
+    end
   end
 
 end

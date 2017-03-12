@@ -1,4 +1,4 @@
-# Dinesafe backend 
+# Dinesafe backend
 
 ## Overview
 
@@ -20,13 +20,22 @@ The XML data is unzipped and the file is saved with a timestamp in the filename.
 
 The shapefiles are processed and saved in a more useful JSON format.
 
-A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks. 
+A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks.
 
 ### Rake tasks (lib/tasks)
 
 #### Get all filenames
 
 Get a list of all archive files. Arrays are sorted in descending order (by timestamp)
+
+    `rake get:filenames`
+
+Interactive menu of archives with option to do all
+
+    `rake get:menu`
+
+Get all (non interactive). Will iterate over filenames and process if required
+For use in a cron task
 
     `rake get:all`
 
@@ -43,7 +52,7 @@ TODO: determine what to do upon getting a new version
 Will check timestamp against the Archive model to see if it needs processing.
 
 If so, it will populate the Address model and update the Archive model.
-    
+
 #### Process xml data
 
     `rake process:xml`
@@ -64,4 +73,3 @@ No longer downloading files (for Heroku), but processing them in memory on the h
 `bin/rails db:environment:set RAILS_ENV=development`
 
 `rake db:drop db:create db:migrate`
-
