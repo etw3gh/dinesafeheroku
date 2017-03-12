@@ -34,8 +34,9 @@ namespace :get do
     end
   end 
 
-  #ad administrative helper
-  desc "get the archive filenames from openciti.ca helper service"
+  #an administrative helper
+  #
+  desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
   task :filenames => :environment do
     begin
       xml, geo = get_archive_filenames
