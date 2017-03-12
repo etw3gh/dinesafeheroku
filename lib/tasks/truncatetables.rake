@@ -17,4 +17,10 @@ namespace :trunc do
     DatabaseCleaner.clean_with(:truncation, :only =>['addresses'])
   end
 
+
+  desc "truncate archives table"
+  task :archives => :environment do
+    DatabaseCleaner.clean_with(:truncation, :only =>['archives'])
+  end
+
 end
