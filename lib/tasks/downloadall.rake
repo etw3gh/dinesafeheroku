@@ -13,7 +13,14 @@ namespace :get do
   @XML_CASE = false
   @GEO_CASE = true
 
-  def extract_timestamp_from_filename(filename)
+  # menu text and options
+  @all_xml_menu = "All XML"
+  @all_geo_menu = "ALL GEO"
+  @all_menu = "GET EVERYTHING"
+
+
+
+  extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end 
 
@@ -76,13 +83,13 @@ namespace :get do
 
       end
 
-      menu_dict[all_xml] = "#{all_xml}: All XML"
-      menu_dict[all_geo] = "#{all_geo}: ALL GEO"
-      menu_dict[all_archives] = "#{all_archives}: GET EVERYTHING"
+      menu_dict[all_xml] = "#{all_xml}: #{@all_xml_menu}"
+      menu_dict[all_geo] = "#{all_geo}: #{@all_geo_menu}"
+      menu_dict[all_archives] = "#{all_archives}: #{@all_menu}"
       menu_dict['q'] = "q: Quit"
       if printmenuoptions
-        puts menu_dict[all_xml]
         puts
+        puts menu_dict[all_xml]
         puts menu_dict[all_geo]
         puts menu_dict[all_archives]
         puts 
@@ -194,7 +201,24 @@ namespace :get do
     begin
       input = STDIN.gets.strip.to_i
       if menu_dict.has_key?(input)
-        puts "\nprocessing #{menu_dict[input]}"
+        choice = menu_dict[input]
+        puts "\nprocessing #{choice}"
+        if choice.include?(@all_menu)
+          process_xml(xml)
+          process_geo(geo)
+        elsif choice.include?(@all_xml_menu)
+          process_xml(xml)
+        elsif choice.include?(@all_geo_menu)
+          process_geo(geo)
+        else
+          if choice.include?('.xml')
+            process_xml(choice)
+          elsif choice.include?('geo.json')
+            process_geo(choice)
+          else
+            puts 'invalid choice' 
+          end
+        end    
       else
         puts bye
       end
@@ -205,8 +229,9 @@ namespace :get do
 
   desc "goes over all archive URIs and will process if required"
   task :all => :environment do
-    xml, geo, menu_dict = print_filenames_return_menu_dict
-    
+    xml, geo = get_archive_filenames
+    process_xml(xml)
+    process_geo(geo)
   end
 
 end
