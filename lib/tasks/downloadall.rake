@@ -34,17 +34,41 @@ namespace :get do
     end
   end 
 
-  #an administrative helper
-  #
+  # an administrative helper
+  # 
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
   task :filenames => :environment do
     begin
       xml, geo = get_archive_filenames
       
+      # menu indices (add one for filename pos in arrays)
+      xml_start = 0
+      geo_start = xml.count
+      all_xml = xml.count + geo.count
+      all_geo = all_xml + 1
+
       puts "XML"
-      puts xml
+      xml.to_enum.with_index(1) do |xml_file, i|
+        xml_archive = Archive.where(:filename => xml_file).first
+        if xml_archive.processed
+          pstart = xml_archive.startprocessing
+          pend = xml_archive.endprocessing
+          puts "#{i}: #{xml_file}, processed: TRUE, processed start: #{pstart}, processed end: #{pend}"
+        else
+          puts "#{i}: #{xml_file}, processed: FALSE"
+        end 
+      end
       puts "\nGEO"
-      puts geo
+      geo.to_enum.with_index(geo_start) do |geo_file, i|
+        geo_archive = Archive.where(:filename => geo_file).first
+        if geo_archive.processed
+          pstart = geo_archive.startprocessing
+          pend = geo_archive.endprocessing
+          puts "#{i}: #{geo_file}, processed: TRUE, processed start: #{pstart}, processed end: #{pend}"
+        else
+          puts "#{i}: #{geo_file}, processed: FALSE"
+        end 
+      end      
     rescue Exception => e
       puts e.message
       puts e.backtrace.inspect
