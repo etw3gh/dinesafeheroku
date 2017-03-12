@@ -50,12 +50,14 @@ namespace :get do
       puts "XML"
       xml.to_enum.with_index(1) do |xml_file, i|
         xml_archive = Archive.where(:filename => xml_file).first
-        if xml_archive.processed
+        
+        if xml_archive.blank? 
+          puts "#{i}: #{xml_file}, processed: FALSE"
+        else
           pstart = xml_archive.startprocessing
           pend = xml_archive.endprocessing
-          puts "#{i}: #{xml_file}, processed: TRUE, processed start: #{pstart}, processed end: #{pend}"
-        else
-          puts "#{i}: #{xml_file}, processed: FALSE"
+          processed = xml_archive.processed
+          puts "#{i}: #{xml_file}, processed: #{processed}, processed start: #{pstart}, processed end: #{pend}"          
         end 
       end
       puts "\nGEO"
