@@ -62,7 +62,7 @@ namespace :get do
       end
 
       puts "\nGEO"
-      geo.to_enum.with_index(geo_start) do |geo_file, i|
+      geo.to_enum.with_index(geo_start + 1) do |geo_file, i|
         geo_archive = Archive.where(:filename => geo_file).first
         if geo_archive.blank?
           puts "#{i}: #{geo_file}, processed: FALSE"
