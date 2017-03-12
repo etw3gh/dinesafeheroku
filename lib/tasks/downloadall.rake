@@ -57,7 +57,8 @@ namespace :get do
           pstart = xml_archive.startprocessing
           pend = xml_archive.endprocessing
           processed = xml_archive.processed.to_str.upcase
-          puts "#{i}: #{xml_file}, processed: #{processed}, processed start: #{pstart}, processed end: #{pend}"          
+          count = xml_archive.count
+          puts "#{i}: #{xml_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"          
         end 
       end
 
@@ -70,7 +71,8 @@ namespace :get do
           pstart = geo_archive.startprocessing
           pend = geo_archive.endprocessing
           processed = xml_archive.processed.to_str.upcase
-          puts "#{i}: #{geo_file}, processed: #{processed}, processed start: #{pstart}, processed end: #{pend}"
+          count = xml_archive.count
+          puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
         end 
       end      
     rescue Exception => e
@@ -166,8 +168,7 @@ namespace :get do
 
   desc "interactive rake task to process one or more archives or archive groups"
   task :all => :environment do
-
-    Rake::Task['filenames']
+    Rake::Task['filenames'].execute
   end
 
 end
