@@ -184,7 +184,7 @@ namespace :get do
   desc "interactive rake task to process one or more archives or archive groups"
   task :all => :environment do
     xml, geo, menu_dict = print_filenames_return_menu_dict
-    
+    puts menu_dict
   end
 
 end
