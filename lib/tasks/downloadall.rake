@@ -190,18 +190,18 @@ namespace :get do
   desc "interactive rake task to process one or more archives or archive groups"
   task :menu => :environment do
     xml, geo, menu_dict = print_filenames_return_menu_dict
-    puts menu_dict
-  end
-
-  desc "goes over all archive URIs and will process if required"
-  task :all => :environment do
-    xml, geo, menu_dict = print_filenames_return_menu_dict
     input = STDID.gets.strip.downcase
     if input.key?(menu_dict)
       puts "processing #{menu_dict[input]}"
     else
       puts 'Invalid menu option, try again'
     end
+  end
+
+  desc "goes over all archive URIs and will process if required"
+  task :all => :environment do
+    xml, geo, menu_dict = print_filenames_return_menu_dict
+    
   end
 
 end
