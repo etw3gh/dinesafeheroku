@@ -20,7 +20,7 @@ namespace :get do
 
 
 
-  extract_timestamp_from_filename(filename)
+  def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end 
 
