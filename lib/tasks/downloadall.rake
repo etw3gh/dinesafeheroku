@@ -56,19 +56,21 @@ namespace :get do
         else
           pstart = xml_archive.startprocessing
           pend = xml_archive.endprocessing
-          processed = xml_archive.processed
+          processed = xml_archive.processed.to_str.upcase
           puts "#{i}: #{xml_file}, processed: #{processed}, processed start: #{pstart}, processed end: #{pend}"          
         end 
       end
+
       puts "\nGEO"
       geo.to_enum.with_index(geo_start) do |geo_file, i|
         geo_archive = Archive.where(:filename => geo_file).first
-        if geo_archive.processed
+        if geo_archive.blank?
+          puts "#{i}: #{geo_file}, processed: FALSE"
+        else          
           pstart = geo_archive.startprocessing
           pend = geo_archive.endprocessing
-          puts "#{i}: #{geo_file}, processed: TRUE, processed start: #{pstart}, processed end: #{pend}"
-        else
-          puts "#{i}: #{geo_file}, processed: FALSE"
+          processed = xml_archive.processed.to_str.upcase
+          puts "#{i}: #{geo_file}, processed: #{processed}, processed start: #{pstart}, processed end: #{pend}"
         end 
       end      
     rescue Exception => e
