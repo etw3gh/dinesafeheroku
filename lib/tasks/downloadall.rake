@@ -191,7 +191,7 @@ namespace :get do
   task :menu => :environment do
     xml, geo, menu_dict = print_filenames_return_menu_dict
     input = STDIN.gets.strip.downcase
-    if input.key?(menu_dict)
+    if menu_dict.key?(input)
       puts "processing #{menu_dict[input]}"
     else
       puts 'Invalid menu option, try again'
