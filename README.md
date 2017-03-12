@@ -22,7 +22,17 @@ The shapefiles are processed and saved in a more useful JSON format.
 
 A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks.
 
+
+### Local DB and Heroku DB
+
+  Rake tasks are database intensive so heroku pg:push is used to push data from the local psql db instead of writing directly to production
+
+  see README_PSQL.md for more details
+
+
 ### Rake tasks (lib/tasks)
+
+
 
 #### Get all filenames
 
@@ -39,32 +49,13 @@ For use in a cron task
 
     `rake get:all`
 
-#### Process geo data
+Process only geographic data
 
-Process the geographic data first.
+    `rake get:geo`
 
-This data changes infrequently but its still versioned by timestamp.
+Process only xml data
 
-TODO: determine what to do upon getting a new version
-
-    `rake process:geo`
-
-Will check timestamp against the Archive model to see if it needs processing.
-
-If so, it will populate the Address model and update the Archive model.
-
-#### Process xml data
-
-    `rake process:xml`
-
-Will check timestamp against the Archive model to see if it needs processing.
-
-If so, it will populate the Venue and Inspection models linking to Address as well as updating the Archive model.
-
-#### Refactor
-
-No longer downloading files (for Heroku), but processing them in memory on the heroku instance.
-
+    `rake get:xml`
 
 
 -------
