@@ -111,7 +111,9 @@ namespace :get do
 
   # accepts an array of URI's or a single URI
   def process_geo(geo)
-    if !geo.kind_of(Array)
+
+    # if the input is not an array, put wrap it in one
+    if !geo.is_a?
       geo = [geo]
     end 
     geo.each do |geo_file|
@@ -149,7 +151,9 @@ namespace :get do
 
   # accepts an array of URI's or a single URI
   def process_xml(xml)
-    if !xml.kind_of(Array)
+
+    # if the input is not an array, put wrap it in one
+    if !xml.is_a?
       xml = [xml]
     end
 
