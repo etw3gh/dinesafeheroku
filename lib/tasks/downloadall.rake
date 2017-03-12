@@ -34,10 +34,8 @@ namespace :get do
     end
   end 
 
-  # an administrative helper
-  # 
-  desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
-  task :filenames => :environment do
+  def print_filenames_return_menu_dict
+    menu_dict = {}
     begin
       xml, geo = get_archive_filenames
       
@@ -50,7 +48,7 @@ namespace :get do
       puts "XML"
       xml.to_enum.with_index(1) do |xml_file, i|
         xml_archive = Archive.where(:filename => xml_file).first
-        
+        menu_dict[i] = xml_file        
         if xml_archive.blank? 
           puts "#{i}: #{xml_file}, processed: FALSE"
         else
@@ -65,6 +63,7 @@ namespace :get do
       puts "\nGEO"
       geo.to_enum.with_index(geo_start + 1) do |geo_file, i|
         geo_archive = Archive.where(:filename => geo_file).first
+        menu_dict[i] = geo_file
         if geo_archive.blank?
           puts "#{i}: #{geo_file}, processed: FALSE"
         else          
@@ -74,11 +73,23 @@ namespace :get do
           count = xml_archive.count
           puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
         end 
-      end      
+
+      end
+      menu_dict[all_xml] = "#{all_xml} All XML"
+      puts menu_dict[all_xml]
+      menu_dict[all_geo] = "#{all_geo} ALL GEO"
+      menu_dict[all_geo]
+      return xml, geo, menu_dict      
     rescue Exception => e
       puts e.message
       puts e.backtrace.inspect
-    end
+    end    
+  end
+  # an administrative helper
+  # 
+  desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
+  task :filenames => :environment do
+    print_filenames_return_menu_dict
   end
 
   # accepts an array of URI's or a single URI
@@ -168,7 +179,8 @@ namespace :get do
 
   desc "interactive rake task to process one or more archives or archive groups"
   task :all => :environment do
-    Rake::Task['get:filenames'].execute
+    xml, geo, menu_dict = print_filenames_return_menu_dict
+    
   end
 
 end
