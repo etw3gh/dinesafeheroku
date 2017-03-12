@@ -113,7 +113,7 @@ namespace :get do
   def process_geo(geo)
 
     # if the input is not an array, put wrap it in one
-    if !geo.is_a?
+    if !geo.is_a? Array
       geo = [geo]
     end 
     geo.each do |geo_file|
@@ -153,7 +153,7 @@ namespace :get do
   def process_xml(xml)
 
     # if the input is not an array, put wrap it in one
-    if !xml.is_a?
+    if !xml.is_a? Array
       xml = [xml]
     end
 
