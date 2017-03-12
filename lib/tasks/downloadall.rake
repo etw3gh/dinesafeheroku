@@ -166,9 +166,8 @@ namespace :get do
 
   desc "interactive rake task to process one or more archives or archive groups"
   task :all => :environment do
-    xml, geo = get_archive_filenames
-    process_geo(geo)
-    process_xml(xml)
+
+    Rake::Task['filenames']
   end
 
 end
