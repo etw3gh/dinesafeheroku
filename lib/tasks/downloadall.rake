@@ -75,10 +75,14 @@ namespace :get do
         end 
 
       end
+      puts
       menu_dict[all_xml] = "#{all_xml}: All XML"
       puts menu_dict[all_xml]
       menu_dict[all_geo] = "#{all_geo}: ALL GEO"
       puts menu_dict[all_geo]
+      puts
+      menu_dict['q'] = "q: Quit"
+      puts menu_dict['q']
       return xml, geo, menu_dict      
     rescue Exception => e
       puts e.message
