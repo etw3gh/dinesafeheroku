@@ -101,8 +101,8 @@ namespace :get do
       puts e.backtrace.inspect
     end    
   end
+
   # an administrative helper
-  # 
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
   task :filenames => :environment do
     #print filenames without menu options (all xml, all geo, quit)
@@ -198,33 +198,38 @@ namespace :get do
   task :menu => :environment do
     bye = "\nBye"
     xml, geo, menu_dict = print_filenames_return_menu_dict
+    
+    # if input is not an int, then exit
     begin
       input = STDIN.gets.strip.to_i
-      if menu_dict.has_key?(input)
-        choice = menu_dict[input]
-        puts "\nprocessing #{choice}"
-        if choice.include?(@all_menu)
-          process_xml(xml)
-          process_geo(geo)
-        elsif choice.include?(@all_xml_menu)
-          process_xml(xml)
-        elsif choice.include?(@all_geo_menu)
-          process_geo(geo)
-        else
-          if choice.include?('.xml')
-            process_xml(choice)
-          elsif choice.include?('geo.json')
-            process_geo(choice)
-          else
-            puts 'invalid choice' 
-          end
-        end    
-      else
-        puts bye
-      end
     rescue
       puts bye
+      return 
     end
+
+    if menu_dict.has_key?(input)
+      choice = menu_dict[input]
+      puts "\nprocessing #{choice}"
+      if choice.include?(@all_menu)
+        process_xml(xml)
+        process_geo(geo)
+      elsif choice.include?(@all_xml_menu)
+        process_xml(xml)
+      elsif choice.include?(@all_geo_menu)
+        process_geo(geo)
+      else
+        if choice.include?('.xml')
+          process_xml(choice)
+        elsif choice.include?('geo.json')
+          process_geo(choice)
+        else
+          puts 'invalid choice' 
+        end
+      end    
+    else
+      puts bye
+    end
+
   end
 
   desc "goes over all archive URIs and will process if required"
