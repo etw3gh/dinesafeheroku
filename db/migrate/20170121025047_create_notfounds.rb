@@ -2,6 +2,9 @@ class CreateNotfounds < ActiveRecord::Migration[5.0]
   def change
     if !table_exists?('notfounds')
       create_table :notfounds do |t|
+        t.integer :timestamp
+        t.boolean :found
+        t.string  :streetname
         t.integer :iid
         t.integer :venue_id
         t.integer :eid

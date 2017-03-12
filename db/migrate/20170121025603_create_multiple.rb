@@ -2,8 +2,10 @@ class CreateMultiple < ActiveRecord::Migration[5.0]
   def change
     if !table_exists?('multiples')
       create_table :multiples do |t|
+        t.integer :timestamp
         t.integer :iid
         t.integer :venue_id
+        t.string  :streetname
         t.integer :eid
         t.string  :num
         t.integer :lo

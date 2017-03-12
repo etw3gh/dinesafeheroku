@@ -9,7 +9,7 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
   def change
     if !table_exists?('addresses')
       create_table :addresses do |t|
-
+        t.integer :version
         t.string  :streetname
         t.string  :num
 
