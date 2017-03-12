@@ -190,7 +190,7 @@ namespace :get do
   desc "interactive rake task to process one or more archives or archive groups"
   task :menu => :environment do
     xml, geo, menu_dict = print_filenames_return_menu_dict
-    input = STDID.gets.strip.downcase
+    input = STDIN.gets.strip.downcase
     if input.key?(menu_dict)
       puts "processing #{menu_dict[input]}"
     else
