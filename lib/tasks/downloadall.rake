@@ -62,7 +62,7 @@ namespace :get do
         else
           pstart = xml_archive.startprocessing
           pend = xml_archive.endprocessing
-          processed = xml_archive.processed.to_str.upcase
+          processed = xml_archive.processed ? "TRUE" : "FALSE"
           count = xml_archive.count
           puts "#{i}: #{xml_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"          
         end 
@@ -77,7 +77,7 @@ namespace :get do
         else          
           pstart = geo_archive.startprocessing
           pend = geo_archive.endprocessing
-          processed = geo_archive.processed.to_str.upcase
+          processed = geo_archive.processed ? "TRUE" : "FALSE"
           count = geo_archive.count
           puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
         end 
