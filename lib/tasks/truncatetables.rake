@@ -10,7 +10,7 @@ namespace :trunc do
   desc "trunc error tables"
   task :err => :environment do
     DatabaseCleaner.clean_with(:truncation, :only =>['notfounds'])
-    DatabaseCleaner.clean_with(:truncation, :only =>['multiple'])    
+    DatabaseCleaner.clean_with(:truncation, :only =>['multiples'])    
   end
 
   desc "truncate venues table"
