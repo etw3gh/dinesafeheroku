@@ -45,7 +45,7 @@ Get a list of all archive files. Arrays are sorted in descending order (by times
 
     `rake get:filenames`
 
-Interactive menu of archives with option to do all
+Interactive menu of archives with option to do all. Useful if processing is interrupted
 
     `rake get:menu`
 
