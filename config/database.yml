@@ -30,7 +30,7 @@ development:
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
   username: ds
-
+  adapter: postgresql
   # The password associated with the postgres role (username).
   password: <%= ENV['DINESAFE_DATABASE_PASSWORD'] %>
 
@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql
   database: dinesafe_production
   url: <%= ENV['HEROKU_POSTGRESQL_DS_URL'] %>
   username: ds
