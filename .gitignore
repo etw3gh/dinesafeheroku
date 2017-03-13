@@ -17,3 +17,7 @@
 .byebug_history
 lib/assets/*.xml
 lib/assets/*.json
+
+
+# ignore psql backups
+*.dump
