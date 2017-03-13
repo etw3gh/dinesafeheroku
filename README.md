@@ -93,11 +93,3 @@ Keeping all historical inspections as long as it remains under 10 Million rows
     Inspection.all.group(:version).count
 
     => {1488832096=>86772, 1483469307=>85638, 1487001084=>86555, 1484577503=>86712, 1486579098=>86253}
-
-
--------
-
-##### to reset
-`bin/rails db:environment:set RAILS_ENV=development`
-
-`rake db:drop db:create db:migrate`
