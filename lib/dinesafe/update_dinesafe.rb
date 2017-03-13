@@ -132,14 +132,14 @@ class UpdateDinesafe
         venue_id = -1
       else
         # venue is already defined
-        venue_id = venue.id
 
         # write to error log tables if these cases are discovered
+        # venue_id is not relevant for these error tables
         if multiple_error
-          Multiple.where(:venue_id=> venue_id, :timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
+          Multiple.where(:timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
         end
         if notfound_error
-          Notfound.where(:venue_id=> venue_id, :timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
+          Notfound.where(:timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
         end          
       end
 
