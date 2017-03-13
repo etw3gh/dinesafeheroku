@@ -4,7 +4,7 @@ namespace :clean do
   task :addresses => :environment do
     Address.all.each do |address|
       streetcleaner = address.streetname.downcase.remove("'")
-      address.update_attribute(:streetname => streetcleaner)
+      address.update_attribute(:streetname, streetcleaner)
     end
   end
 
