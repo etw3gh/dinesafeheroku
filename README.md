@@ -32,8 +32,8 @@ A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped fil
 #### Order of operation for updating and seeding production DB
 
 * `rake get:geo|xml|all`
-* `heroku pg:push`
-
+* `heroku pg:reset -a dinesafe`
+* `./localpsql/pgpush.sh`
 
 ### Rake tasks (lib/tasks)
 
