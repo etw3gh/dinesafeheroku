@@ -21,3 +21,5 @@ lib/assets/*.json
 
 # ignore psql backups
 *.dump
+
+.vscode
