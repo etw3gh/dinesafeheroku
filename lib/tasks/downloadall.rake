@@ -270,7 +270,7 @@ namespace :get do
                     :processed => archive.processed,
                     :is_geo => archive.is_geo,
                     :filename => archive.filename)
-      Archive.save
+
       puts "#{archive.filename} copied"      
     end
 
