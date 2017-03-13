@@ -255,7 +255,8 @@ namespace :get do
     puts Rails.env
     puts Archive.first 
     puts Address.count
-    ActiveRecord::Base.establish_connection(:production)
+    prod_url = Rails.configuration.database_configuration['production']['url']
+    ActiveRecord::Base.establish_connection(prod_url)
     puts Rails.env
     puts Archive.first
     puts Address.count
