@@ -171,8 +171,8 @@ namespace :get do
         updater = UpdateDinesafe.new(xml_path, @VERBOSE, timestamp)
         updater.process
         end_processing = Time.now
-        record_count = Inspections.where(:created_at => timestamp).count
-        if Achive.where(:filename => xml_file).blank?
+        record_count = Inspection.where(:created_at => timestamp).count
+        if Archive.where(:filename => xml_file).blank?
           #insert case 
           Archive.where(:startprocessing => start_processing,
                         :endprocessing => end_processing,
