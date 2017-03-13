@@ -82,6 +82,18 @@ Process only xml data
 
     `rake get:xml`
 
+#### Results
+
+Keeping all historical inspections as long as it remains under 10 Million rows
+
+<!-- language: lang-none -->
+
+    from `rails c`
+
+    Inspection.all.group(:version).count
+
+    => {1488832096=>86772, 1483469307=>85638, 1487001084=>86555, 1484577503=>86712, 1486579098=>86253}
+
 
 -------
 
