@@ -36,7 +36,7 @@ class UpdateGeo
 
         streetcleaner = street.downcase.remove("'")
 
-        a = Address.where(:streetname=>street.downcase, :lat=>lat, :lng=>lng, :num=>num, :lo=>lo, :hi=>hi, :losuf=>los, :hisuf=>his, :mun=>mun, :locname=>loc).first_or_create(version: @timestamp)
+        a = Address.where(:streetname=>streetcleaner, :lat=>lat, :lng=>lng, :num=>num, :lo=>lo, :hi=>hi, :losuf=>los, :hisuf=>his, :mun=>mun, :locname=>loc).first_or_create(version: @timestamp)
         
         puts "#{num} #{street} <---> #{a.id}: locname #{loc}, lat: #{lat} lng: #{lng} saved" if @verbose
       end
