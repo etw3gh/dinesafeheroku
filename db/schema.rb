@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309011742) do
+ActiveRecord::Schema.define(version: 20170313035943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
   create_table "multiples", force: :cascade do |t|
     t.integer  "timestamp"
     t.integer  "iid"
-    t.integer  "venue_id"
     t.string   "streetname"
     t.integer  "eid"
     t.string   "num"
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 20170309011742) do
     t.boolean  "found"
     t.string   "streetname"
     t.integer  "iid"
-    t.integer  "venue_id"
     t.integer  "eid"
     t.string   "num"
     t.integer  "lo"
