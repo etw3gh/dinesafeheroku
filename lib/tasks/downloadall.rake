@@ -251,7 +251,7 @@ namespace :get do
 
   desc "test switch env"
   task :env => :environment do
-    ActiveRecord::Base.establish_connection('development')
+    #ActiveRecord::Base.establish_connection('development')
     puts Archive.first 
     puts Address.count
     ActiveRecord::Base.establish_connection('production')
