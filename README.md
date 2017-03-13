@@ -88,7 +88,7 @@ Keeping all historical inspections as long as it remains under 10 Million rows
 
 <!-- language: lang-none -->
 
-    from `rails c`
+    from `rails c` or `heroku run rails c`
 
     Inspection.all.group(:version).count
 
