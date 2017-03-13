@@ -249,18 +249,30 @@ namespace :get do
   end
 
   #ensure HEROKU_POSTGRESQL_DS_URL is set to the value of  in .bashrc
-  desc "test switch env"
-  task :env => :environment do
-    puts "RAILS_ENV: #{Rails.env}"
-    puts Archive.first.filename 
-    puts Address.count
+  desc "syncs archives table on production"
+  task :sync => :environment do
+    
+    # get dev archives
+    archives = Archive.all
+    
+    # connect to production heroku db
     prod_url = Rails.configuration.database_configuration['production']['url']
     ActiveRecord::Base.establish_connection(prod_url)
-    puts "RAILS_ENV: #{Rails.env}"
-    if !Archive.first.nil?
-      puts Archive.first.filename
+
+    # truncate archives table on production
+    DatabaseCleaner.clean_with(:truncation, :only =>['archives'])
+
+    archives.each do |archive|
+      Archive.create(:startprocessing => archive.startprocessing,
+                    :endprocessing => archive.endprocessing,
+                    :count => archive.count,
+                    :version => archive.version,
+                    :processed => archive.processed,
+                    :is_geo => archive.is_geo,
+                    :filename => archive.filename,
+                    :timestamps => archive.timestamps)      
     end
-    puts Address.count
+
   end
 
 
