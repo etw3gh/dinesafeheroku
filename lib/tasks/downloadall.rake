@@ -251,7 +251,7 @@ namespace :get do
   #ensure HEROKU_POSTGRESQL_DS_URL is set to the value of  in .bashrc
   desc "test switch env"
   task :env => :environment do
-    #ActiveRecord::Base.establish_connection('development')
+    ActiveRecord::Base.establish_connection('development')
     puts "RAILS_ENV: #{Rails.env}"
     puts Archive.first.filename 
     puts Address.count
