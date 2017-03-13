@@ -43,6 +43,26 @@ Get a list of all archive files. Arrays are sorted in descending order (by times
 Interactive menu of archives with option to do all
 
     `rake get:menu`
+    
+<!-- language: lang-none -->
+
+    d@e:~/dinesafe$ rake get:menu
+    XML
+    1: 1488832096.0_dinesafe.xml, processed: FALSE
+    2: 1487001084.0_dinesafe.xml, processed: FALSE
+    3: 1486579098.0_dinesafe.xml, processed: FALSE
+    4: 1484577503.0_dinesafe.xml, processed: FALSE
+    5: 1483469307.0_dinesafe.xml, processed: FALSE
+
+    GEO
+    6: 1474461890.0_geo.json, processed: TRUE, count: 522622, processed start: 2017-03-12 22:37:27 UTC, processed end: 2017-03-12 23:57:21 UTC
+
+    7: All XML
+    8: ALL GEO
+    9: GET EVERYTHING
+
+    q: Quit
+
 
 Get all (non interactive). Will iterate over filenames and process if required
 For use in a cron task
