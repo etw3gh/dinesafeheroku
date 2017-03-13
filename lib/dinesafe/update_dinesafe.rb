@@ -123,6 +123,7 @@ class UpdateDinesafe
         puts addrex
       end
       venue_id = nil
+      venue = nil
       venue = Venue.where(:address_id=>address_id).first_or_create(:venuename=>name, :eid=>eid)
       
       if venue.nil?
