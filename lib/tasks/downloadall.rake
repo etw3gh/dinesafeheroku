@@ -269,8 +269,7 @@ namespace :get do
                     :version => archive.version,
                     :processed => archive.processed,
                     :is_geo => archive.is_geo,
-                    :filename => archive.filename,
-                    :timestamps => archive.timestamps)
+                    :filename => archive.filename)
       Archive.save
       puts "#{archive.filename} copied"      
     end
