@@ -25,6 +25,9 @@ namespace :get do
     filename.split('/').last.split('_').first.split('.').first
   end 
 
+  def no_utc(d)
+    d.to_str.rstrip(' UTC')
+  end
   # if status == 200: returns xml, geo arrays of filenames
   # if status != 200: throws exception
   def get_archive_filenames
@@ -60,8 +63,8 @@ namespace :get do
         if xml_archive.blank? 
           puts "#{i}: #{xml_file}, processed: FALSE"
         else
-          pstart = xml_archive.startprocessing
-          pend = xml_archive.endprocessing
+          pstart = no_utc(xml_archive.startprocessing)
+          pend = no_utc(xml_archive.endprocessing)
           processed = xml_archive.processed ? "TRUE" : "FALSE"
           count = xml_archive.count
           puts "#{i}: #{xml_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"          
@@ -75,11 +78,11 @@ namespace :get do
         if geo_archive.blank?
           puts "#{i}: #{geo_file}, processed: FALSE"
         else          
-          pstart = geo_archive.startprocessing
-          pend = geo_archive.endprocessing
+          pstart = no_utc(geo_archive.startprocessing)
+          pend = no_utc(geo_archive.endprocessing)
           processed = geo_archive.processed ? "TRUE" : "FALSE"
           count = geo_archive.count
-          puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
+          puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, start: #{pstart}, end: #{pend}"
         end 
 
       end
@@ -102,6 +105,7 @@ namespace :get do
       puts e.backtrace.inspect
     end    
   end
+
 
   # an administrative helper
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"

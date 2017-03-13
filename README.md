@@ -43,7 +43,7 @@ Get a list of all archive files. Arrays are sorted in descending order (by times
 Interactive menu of archives with option to do all
 
     `rake get:menu`
-    
+
 <!-- language: lang-none -->
 
     d@e:~/dinesafe$ rake get:menu
@@ -55,7 +55,7 @@ Interactive menu of archives with option to do all
     5: 1483469307.0_dinesafe.xml, processed: FALSE
 
     GEO
-    6: 1474461890.0_geo.json, processed: TRUE, count: 522622, processed start: 2017-03-12 22:37:27 UTC, processed end: 2017-03-12 23:57:21 UTC
+    6: 1474461890.0_geo.json, processed: TRUE, count: 522622, start: 2017-03-12 22:37:27, end: 2017-03-12 23:57:21
 
     7: All XML
     8: ALL GEO
