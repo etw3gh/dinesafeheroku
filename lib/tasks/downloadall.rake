@@ -248,14 +248,15 @@ namespace :get do
     process_geo(geo)
   end
 
-  #ensure (in .bashrc) HEROKU_POSTGRESQL_DS_URL is set to the value of DATABASE_URL in heroku settings
+  #ensure HEROKU_POSTGRESQL_DS_URL is set to the value of  in .bashrc
   desc "test switch env"
   task :env => :environment do
     #ActiveRecord::Base.establish_connection('development')
     puts Rails.env
     puts Archive.first.filename 
     puts Address.count
-    ActiveRecord::Base.establish_connection('production')
+    prod_url = Rails.configuration.database_configuration['production']['url']
+    ActiveRecord::Base.establish_connection(prod_url)
     if !Archive.first.nil?
       puts Archive.first.filename
     end
