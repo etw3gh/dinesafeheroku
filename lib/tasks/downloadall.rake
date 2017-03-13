@@ -252,11 +252,12 @@ namespace :get do
   desc "test switch env"
   task :env => :environment do
     #ActiveRecord::Base.establish_connection('development')
-    puts Rails.env
+    puts "RAILS_ENV: #{Rails.env}"
     puts Archive.first.filename 
     puts Address.count
     prod_url = Rails.configuration.database_configuration['production']['url']
     ActiveRecord::Base.establish_connection(prod_url)
+    puts "RAILS_ENV: #{Rails.env}"
     if !Archive.first.nil?
       puts Archive.first.filename
     end
