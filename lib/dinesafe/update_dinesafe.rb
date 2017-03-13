@@ -124,13 +124,16 @@ class UpdateDinesafe
       end
       venue_id = nil
       venue = Venue.where(:address_id=>address_id).first_or_create(:venuename=>name, :eid=>eid)
+      
       if venue.nil?
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose
         venue_id = -1
       else
+        # venue is already defined
         venue_id = venue.id
 
+        # write to error log tables if these cases are discovered
         if multiple_error
           Multiple.where(:venue_id=> venue_id, :timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
         end

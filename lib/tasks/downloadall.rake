@@ -26,7 +26,7 @@ namespace :get do
   end 
 
   def no_utc(d)
-    d.to_str.rstrip(' UTC')
+    d.to_s.rstrip(' UTC')
   end
   # if status == 200: returns xml, geo arrays of filenames
   # if status != 200: throws exception
