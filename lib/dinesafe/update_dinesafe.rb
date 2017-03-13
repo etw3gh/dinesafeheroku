@@ -124,8 +124,11 @@ class UpdateDinesafe
       end
       venue_id = nil
       venue = nil
-      venue = Venue.where(:address_id=>address_id).first_or_create(:venuename=>name, :eid=>eid)
-      
+      begin
+        venue = Venue.where(:address_id=>address_id).first_or_create(:venuename=>name, :eid=>eid)
+      rescue ActiveRecord::RecordNotUnique => e
+        puts e.message if @verbose
+      end
       if venue.nil?
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose

@@ -133,23 +133,27 @@ namespace :get do
         updater.process
         end_processing = Time.now
         record_count = Address.where(:version => timestamp).count
-        if Archive.where(:filename => geo_file).blank?
-          #insert case 
-          puts 'inserting...'
-          Archive.where(:startprocessing => start_processing,
-                        :endprocessing => end_processing,
-                        :count => record_count,
-                        :version => timestamp,
-                        :processed => true,
-                        :is_geo => @GEO_CASE).first_or_create(:filename => geo_file)
-        else
-          puts 'updating...'
-          archive = Archive.where(:filename => geo_file).first
-          archive.update(:processed => true,
-                          :startprocessing => start_processing,
+        begin
+          if Archive.where(:filename => geo_file).blank?
+            #insert case 
+            puts 'inserting...'
+            Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
-                          :count => record_count)
-        end
+                          :count => record_count,
+                          :version => timestamp,
+                          :processed => true,
+                          :is_geo => @GEO_CASE).first_or_create(:filename => geo_file)
+          else
+            puts 'updating...'
+            archive = Archive.where(:filename => geo_file).first
+            archive.update(:processed => true,
+                            :startprocessing => start_processing,
+                            :endprocessing => end_processing,
+                            :count => record_count)
+          end
+        rescue ActiveRecord::RecordNotUnique => e
+          puts "FAILED TO ADD ARCHIVE RECORD: #{geo_file} #{e.message}"
+        end        
       end        
     end
   end 
@@ -172,20 +176,24 @@ namespace :get do
         updater.process
         end_processing = Time.now
         record_count = Inspection.where(:version => timestamp).count
-        if Archive.where(:filename => xml_file).blank?
-          #insert case 
-          Archive.where(:startprocessing => start_processing,
-                        :endprocessing => end_processing,
-                        :count => record_count,
-                        :version => timestamp,
-                        :processed => true,
-                        :is_geo => @XML_CASE).first_or_create(:filename => xml_file)
-        else
-          archive = Archive.where(:filename => xml_file).first
-          archive.update(:processed => true,
-                          :startprocessing => start_processing,
+        begin
+          if Archive.where(:filename => xml_file).blank?
+            #insert case 
+            Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
-                          :count => record_count)
+                          :count => record_count,
+                          :version => timestamp,
+                          :processed => true,
+                          :is_geo => @XML_CASE).first_or_create(:filename => xml_file)
+          else
+            archive = Archive.where(:filename => xml_file).first
+            archive.update(:processed => true,
+                            :startprocessing => start_processing,
+                            :endprocessing => end_processing,
+                            :count => record_count)
+          end
+        rescue ActiveRecord::RecordNotUnique => e
+          puts "FAILED TO ADD ARCHIVE RECORD: #{xml_file} #{e.message}"
         end
       end
     end    
@@ -248,33 +256,6 @@ namespace :get do
     process_geo(geo)
   end
 
-  #ensure HEROKU_POSTGRESQL_DS_URL is set to the value of  in .bashrc
-  desc "syncs archives table on production"
-  task :sync => :environment do
-    
-    # get dev archives
-    archives = Archive.all.to_a
-    
-    # connect to production heroku db
-    prod_url = Rails.configuration.database_configuration['production']['url']
-    ActiveRecord::Base.establish_connection(prod_url)
-
-    # truncate archives table on production
-    DatabaseCleaner.clean_with(:truncation, :only =>['archives'])
-
-    archives.each do |archive|
-      Archive.create(:startprocessing => archive.startprocessing,
-                    :endprocessing => archive.endprocessing,
-                    :count => archive.count,
-                    :version => archive.version,
-                    :processed => archive.processed,
-                    :is_geo => archive.is_geo,
-                    :filename => archive.filename)
-
-      puts "#{archive.filename} copied"      
-    end
-
-  end
 
 
 end
