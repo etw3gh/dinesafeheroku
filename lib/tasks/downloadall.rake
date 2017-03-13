@@ -77,8 +77,8 @@ namespace :get do
         else          
           pstart = geo_archive.startprocessing
           pend = geo_archive.endprocessing
-          processed = xml_archive.processed.to_str.upcase
-          count = xml_archive.count
+          processed = geo_archive.processed.to_str.upcase
+          count = geo_archive.count
           puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
         end 
 
