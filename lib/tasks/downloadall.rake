@@ -253,7 +253,7 @@ namespace :get do
   task :sync => :environment do
     
     # get dev archives
-    archives = Archive.all
+    archives = Archive.all.to_a
     
     # connect to production heroku db
     prod_url = Rails.configuration.database_configuration['production']['url']
@@ -270,7 +270,9 @@ namespace :get do
                     :processed => archive.processed,
                     :is_geo => archive.is_geo,
                     :filename => archive.filename,
-                    :timestamps => archive.timestamps)      
+                    :timestamps => archive.timestamps)
+      Archive.save
+      puts "#{archive.filename} copied"      
     end
 
   end
