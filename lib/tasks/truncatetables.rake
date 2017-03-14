@@ -7,7 +7,7 @@ namespace :trunc do
     DatabaseCleaner.clean_with(:truncation, :only =>['notfounds'])
     DatabaseCleaner.clean_with(:truncation, :only =>['multiples'])    
     DatabaseCleaner.clean_with(:truncation, :only =>['venues'])
-    #DatabaseCleaner.clean_with(:truncation, :only =>['bad_venues'])
+    DatabaseCleaner.clean_with(:truncation, :only =>['bad_venues'])
   end
 
   desc "truncate inspections table"

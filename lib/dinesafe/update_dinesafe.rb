@@ -131,9 +131,12 @@ class UpdateDinesafe
         puts e.message if @verbose
       end
       if venue.nil?
+        venue_id = -1
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose
-        venue_id = -1
+        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create
+
+        
       else
         # venue is already defined
 
