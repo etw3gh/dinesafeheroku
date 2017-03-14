@@ -125,8 +125,9 @@ class UpdateDinesafe
       venue_id = nil
       venue = nil
       begin
-        venue = Venue.where(:address_id=>address_id).first_or_create(:venuename=>name, :eid=>eid)
+        venue = Venue.where(:address_id=>address_id, :venuename=>name, :eid=>eid).first_or_create(:createdbyversion=>@timestamp)
       rescue ActiveRecord::RecordNotUnique => e
+        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create
         puts e.message if @verbose
       end
       if venue.nil?
