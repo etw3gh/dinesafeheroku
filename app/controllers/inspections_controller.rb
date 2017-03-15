@@ -47,7 +47,7 @@ class InspectionsController < ApplicationController
   end
 
   def islocalhost(ip)
-    ip.starts_with?('10') || ip.starts_with?('127') || ip.startswith?('172') || ip.startswith?('192') || ip.startswith?('localhost')
+    ip.starts_with?('10') || ip.starts_with?('127') || ip.starts_with?('172') || ip.starts_with?('192') || ip.starts_with?('localhost')
   end
 
   def nearsearch
