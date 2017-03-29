@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 52.60.45.14:27777
+        - <%= ENV['DINESAFE_MONGO_HOST'] %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
