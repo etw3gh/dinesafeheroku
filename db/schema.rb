@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313035943) do
+ActiveRecord::Schema.define(version: 20170314214414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 20170313035943) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["filename"], name: "index_archives_on_filename", unique: true, using: :btree
+  end
+
+  create_table "bad_venues", force: :cascade do |t|
+    t.integer  "address_id"
+    t.string   "venuename"
+    t.integer  "eid"
+    t.integer  "createdbyversion"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["eid"], name: "index_bad_venues_on_eid", using: :btree
   end
 
   create_table "inspections", force: :cascade do |t|
@@ -97,8 +107,9 @@ ActiveRecord::Schema.define(version: 20170313035943) do
     t.integer  "address_id"
     t.string   "venuename"
     t.integer  "eid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "createdbyversion"
     t.index ["eid"], name: "index_venues_on_eid", unique: true, using: :btree
   end
 
