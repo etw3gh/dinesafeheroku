@@ -19,11 +19,12 @@ class VenuesController < ApplicationController
   end
 
   def pb
-    lat = params[:lat]
-    lng = params[:lng]
-    limit = params[:lim].to_f
-    results = geoloc(lat, lng, limit, phoWhere)
-    render :json => results
+    render :json => params
+    # lat = params[:lat]
+    # lng = params[:lng]
+    # limit = params[:lim].to_f
+    # results = geoloc(lat, lng, limit, phoWhere)
+    # render :json => results
   end 
 
   def nearby
