@@ -1,5 +1,5 @@
 Rails.application.routes.draw do |map|
-  constraints(:subdomain => 'dinesafe', :domain => 'herokuapp.com') do
+  constraints(:subdomain => 'dinesafe', :domain => ['herokuapp.com', 'openciti.ca']) do
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
