@@ -1,6 +1,12 @@
 class AppDomain
   def self.matches(request)
-    request.subdomain == 'dinesafe' && request.domain == 'herokuapp.com'
+    s = request.subdomain
+    d = request.domain
+    puts '--------------------'
+    puts s
+    puts d 
+    puts '--------------------'
+    s == 'dinesafe' && d == 'herokuapp.com'
   end
 end
 
