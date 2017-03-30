@@ -1,3 +1,12 @@
+# Provides a layer of security for all incoming requests
+
+# Set values in both .bashrc and Heroku settings
+
+# Set HOME_IP to your testing machine
+# Set WHITELIST to any deployed site that calls this rails API
+
+# If no referer is detected, only your home ip will be allowed access to the controllers
+# Otherwise, the referer must be on your whitelist as defined below
 Rails.application.config.home_ip = ENV['HOME_IP']
 
 # a pipe separated string of white listed urls
