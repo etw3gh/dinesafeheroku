@@ -11,14 +11,17 @@ Rails.application.routes.draw do |map|
   get '/byadddress' => 'inspections#byadddress'
 
   get '/pho' => 'venues#pho'
+
   get '/phoby' => 'venues#nearby'
+  
+  get '/phoby/:lat/:lng/:limit' => 'venues#nearpho'
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
   get '/nearsearch' => 'inspections#nearsearch'
 
   get '/test/:a/:b' => 'venues#test'
-  
+
   get '/byaddr/:num/:street/:numvariance/:limit' => 'inspections#byaddr', :defaults => {:numvariance=>10, :limit=>20}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/munstreets' => 'addresses#munstreets' 
