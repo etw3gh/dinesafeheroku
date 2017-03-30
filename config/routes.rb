@@ -3,10 +3,13 @@ require_relative('restrictions.rb')
 Rails.application.routes.draw do |map|
   
   # first level of security: restrict to home ip or a white list of client urls
+  # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
+
   constraints Restrictions do 
 
     # second level of security will be segment constraints
-
+    # ensure segments are float, int, strictly alpha, max words / max length 
+    # scan for sql injection and escape any other strings
 
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
@@ -18,27 +21,30 @@ Rails.application.routes.draw do |map|
     # gives a list of nearby venues
     get '/byadddress' => 'inspections#byadddress'
 
-    get '/pho' => 'venues#phoall'
-
-    get '/phoby' => 'venues#nearby'
-    
-    # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
-    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/}
-
     get '/find/:term' => 'inspections#find'
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
 
-    get '/test/:a/:b' => 'venues#test'
+
+    get '/nearby' => 'venues#nearby'
+    
+    # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
+    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/, :num => /\d+/}
+
+
+    get '/venue/:vid' => 'venues#get'
+    get '/venues' => 'venues#all'
+
+
 
     get '/byaddr/:num/:street/:numvariance/:limit' => 'inspections#byaddr', :defaults => {:numvariance=>10, :limit=>20}
-    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
     get '/munstreets' => 'addresses#munstreets' 
     get '/mun' => 'addresses#mun'
     get '/streets' => 'addresses#streets'
     get '/numbers'=> 'addresses#numbers'
-    get '/venue/:vid' => 'venues#get'
-    get '/venues' => 'venues#all'
+
+
     get '/ping' => 'welcome#ping'
 
     root 'welcome#index'
