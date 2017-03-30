@@ -1,3 +1,2 @@
-config.home_ip = ENV['HOME_IP']
-
-config.white_list = ENV['WHITELIST'].split('|')
+Rails.application.config.home_ip = ENV['HOME_IP']
+Rails.application.config.white_list = ENV['WHITELIST'].split('|')
