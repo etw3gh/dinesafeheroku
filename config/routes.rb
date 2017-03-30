@@ -14,7 +14,7 @@ Rails.application.routes.draw do |map|
 
   get '/phoby' => 'venues#nearby'
   
-  get '/phoby/:lat/:lng/:limit' => 'venues#nearpho'
+  get '/pb/:lat/:lng/:limit' => 'venues#nearpho'
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
