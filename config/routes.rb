@@ -10,8 +10,9 @@ module Restrictions
     if r.nil?
       return request.remote_ip == Rails.configuration.home_ip
     else
-      #return r == 'https://openciti.ca/' || r == 'https://ds6.ca/' || r == 'http://localhost:8000/'
-      return r.in?(Rails.configuration.white_list)
+      white_list = Rails.configuration.white_list
+      puts white_list
+      return r.in?(white_list)
     end
   end
 end
