@@ -1,10 +1,4 @@
 Rails.application.routes.draw do |map|
-  s = request.subdomain
-  d = request.domain
-  puts '--------------------'
-  puts s
-  puts d 
-  puts '--------------------'
   constraints(:subdomain => 'dinesafe', :domain => 'herokuapp.com') do
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
