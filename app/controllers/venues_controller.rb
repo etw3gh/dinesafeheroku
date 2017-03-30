@@ -23,7 +23,12 @@ class VenuesController < ApplicationController
     lng = params[:lng]
     limit = params[:lim].to_f
     results = geoloc(lat, lng, limit, phoWhere)
-    puts request.headers
+    
+    incr=0
+    request.headers.each do |key, value|
+        logger.debug "Header #{ incr }: #{ key }, #{ value }"
+        incr += 1
+    end
     r = { original_url: request.original_url,
           original_fullpath: request.original_fullpath,
           remote_ip: request.remote_ip,
