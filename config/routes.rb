@@ -1,8 +1,13 @@
 require_relative('restrictions.rb')
 
 Rails.application.routes.draw do |map|
-  #constraints(:subdomain => 'dinesafe', :domain => ['herokuapp.com', 'openciti.ca']) do
+  
+  # first level of security: restrict to home ip or a white list of client urls
   constraints Restrictions do 
+
+    # second level of securits will be segment constraints
+
+
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
@@ -17,6 +22,7 @@ Rails.application.routes.draw do |map|
 
     get '/phoby' => 'venues#nearby'
     
+    # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
     get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/}
 
     get '/find/:term' => 'inspections#find'
