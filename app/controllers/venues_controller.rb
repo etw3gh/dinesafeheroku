@@ -18,13 +18,12 @@ class VenuesController < ApplicationController
     render :json => Venue.all
   end
 
-  def testa
-    render :json => params
-    # lat = params[:lat]
-    # lng = params[:lng]
-    # limit = params[:lim].to_f
-    # results = geoloc(lat, lng, limit, phoWhere)
-    # render :json => results
+  def pho
+    lat = params[:lat]
+    lng = params[:lng]
+    limit = params[:lim].to_f
+    results = geoloc(lat, lng, limit, phoWhere)
+    render :json => results
   end 
 
   def nearby
@@ -34,7 +33,8 @@ class VenuesController < ApplicationController
     results = geoloc(lat, lng, limit, phoWhere)
     render :json => results
   end 
-  def pho
+
+  def phoall
     result = []
     venues =  Venue.where(phoClause)
     venues.each do |v|

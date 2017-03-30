@@ -10,11 +10,11 @@ Rails.application.routes.draw do |map|
   # gives a list of nearby venues
   get '/byadddress' => 'inspections#byadddress'
 
-  get '/pho' => 'venues#pho'
+  get '/pho' => 'venues#phoall'
 
   get '/phoby' => 'venues#nearby'
   
-  get '/testa/:lat/:lng/:lim' => 'venues#testa'
+  get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => : /\d+/}
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
