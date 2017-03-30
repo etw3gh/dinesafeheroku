@@ -34,11 +34,10 @@ class VenuesController < ApplicationController
           server: request.server_software,
           domain: request.domain,
           subdomain: request.subdomain,
-          headers: h,
           referer: request.referer
         }
 
-    render :json => {results: results, req: r}
+    render :json => {results: results, req: r, headers: h}
   end 
 
   def nearby
