@@ -1,4 +1,11 @@
+class AppDomain
+  def self.matches(request)
+    request.subdomain == 'dinesafe' && request.domain == 'herokuapp.com'
+  end
+end
+
 Rails.application.routes.draw do |map|
+
   constraints AppDomain.new do
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
@@ -35,9 +42,4 @@ Rails.application.routes.draw do |map|
     root 'welcome#index'
   end
 
-end
-class AppDomain
-  def self.matches(request)
-    request.subdomain == 'dinesafe' && request.domain == 'herokuapp.com'
-  end
 end
