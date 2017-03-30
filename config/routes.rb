@@ -14,7 +14,7 @@ Rails.application.routes.draw do |map|
 
   get '/phoby' => 'venues#nearby'
   
-  get '/pb/:lat/:lng/:lim' => 'venues#nearpho'
+  get '/pb/:lat/:lng/:lim' => 'venues#pb'
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
@@ -31,8 +31,8 @@ Rails.application.routes.draw do |map|
   get '/venue/:vid' => 'venues#get'
   get '/venues' => 'venues#all'
   get '/ping' => 'welcome#ping'
+
   root 'welcome#index'
-    
 
 
 end
