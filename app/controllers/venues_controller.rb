@@ -18,7 +18,7 @@ class VenuesController < ApplicationController
     render :json => Venue.all
   end
 
-  def nearpho
+  def pb
     lat = params[:lat]
     lng = params[:lng]
     limit = params[:lim].to_f
@@ -26,7 +26,7 @@ class VenuesController < ApplicationController
     render :json => results
   end 
 
-  def pb
+  def nearby
     lat = params[:lat]
     lng = params[:lng]
     limit = params[:limit].to_f
