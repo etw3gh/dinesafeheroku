@@ -23,7 +23,8 @@ class VenuesController < ApplicationController
     lng = params[:lng]
     limit = params[:lim].to_f
     results = geoloc(lat, lng, limit, phoWhere)
-    render :json => {results: results, req: request}
+    
+    render :json => {results: results, req: 'r'}
   end 
 
   def nearby
