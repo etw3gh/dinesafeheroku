@@ -2,9 +2,17 @@ module Restrictions
   def self.matches? request
     s = request.subdomain
     d = request.domain
-    hero = s == 'dinesafe' && d =='herokuapp.com'
-    oc = d == 'openciti.ca'
-    hero || oc
+    
+    # if referer is null, then check for IP on whitelist (home)
+    # otherwise, restrict to domains used by web apps on whitelist 
+    r = request.referer
+
+    if r.nil?
+      return request.remote_ip == Rails.configuration.home_ip
+    else
+      #return r == 'https://openciti.ca/' || r == 'https://ds6.ca/' || r == 'http://localhost:8000/'
+      retrun Rails.configuration.white_list.include? r
+    end
   end
 end
 
