@@ -5,7 +5,7 @@ Rails.application.routes.draw do |map|
   # first level of security: restrict to home ip or a white list of client urls
   constraints Restrictions do 
 
-    # second level of securits will be segment constraints
+    # second level of security will be segment constraints
 
 
     # a Query from populated dropdowns will have exact values
