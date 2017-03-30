@@ -14,7 +14,7 @@ Rails.application.routes.draw do |map|
 
   get '/phoby' => 'venues#nearby'
   
-  get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => : /\d+/}
+  get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/}
 
   get '/find/:term' => 'inspections#find'
   get '/near/' => 'inspections#near'
