@@ -1,5 +1,5 @@
 Rails.application.routes.draw do |map|
-  constraints AppDomain do
+  constraints AppDomain.new do
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
