@@ -30,7 +30,7 @@ class VenuesController < ApplicationController
           server: request.server_software,
           domain: request.domain,
           subdomain: request.subdomain,
-          headers: request.headers,
+          #headers: request.headers,
           referer: request.referer
         }
 
