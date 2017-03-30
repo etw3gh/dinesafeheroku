@@ -18,7 +18,7 @@ class VenuesController < ApplicationController
     render :json => Venue.all
   end
 
-  def pb
+  def testa
     render :json => params
     # lat = params[:lat]
     # lng = params[:lng]
