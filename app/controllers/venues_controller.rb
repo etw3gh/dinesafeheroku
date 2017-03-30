@@ -29,7 +29,8 @@ class VenuesController < ApplicationController
           remote_ip: request.remote_ip,
           server: request.server_software,
           domain: request.domain,
-          subdomain: request.subdomain
+          subdomain: request.subdomain,
+          href: request.href
         }
 
     render :json => {results: results, req: r}
