@@ -29,7 +29,7 @@ Rails.application.routes.draw do |map|
     get '/nearby' => 'venues#nearby'
     
     # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
-    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/, :num => /\d+/}
+    get '/pho/:lat/:lng/:lim' => 'venues#pho' #, :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/, :num => /\d+/}
 
 
     get '/venue/:vid' => 'venues#get'
