@@ -24,9 +24,9 @@ class VenuesController < ApplicationController
     limit = params[:lim].to_f
     results = geoloc(lat, lng, limit, phoWhere)
 
-    h = {}
+    h = []
     request.headers.each do |key, value|
-      h[key] = value 
+      h.push("#{key}= #{value}") 
     end
     r = { original_url: request.original_url,
           original_fullpath: request.original_fullpath,
