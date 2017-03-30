@@ -1,5 +1,5 @@
 class AppDomain
-  def self.matches(request)
+  def self.matches?(request)
     s = request.subdomain
     d = request.domain
     puts '--------------------'
