@@ -1,21 +1,4 @@
-module Restrictions
-  def self.matches? request
-    s = request.subdomain
-    d = request.domain
-    
-    # if referer is null, then check for IP on whitelist (home)
-    # otherwise, restrict to domains used by web apps on whitelist 
-    r = request.referer
-
-    if r.nil?
-      return request.remote_ip == Rails.configuration.home_ip
-    else
-      white_list = Rails.configuration.white_list
-      puts white_list
-      return r.in?(white_list)
-    end
-  end
-end
+require_relative('restrictions.rb')
 
 Rails.application.routes.draw do |map|
   #constraints(:subdomain => 'dinesafe', :domain => ['herokuapp.com', 'openciti.ca']) do
