@@ -1,5 +1,16 @@
+module Restrictions
+  def self.matches? request
+    s = request.subdomain
+    d = request.domain
+    hero = s == 'dinesafe' && d =='herokuapp.com'
+    oc = d == 'openciti.ca'
+    hero || oc
+  end
+end
+
 Rails.application.routes.draw do |map|
-  constraints(:subdomain => 'dinesafe', :domain => ['herokuapp.com', 'openciti.ca']) do
+  #constraints(:subdomain => 'dinesafe', :domain => ['herokuapp.com', 'openciti.ca']) do
+  constraints Restrictions do 
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
