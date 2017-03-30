@@ -42,6 +42,7 @@ class VenuesController < ApplicationController
     render :json => result
   end
 
-  # pho nearby: pho by
-
+  def test
+    render :json => params
+  end
 end
