@@ -23,7 +23,7 @@ class VenuesController < ApplicationController
     lng = params[:lng]
     limit = params[:lim].to_f
     results = geoloc(lat, lng, limit, phoWhere)
-
+    puts request.headers
     r = { original_url: request.original_url,
           original_fullpath: request.original_fullpath,
           remote_ip: request.remote_ip,
