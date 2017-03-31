@@ -2,10 +2,14 @@ require_relative('restrictions.rb')
 
 Rails.application.routes.draw do |map|
   
-  re_ll = /\-?\d+(.\d+)?/
+  # regex that matches to a valid lat / lng float 
+  re_lat_lng = /\-?\d+(.\d+)?/
+
+  # regex that matches to an int
   re_int =  /\d+/
-  segments = {:lat => re_ll, 
-              :lng => re_ll, 
+
+  segments = {:lat => re_lat_lng, 
+              :lng => re_lat_lng, 
               :lim => re_int, 
               :vid => re_int}
 
@@ -37,13 +41,10 @@ Rails.application.routes.draw do |map|
 
     constraints(segments) do
       get '/nearby/:lat/:lng/:lim' => 'venues#nearby'
-    
-      # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
-      get '/pho/:lat/:lng/:lim' => 'venues#pho'#, :constraints => {:lat => ll_check, :lng => ll_check, :lim => int_check}
+      get '/venue/:vid' => 'venues#get'
+      get '/pho/:lat/:lng/:lim' => 'venues#pho'
     end
 
-    get '/venue/:vid' => 'venues#get'
-    get '/venues' => 'venues#all'
 
 
 

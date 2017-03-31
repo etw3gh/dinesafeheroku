@@ -8,16 +8,12 @@ class VenuesController < ApplicationController
     " where #{phoClause}"
   end
 
-  def get
+  def venue
     vid = params[:vid].to_i
     result = Venue.where(:id => vid)
     render :json => {result: result, count: result.count} 
   end
   
-  def all
-    render :json => Venue.all
-  end
-
   def pho
     lat = params[:lat]
     lng = params[:lng]
