@@ -4,7 +4,7 @@ Rails.application.routes.draw do |map|
   
   ll_check = /\-?\d+(.\d+)?/
   int_check =  /\d+/
-  constraint_obj = {:lat => ll_check, :lng => ll_check, :lim => int_check}
+
 
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
@@ -16,7 +16,6 @@ Rails.application.routes.draw do |map|
     # scan for sql injection and escape any other strings
 
 
-    namespace :inspections
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
@@ -31,9 +30,12 @@ Rails.application.routes.draw do |map|
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
 
+    constraints{:lat => ll_check, :lng => ll_check, :lim => int_check} do
     get '/nearby' => 'venues#nearby'
     
-      get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => constraint_obj
+      # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
+      get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => ll_check, :lng => ll_check, :lim => int_check}
+    end
 
     get '/venue/:vid' => 'venues#get'
     get '/venues' => 'venues#all'
