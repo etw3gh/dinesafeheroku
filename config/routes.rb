@@ -31,7 +31,7 @@ Rails.application.routes.draw do |map|
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
 
-    constraints(:lat => ll_check, :lng => ll_check, :lim => int_check) do
+    constraints{:lat => ll_check, :lng => ll_check, :lim => int_check} do
       get '/nearby' => 'venues#nearby'
     
       # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
