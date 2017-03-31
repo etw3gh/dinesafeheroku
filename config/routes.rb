@@ -15,6 +15,8 @@ Rails.application.routes.draw do |map|
     # ensure segments are float, int, strictly alpha, max words / max length 
     # scan for sql injection and escape any other strings
 
+
+    namespace :inspections
     # a Query from populated dropdowns will have exact values
     get '/inspections' => 'inspections#get'
     get '/statuses' => 'inspections#statuses'
@@ -29,12 +31,12 @@ Rails.application.routes.draw do |map|
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
 
-
-    get '/nearby' => 'venues#nearby'
+    constraints(:lat => ll_check, :lng => ll_check, :lim => int_check) do
+      get '/nearby' => 'venues#nearby'
     
-    # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
-    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => ll_check, :lng => ll_check, :lim => int_check}
-
+      # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
+      get '/pho/:lat/:lng/:lim' => 'venues#pho'#, :constraints => {:lat => ll_check, :lng => ll_check, :lim => int_check}
+    end
 
     get '/venue/:vid' => 'venues#get'
     get '/venues' => 'venues#all'
