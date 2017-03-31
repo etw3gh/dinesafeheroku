@@ -2,9 +2,13 @@ require_relative('restrictions.rb')
 
 Rails.application.routes.draw do |map|
   
+  ll_check = /\-?\d+(.\d+)?/
+  int_check =  /\d+/
+
+
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
-
+  
   constraints Restrictions do 
 
     # second level of security will be segment constraints
@@ -29,7 +33,7 @@ Rails.application.routes.draw do |map|
     get '/nearby' => 'venues#nearby'
     
     # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
-    get '/pho/:lat/:lng/:lim' => 'venues#pho' #, :constraints => {:lat => /\-?\d+(.\d+)?/, :lng => /\-?\d+(.\d+)?/, :lim => /\d+/, :num => /\d+/}
+    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => {:lat => ll_check, :lng => ll_check, :lim => int_check}
 
 
     get '/venue/:vid' => 'venues#get'

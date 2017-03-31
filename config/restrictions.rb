@@ -1,6 +1,4 @@
 module Restrictions
-  @latlng_check = /\-?\d+(.\d+)?/
-  @int_check =  /\d+/
 
   def white
     # if referer is null, then check for IP on whitelist (home)
@@ -16,6 +14,6 @@ module Restrictions
   end
 
   def self.matches? request
-    :lat =~ @latlng_check && white 
+    white 
   end
 end
