@@ -4,7 +4,10 @@ Rails.application.routes.draw do |map|
   
   re_ll = /\-?\d+(.\d+)?/
   re_int =  /\d+/
-
+  segments = {:lat => re_ll, 
+              :lng => re_ll, 
+              :lim => re_int, 
+              :vid => re_int}
 
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
@@ -29,11 +32,10 @@ Rails.application.routes.draw do |map|
     get '/find/:term' => 'inspections#find'
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
-    p = {:lat => re_ll, 
-         :lng => re_ll, 
-         :lim => re_int, 
-         :vid => re_int}
-    constraints(p) do
+
+
+
+    constraints(segments) do
       get '/nearby/:lat/:lng/:lim' => 'venues#nearby'
     
       # TODO factor out lat and lng constraints and use segments for all urls now that the . bug has been figured out
