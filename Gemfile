@@ -55,23 +55,15 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # dinesafe requirements
-
-# for better server output to console in color
-gem 'colorize'
 
 # for web and xml parsing
 gem 'nokogiri'
 
-gem 'mechanize'
-
-# for unzipping
-gem 'zipruby'
-
-# for file diff
-gem 'diffy'
+# wont be needed until we go beyond Toronto....
+# gem 'mechanize'
 
 # for file downloads
 gem 'faraday'
@@ -82,7 +74,9 @@ gem 'acts_as_singleton', '~> 0.0.8'
 # for numeric? and possibly more...
 gem 'finishing_moves'
 
+# may not be needed. use traditional truncation methods instead?
 gem 'database_cleaner'
+
 gem 'react-rails'
 
 gem 'rack-cors'

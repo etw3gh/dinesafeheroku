@@ -26,7 +26,7 @@ class VenuesController < ApplicationController
     lat = params[:lat]
     lng = params[:lng]
     limit = params[:lim].to_f
-    results = geoloc(lat, lng, limit, phoWhere)
+    results = geoloc(lat, lng, limit)
     render :json => results
   end 
 

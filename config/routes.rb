@@ -8,10 +8,15 @@ Rails.application.routes.draw do |map|
   # regex that matches to an int
   re_int =  /\d+/
 
+  
+  re_alpha_num = /[^0-9a-z ]/
+
   segments = {:lat => re_lat_lng, 
               :lng => re_lat_lng, 
               :lim => re_int, 
-              :vid => re_int}
+              :vid => re_int,
+              :search => re_alpha_num
+             }
 
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
@@ -40,7 +45,7 @@ Rails.application.routes.draw do |map|
 
 
     constraints(segments) do
-      get '/nearby/:lat/:lng/:lim' => 'venues#nearby'
+      get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
       get '/venue/:vid' => 'venues#get'
       get '/pho/:lat/:lng/:lim' => 'venues#pho'
     end
@@ -48,7 +53,7 @@ Rails.application.routes.draw do |map|
 
 
 
-    get '/byaddr/:num/:street/:numvariance/:limit' => 'inspections#byaddr', :defaults => {:numvariance=>10, :limit=>20}
+    get '/byaddr/:num/:street/:numvariance/:lim' => 'inspections#byaddr', :defaults => {:numvariance => 10, :lim => 50}
   
     get '/munstreets' => 'addresses#munstreets' 
     get '/mun' => 'addresses#mun'
