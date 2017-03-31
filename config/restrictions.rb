@@ -14,6 +14,6 @@ module Restrictions
   end
 
   def self.matches? request
-    white 
+    self.white 
   end
 end
