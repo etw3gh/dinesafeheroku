@@ -41,14 +41,14 @@ Rails.application.routes.draw do |map|
     get '/find/:term' => 'inspections#find'
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
-
+    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => segments
 
     
-    constraints(segments) do
+    #constraints(segments) do
       #get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
       #get '/venue/:vid' => 'venues#get'
-      get '/pho/:lat/:lng/:lim' => 'venues#pho'
-    end
+      #get '/pho/:lat/:lng/:lim' => 'venues#pho'
+    #end
 
 
 
