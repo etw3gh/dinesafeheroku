@@ -31,6 +31,7 @@ namespace :trunc do
   desc "truncate addresses table"
   task :addresses => :environment do
     Address.delete_all
+    Archive.where(:is_geo => true).delete_all
   end
 
 
