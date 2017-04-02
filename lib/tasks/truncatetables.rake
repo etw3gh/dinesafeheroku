@@ -8,12 +8,14 @@ namespace :trunc do
     DatabaseCleaner.clean_with(:truncation, :only =>['multiples'])    
     DatabaseCleaner.clean_with(:truncation, :only =>['venues'])
     DatabaseCleaner.clean_with(:truncation, :only =>['bad_venues'])
+    
     Archive.where(:is_geo => false).delete_all
   end
 
   desc "truncate inspections table"
   task :inspections => :environment do
-    DatabaseCleaner.clean_with(:truncation, :only =>['inspections'])
+    Inspection.delete_all
+    #DatabaseCleaner.clean_with(:truncation, :only =>['inspections'])
   end
 
   desc "trunc error tables"
