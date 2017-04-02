@@ -58,7 +58,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
     connection_pool (2.2.1)
-    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -191,7 +190,6 @@ DEPENDENCIES
   acts_as_singleton (~> 0.0.8)
   byebug
   coffee-rails (~> 4.2)
-  database_cleaner
   faraday
   finishing_moves
   jbuilder (~> 2.5)

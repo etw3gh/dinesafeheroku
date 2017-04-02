@@ -75,10 +75,6 @@ gem 'acts_as_singleton', '~> 0.0.8'
 # https://github.com/forgecrafted/finishing_moves
 # for numeric? and possibly more...
 gem 'finishing_moves'
-
-# may not be needed. use traditional truncation methods instead?
-gem 'database_cleaner'
-
 gem 'react-rails'
 
 gem 'rack-cors'
