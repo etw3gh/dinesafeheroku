@@ -20,7 +20,7 @@ Rails.application.routes.draw do |map|
               :vid => re_int,
               :testseg => 'hello',
               :search => re_alpha_num,
-              :status => :status.in?(Rails.application.config.statuses)
+              :status => Regexp.union(Rails.application.config.statuses)
              }
   
   constraints Restrictions do 
