@@ -25,16 +25,20 @@ class InspectionsController < ApplicationController
     end
 
     vid = params[:vid]
+    venue = Venue.where(:id => vid).first
+    eid = venue['eid']
+    aid = venue['address_id']
     
     ilist = []
     if status == 'all'
-      ilist = Inspection.where(:venue_id=>vid).order(:date=>:desc)
+      ilist = Inspection.where(:eid=>eid).order(:date=>:desc)
     else
-      ilist = Inspection.where(:venue_id=>vid, :status=>status).order(:date=>:desc)
+      ilist = Inspection.where(:eid=>eid, :status=>status).order(:date=>:desc)
     end
-    venue = Venue.where(:id => vid).first
-    address = Address.where(:id=>venue['address_id']).order('version DESC').first
-
+    
+    address = Address.where(:id=>aid).order('version DESC').first
+    json_result['address_id'] = aid
+    json_result['eid'] = eid
     json_result['name'] = venue.venuename
     json_result['address'] = "#{address.num} #{address.streetname}"
     json_result['lat'] = address.lat

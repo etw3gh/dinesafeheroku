@@ -23,8 +23,10 @@ Rails.application.routes.draw do |map|
               :status => Regexp.union(Rails.application.config.statuses)
              }
   
+  # outer contraint covers request based constraints
   constraints Restrictions do 
 
+    # inner contraint covers url segments
     constraints(segments) do
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
@@ -37,7 +39,7 @@ Rails.application.routes.draw do |map|
         get 'nearsearch' => :nearsearch
         get 'byadddress' => :byadddress
         get 'get/:vid/:status' => :get
-        get 'statuses' => :statuses        
+        get 'statuses' => :statuses, :defaults => {:status => 'all'}        
       end
     end
 
