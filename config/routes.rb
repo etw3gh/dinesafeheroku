@@ -45,9 +45,11 @@ Rails.application.routes.draw do |map|
 
 
     constraints(segments) do
-      get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
-      get '/venue/:vid' => 'venues#get'
-      get '/venues/pho/:lat/:lng/:lim' => 'venues#pho'
+      scope path: '/venues', controller: :venues do
+        get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
+        get 'venue/:vid' => :get
+        get 'pho/:lat/:lng/:lim' => :pho
+      end
     end
 
 
