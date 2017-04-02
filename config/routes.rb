@@ -15,6 +15,7 @@ Rails.application.routes.draw do |map|
               :lng => re_lat_lng, 
               :lim => re_int, 
               :vid => re_int,
+              :testseg => 
               :search => re_alpha_num
              }
 
@@ -29,29 +30,31 @@ Rails.application.routes.draw do |map|
 
 
     # a Query from populated dropdowns will have exact values
-    get '/inspections' => 'inspections#get'
-    get '/statuses' => 'inspections#statuses'
-
-    # get nearby from dropdown
-    # give street name, then populate street numbers
-    # produce lat, lng for use in route
-    # gives a list of nearby venues
-    get '/byadddress' => 'inspections#byadddress'
-
-    get '/find/:term' => 'inspections#find'
-    get '/near/' => 'inspections#near'
-    get '/nearsearch' => 'inspections#nearsearch'
 
 
 
-    constraints(segments) do
+
+
+
+
+    constraints(segments, :with => :myrescue) do
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
-        get 'venue/:vid' => :get
+        get 'get/:vid' => :get
         get 'pho/:lat/:lng/:lim' => :pho
       end
+      scope path: '/inspections', controller: :inspections do
+        get 'find/:term' => :find
+        get 'near/:lat/:lng' => :near
+        get 'nearsearch' => :nearsearch
+        get 'byadddress' => :byadddress
+        get 'get/:vid/:lim/:status' => :get
+        get 'statuses' => :statuses        
+      end
     end
-
+    def myrescue
+      puts 'RESCUE HERE'
+    end
 
 
 
