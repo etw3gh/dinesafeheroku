@@ -134,14 +134,10 @@ class UpdateDinesafe
         venue_id = -1
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose
-        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create
-
-        
+        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create        
       else
-        # venue is already defined
-
-        # write to error log tables if these cases are discovered
-        # venue_id is not relevant for these error tables
+        # define venue_id for inspection
+        venue_id = venue.id
         if multiple_error
           Multiple.where(:timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
         end
