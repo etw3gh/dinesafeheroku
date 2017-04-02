@@ -13,10 +13,10 @@ Rails.application.routes.draw do |map|
 
   segments = {:lat => re_lat_lng, 
               :lng => re_lat_lng, 
-              :lim => re_int#, 
-              #:vid => re_int
+              :lim => re_int, 
+              :vid => re_int,
+              :search => re_alpha_num
              }
-             #,:search => re_alpha_num
 
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
@@ -41,14 +41,14 @@ Rails.application.routes.draw do |map|
     get '/find/:term' => 'inspections#find'
     get '/near/' => 'inspections#near'
     get '/nearsearch' => 'inspections#nearsearch'
-    get '/pho/:lat/:lng/:lim' => 'venues#pho', :constraints => segments
 
-    
-    #constraints(segments) do
-      #get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
-      #get '/venue/:vid' => 'venues#get'
-      #get '/pho/:lat/:lng/:lim' => 'venues#pho'
-    #end
+
+
+    constraints(segments) do
+      get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
+      get '/venue/:vid' => 'venues#get'
+      get '/pho/:lat/:lng/:lim' => 'venues#pho'
+    end
 
 
 
