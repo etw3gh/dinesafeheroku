@@ -1,5 +1,8 @@
 require_relative('restrictions.rb')
-
+def testseg(t)
+  s = ["closed", "conditional pass", "pass"]
+  t.in?(s)
+end
 Rails.application.routes.draw do |map|
   
   # regex that matches to a valid lat / lng float 
@@ -19,23 +22,9 @@ Rails.application.routes.draw do |map|
               :search => re_alpha_num
              }
 
-  # first level of security: restrict to home ip or a white list of client urls
-  # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
+  puts Rails.application.config.statuses
   
   constraints Restrictions do 
-
-    # second level of security will be segment constraints
-    # ensure segments are float, int, strictly alpha, max words / max length 
-    # scan for sql injection and escape any other strings
-
-
-    # a Query from populated dropdowns will have exact values
-
-
-
-
-
-
 
     constraints(segments, :with => :myrescue) do
       scope path: '/venues', controller: :venues do

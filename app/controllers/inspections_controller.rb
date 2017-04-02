@@ -3,13 +3,14 @@ require 'uri'
 
 class InspectionsController < ApplicationController
   
+  # returns all possible inspection result types
   def statuses
     render :json => Inspection.order(:status).distinct.pluck(:status)
   end
-
+  
+  # todo
   def byaddress
     address = params[:address].to_f
-
     return 'ok'
   end
 
