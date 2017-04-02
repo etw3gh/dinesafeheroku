@@ -26,7 +26,7 @@ Rails.application.routes.draw do |map|
   
   constraints Restrictions do 
 
-    constraints(segments, :with => :myrescue) do
+    constraints(segments) do
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'get/:vid' => :get
@@ -41,10 +41,6 @@ Rails.application.routes.draw do |map|
         get 'statuses' => :statuses        
       end
     end
-    def myrescue
-      puts 'RESCUE HERE'
-    end
-
 
 
     get '/byaddr/:num/:street/:numvariance/:lim' => 'inspections#byaddr', :defaults => {:numvariance => 10, :lim => 50}
