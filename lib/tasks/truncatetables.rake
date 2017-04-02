@@ -1,7 +1,7 @@
 def truncate (model)
   table = model.table_name
   model.delete_all
-  ActiveRecord::Base.connection.execute("ALTER TABLE #{table} AUTO_INCREMENT = 1")
+  ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table}_id_seq RESTART WITH 1;")
 end
 
 namespace :trunc do
