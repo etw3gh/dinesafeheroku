@@ -13,8 +13,8 @@ Rails.application.routes.draw do |map|
 
   segments = {:lat => re_lat_lng, 
               :lng => re_lat_lng, 
-              :lim => re_int, 
-              :vid => re_int
+              :lim => re_int#, 
+              #:vid => re_int
              }
              #,:search => re_alpha_num
 
@@ -43,10 +43,10 @@ Rails.application.routes.draw do |map|
     get '/nearsearch' => 'inspections#nearsearch'
 
 
-
+    
     constraints(segments) do
-      get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
-      get '/venue/:vid' => 'venues#get'
+      #get '/nearby/:lat/:lng/:lim/:search' => 'venues#nearby', :defaults => {:search => ''}
+      #get '/venue/:vid' => 'venues#get'
       get '/pho/:lat/:lng/:lim' => 'venues#pho'
     end
 
