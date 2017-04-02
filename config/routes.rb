@@ -18,7 +18,7 @@ Rails.application.routes.draw do |map|
               :lng => re_lat_lng, 
               :lim => re_int, 
               :vid => re_int,
-              :testseg => 
+              :testseg => 'hello',
               :search => re_alpha_num
              }
 
@@ -30,7 +30,7 @@ Rails.application.routes.draw do |map|
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'get/:vid' => :get
-        get 'pho/:lat/:lng/:lim' => :pho
+        get 'pho/:lat/:lng/:lim/:testseg' => :pho
       end
       scope path: '/inspections', controller: :inspections do
         get 'find/:term' => :find
