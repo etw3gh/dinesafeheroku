@@ -19,10 +19,9 @@ Rails.application.routes.draw do |map|
               :lim => re_int, 
               :vid => re_int,
               :testseg => 'hello',
-              :search => re_alpha_num
+              :search => re_alpha_num,
+              :statuses => in?(Rails.application.config.statuses)
              }
-
-  puts Rails.application.config.statuses
   
   constraints Restrictions do 
 
@@ -30,7 +29,7 @@ Rails.application.routes.draw do |map|
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'get/:vid' => :get
-        get 'pho/:lat/:lng/:lim/:testseg' => :pho
+        get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
         get 'find/:term' => :find
