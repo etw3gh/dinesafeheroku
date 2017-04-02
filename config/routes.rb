@@ -20,7 +20,7 @@ Rails.application.routes.draw do |map|
               :vid => re_int,
               :testseg => 'hello',
               :search => re_alpha_num,
-              :statuses => in?(Rails.application.config.statuses)
+              :status => in?(Rails.application.config.statuses)
              }
   
   constraints Restrictions do 
@@ -36,7 +36,7 @@ Rails.application.routes.draw do |map|
         get 'near/:lat/:lng' => :near
         get 'nearsearch' => :nearsearch
         get 'byadddress' => :byadddress
-        get 'get/:vid/:lim/:status' => :get
+        get 'get/:vid/:status' => :get
         get 'statuses' => :statuses        
       end
     end

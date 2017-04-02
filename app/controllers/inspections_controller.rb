@@ -24,7 +24,7 @@ class InspectionsController < ApplicationController
       status = params[:status].downcase
     end
 
-    vid = params[:vid].to_i
+    vid = params[:vid]
     
     ilist = []
     if status == 'all'
