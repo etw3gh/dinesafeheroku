@@ -12,6 +12,8 @@ gem 'pg', '~> 0.18'
 # Use mongo for user settings and modifications
 gem "mongoid", "~> 6.1.0"
 
+
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

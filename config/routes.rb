@@ -14,9 +14,9 @@ Rails.application.routes.draw do |map|
   segments = {:lat => re_lat_lng, 
               :lng => re_lat_lng, 
               :lim => re_int, 
-              :vid => re_int,
-              :search => re_alpha_num
+              :vid => re_int
              }
+             #,:search => re_alpha_num
 
   # first level of security: restrict to home ip or a white list of client urls
   # ip and urls are stored in ENV variables and set in /config/initializers/whitelist.rb
