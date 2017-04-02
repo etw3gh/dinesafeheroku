@@ -1,19 +1,25 @@
+def truncate (model)
+  table = model.table_name
+  model.delete_all
+  ActiveRecord::Base.connection.execute("ALTER TABLE #{table} AUTO_INCREMENT = 1")
+end
+
 namespace :trunc do
 
   # add tables only as necessary
   desc "xml related inpection related tables"
   task :xml => :environment do
-    Inspection.delete_all
-    Notfound.delete_all
-    Multiple.delete_all
-    Venue.delete_all
-    BadVenue.delete_all
+    truncate(Inspection)
+    truncate(Notfound)
+    truncate(Multiple)
+    truncate(Venue)
+    truncate(BadVenue)
     Archive.where(:is_geo => false).delete_all
   end
 
   desc "truncate inspections table"
   task :inspections => :environment do
-    Inspection.delete_all
+    truncate(Inspection)
     Archive.where(:is_geo => false).delete_all
   end
 
