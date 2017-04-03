@@ -1,5 +1,6 @@
 
 class SegmentRegex
+  cattr_accessor :segments 
   # regex that matches to a valid lat / lng float 
   re_lat_lng = /\-?\d+(.\d+)?/
 
@@ -16,7 +17,5 @@ class SegmentRegex
       :search => re_alpha_num,
       :status => Regexp.union(Rails.application.config.statuses)
   }
-  def segments
-    @@segments
-  end
+
 end
