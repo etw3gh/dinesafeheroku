@@ -1,30 +1,16 @@
-require_relative('restrictions.rb')
-def testseg(t)
-  s = ["closed", "conditional pass", "pass"]
-  t.in?(s)
-end
+require_relative('constraints/request_constraints.rb')
+require_relative('constraints/app_constraints.rb')
+require_relative('constraints/request_constraints.rb')
+
+
+# add cons
+constraint_list = [Restrictions]
+appContraints = Constraints.new(constraint_list)
+
 Rails.application.routes.draw do |map|
-  
-  # regex that matches to a valid lat / lng float 
-  re_lat_lng = /\-?\d+(.\d+)?/
-
-  # regex that matches to an int
-  re_int =  /\d+/
-
-  
-  re_alpha_num = /[^0-9a-z ]/
-
-  segments = {:lat => re_lat_lng, 
-              :lng => re_lat_lng, 
-              :lim => re_int, 
-              :vid => re_int,
-              :testseg => 'hello',
-              :search => re_alpha_num,
-              :status => Regexp.union(Rails.application.config.statuses)
-             }
-  
+   
   # outer contraint covers request based constraints
-  constraints Restrictions do 
+  constraints appContraints do 
 
     # inner contraint covers url segments
     constraints(segments) do
