@@ -1,6 +1,6 @@
 require_relative('constraints/request_constraints.rb')
 require_relative('constraints/app_constraints.rb')
-require_relative('constraints/request_constraints.rb')
+require_relative('constraints/segment_regex.rb')
 
 
 # add cons
