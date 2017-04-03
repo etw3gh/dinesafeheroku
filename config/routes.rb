@@ -13,7 +13,7 @@ Rails.application.routes.draw do |map|
   constraints appContraints do 
 
     # inner contraint covers url segments
-    constraints(segments) do
+    constraints(SegmentRegex.segments) do
       scope path: '/venues', controller: :venues do
         get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'get/:vid' => :get
