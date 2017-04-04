@@ -8,8 +8,6 @@ require_relative('constraints/segment_regex.rb')
 constraint_list = [Restrictions, StringContraints]
 appContraints = Constraints.new(constraint_list)
 
-puts SegmentRegex.segments
-
 Rails.application.routes.draw do |map|
    
   # outer contraint covers request based constraints
@@ -24,11 +22,11 @@ Rails.application.routes.draw do |map|
       end
       scope path: '/inspections', controller: :inspections do
         get 'find/:term' => :find
-        get 'near/:lat/:lng/:lim/street' => :near
+        get 'near/:lat/:lng/:lim' => :near
         get 'nearsearch' => :nearsearch
         get 'byadddress' => :byadddress
         get 'get/:vid/:status' => :get
-        get 'statuses' => :statuses, :defaults => {:status => 'all'}       
+        get 'statuses' => :statuses     
         get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 500}
       end
       scope path: '/addresses', controller: :addresses do

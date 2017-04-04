@@ -5,7 +5,7 @@ class InspectionsController < ApplicationController
   
   # returns all possible inspection result types
   def statuses
-    render :json => Inspection.order(:status).distinct.pluck(:status)
+    render :json => Inspection.distinct.pluck(:status)
   end
   
   # todo
