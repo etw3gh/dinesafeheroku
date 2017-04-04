@@ -29,7 +29,7 @@ Rails.application.routes.draw do |map|
         get 'byadddress' => :byadddress
         get 'get/:vid/:status' => :get
         get 'statuses' => :statuses, :defaults => {:status => 'all'}       
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 5 
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 5}
       end
     end
 
