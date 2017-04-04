@@ -150,7 +150,7 @@ class UpdateDinesafe
                               :eid => eid,
                               :iid => iid,
                               :etype => etype.downcase,
-                              :status => status.downcase,
+                              :status => status.downcase.gsub('conditional pass', 'condpass'),
                               :details => details.downcase,
                               :date => date,
                               :severity => severity.downcase,

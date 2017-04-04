@@ -1,0 +1,1 @@
+# select word from pg_get_keywords() WHERE catdesc='reserved';
