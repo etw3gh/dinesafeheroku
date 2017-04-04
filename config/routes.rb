@@ -29,18 +29,15 @@ Rails.application.routes.draw do |map|
         get 'byadddress' => :byadddress
         get 'get/:vid/:status' => :get
         get 'statuses' => :statuses, :defaults => {:status => 'all'}       
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 5}
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 500}
+      end
+      scope path: '/addresses', controller: :addresses do
+        get 'munstreets' => :munstreets 
+        get 'mun' => :mun
+        get 'streets' => :streets
+        get 'numbers'=> :numbers        
       end
     end
-
-
-    0}
-  
-    get '/munstreets' => 'addresses#munstreets' 
-    get '/mun' => 'addresses#mun'
-    get '/streets' => 'addresses#streets'
-    get '/numbers'=> 'addresses#numbers'
-
 
     get '/ping' => 'welcome#ping'
 
