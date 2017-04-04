@@ -1,8 +1,9 @@
 module StringContraints
-  def self.matches? seg
-    if seg.street.nil?
+  def self.matches? request
+    puts request
+    if request.street.nil?
       return true
     end
-    seg.street.length < 5
+    request.street.length < 5
   end
 end
