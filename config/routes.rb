@@ -5,7 +5,7 @@ require_relative('constraints/segment_regex.rb')
 
 
 # add cons
-constraint_list = [Restrictions, StringConstraint]
+constraint_list = [Restrictions, StringConstraints]
 appContraints = Constraints.new(constraint_list)
 
 Rails.application.routes.draw do |map|
