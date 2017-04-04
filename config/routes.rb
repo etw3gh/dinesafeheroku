@@ -1,11 +1,10 @@
 require_relative('constraints/request_constraints.rb')
-require_relative('constraints/string_constraints.rb')
 require_relative('constraints/app_constraints.rb')
 require_relative('constraints/segment_regex.rb')
 
 
 # add cons
-constraint_list = [Restrictions, StringContraints]
+constraint_list = [Restrictions]
 appContraints = Constraints.new(constraint_list)
 
 Rails.application.routes.draw do |map|
