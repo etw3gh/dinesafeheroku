@@ -1,6 +1,6 @@
 module StringContraints
   def self.matches? request
-    puts YAML::dump(object)
+    puts YAML::dump(request)
     return true
     # if request.street.nil?
     #   return true
