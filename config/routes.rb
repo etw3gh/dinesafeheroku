@@ -1,11 +1,14 @@
 require_relative('constraints/request_constraints.rb')
+require_relative('constraints/string_constraints.rb')
 require_relative('constraints/app_constraints.rb')
 require_relative('constraints/segment_regex.rb')
 
 
 # add cons
-constraint_list = [Restrictions]
+constraint_list = [Restrictions, StringContraints]
 appContraints = Constraints.new(constraint_list)
+
+puts SegmentRegex.segments
 
 Rails.application.routes.draw do |map|
    
@@ -21,16 +24,17 @@ Rails.application.routes.draw do |map|
       end
       scope path: '/inspections', controller: :inspections do
         get 'find/:term' => :find
-        get 'near/:lat/:lng' => :near
+        get 'near/:lat/:lng/:lim/street' => :near
         get 'nearsearch' => :nearsearch
         get 'byadddress' => :byadddress
         get 'get/:vid/:status' => :get
-        get 'statuses' => :statuses, :defaults => {:status => 'all'}        
+        get 'statuses' => :statuses, :defaults => {:status => 'all'}       
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 5 
       end
     end
 
 
-    get '/byaddr/:num/:street/:numvariance/:lim' => 'inspections#byaddr', :defaults => {:numvariance => 10, :lim => 50}
+    0}
   
     get '/munstreets' => 'addresses#munstreets' 
     get '/mun' => 'addresses#mun'

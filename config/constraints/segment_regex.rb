@@ -12,7 +12,8 @@ class SegmentRegex
   @@segments = {
       :lat => re_lat_lng, 
       :lng => re_lat_lng, 
-      :lim => re_int, 
+      :lim => re_int,
+      :var => re_int,
       :vid => re_int,
       :search => re_alpha_num,
       :status => Regexp.union(Rails.application.config.statuses)
