@@ -107,7 +107,7 @@ class InspectionsController < ApplicationController
       end
     end
 
-    limit = params[:limit]
+    limit = params[:lim]
 
     # add one to account for case of limit=1 and distance=0
     # in this case we'd still like to return the nearest place instead of just the current location
