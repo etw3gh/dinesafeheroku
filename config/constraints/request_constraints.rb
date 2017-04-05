@@ -5,6 +5,7 @@ module Restrictions
     r = request.referer
 
     if r.nil?
+      puts "no req.referer: ip: #{request.remote_ip}, home_ip: #{Rails.configuration.home_ip}" 
       return request.remote_ip == Rails.configuration.home_ip
     else
       white_list = Rails.configuration.white_list
