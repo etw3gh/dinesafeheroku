@@ -7,7 +7,7 @@
 
 # If no referer is detected, only your home ip will be allowed access to the controllers
 # Otherwise, the referer must be on your whitelist as defined below
-Rails.application.config.api_key = ENV['DINESAFE_API_KEY'].strip
+Rails.application.config.api_key = ENV['DINESAFE_API_KEY']
 
 # a pipe separated string of white listed urls
 # url must be exactly as in request.referer
@@ -17,4 +17,4 @@ Rails.application.config.api_key = ENV['DINESAFE_API_KEY'].strip
 # in bashrc or Heroku settings these urls would be 
 # export WHITELIST='https://hello.com/|http://localhost:8000/'
 whitelist = 
-Rails.application.config.white_list = ENV['WHITELIST'].strip || [] 
+Rails.application.config.white_list = ENV['WHITELIST'] || [] 
