@@ -7,7 +7,7 @@ class SegmentRegex
   # regex that matches to an int
   re_int =  /\d+/
 
-  re_alpha_num = /[^0-9a-z ]/
+  re_alpha_num = /\A[a-z0-9\s]+\Z/i
 
   @@segments = {
       :lat => re_lat_lng, 
@@ -15,7 +15,7 @@ class SegmentRegex
       :lim => re_int,
       :var => re_int,
       :vid => re_int,
-      :search => 'pizza',#re_alpha_num,
+      :search => re_alpha_num,
       :status => Regexp.union(Rails.application.config.statuses)
   }
 
