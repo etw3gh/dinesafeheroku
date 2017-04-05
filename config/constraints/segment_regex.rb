@@ -15,7 +15,7 @@ class SegmentRegex
       :lim => re_int,
       :var => re_int,
       :vid => re_int,
-      :search => 'pizza'#re_alpha_num,
+      :search => 'pizza',#re_alpha_num,
       :status => Regexp.union(Rails.application.config.statuses)
   }
 
