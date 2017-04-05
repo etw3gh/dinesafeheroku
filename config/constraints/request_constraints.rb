@@ -3,9 +3,9 @@ module Restrictions
     # if referer is null, then check for IP on whitelist (home)
     # otherwise, restrict to domains used by web apps on whitelist 
     r = request.referer
-
+    puts "***** referer: #{r}"
     if r.nil?
-      puts "no req.referer: ip: #{request.remote_ip}, home_ip: #{Rails.configuration.home_ip}" 
+      puts "*****no req.referer: ip: #{request.remote_ip}, home_ip: #{Rails.configuration.home_ip}" 
       return request.remote_ip == Rails.configuration.home_ip
     else
       white_list = Rails.configuration.white_list
