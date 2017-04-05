@@ -7,7 +7,7 @@ class SegmentRegex
   # regex that matches to an int
   re_int =  /\d+/
 
-  re_alpha_num = /^(?![^A-Za-z0-9 ]+)/
+  re_alpha_num = /(?![^A-Za-z0-9 ]+)/
 
   @@segments = {
       :lat => re_lat_lng, 
