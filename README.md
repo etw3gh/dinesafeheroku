@@ -12,7 +12,7 @@ Calling the API by AJAX is locked to certain domains (web apps), which are store
 
 > The client web app will sanitize user input before it reaches the rails app 
 
-Calling from the browser is disabled.
+Calling from the browser is disabled [use Postman](https://www.getpostman.com/)
 
 Calling by CURL requires an API key which is also stored in an environment variable
 
