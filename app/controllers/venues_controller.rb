@@ -4,8 +4,13 @@ class VenuesController < ApplicationController
   def phoClause
     " venuename like '% pho %' or venuename like 'pho %' "
   end
-  def phoWhere
-    " where #{phoClause}"
+
+  def searchClause search
+    " venuename like '%#{search}%' "
+  end
+
+  def where clause
+    " where #{clause}"
   end
 
   def get
@@ -18,6 +23,7 @@ class VenuesController < ApplicationController
     lat = params[:lat]
     lng = params[:lng]
     limit = params[:lim].to_f
+    phoWhere = where(phoClause)
     results = geoloc(lat, lng, limit, phoWhere)
     render :json => results
   end 
@@ -25,8 +31,15 @@ class VenuesController < ApplicationController
   def nearby
     lat = params[:lat]
     lng = params[:lng]
-    limit = params[:lim].to_f
-    results = geoloc(lat, lng, limit)
+    limit = params[:lim]
+    search = params[:search].strip
+
+    if search == '' || search.length < 3
+      limit = 50
+    end
+
+    where = where(searchClause(search))
+    results = geoloc(lat, lng, limit, where)
     render :json => results
   end 
 
