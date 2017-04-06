@@ -4,6 +4,35 @@
 
 Dinesafe is a system for restaurant inspections for the city of Toronto
 
+### Security
+
+#### Request Layer
+
+Calling the API by AJAX is locked to certain domains (web apps), which are stored in an environment variable
+
+> The client web app will sanitize user input before it reaches the rails app 
+
+Calling from the browser is disabled.
+
+Calling by CURL requires an API key which is also stored in an environment variable
+
+#### Segment Layer
+
+Segments must conform to regex or the request will be 404'd
+
+#### Controller Layer
+
+A request will be rejected if it contains any hint of SQL injection (TODO)
+
+#### SQL Injection 
+
+Apart from locking requests to known client apps, user input will be checked for SQL injection
+
+PostgreSQL reserved keywords are obtained by this query:
+
+    `SELECT word FROM pg_get_keywords() WHERE catdesc='reserved';`
+
+
 ### Data sources
 
 Restaurant inspections are made available once or twice a month as a zipped XML archive.
