@@ -14,7 +14,7 @@ Calling the API by AJAX is locked to certain domains (web apps), which are store
 
 Calling from the browser is disabled [use Postman](https://www.getpostman.com/)
 
-Calling by CURL requires an API key which is also stored in an environment variable
+Calling by CURL or Postman requires an API key which is also stored in an environment variable
 
 #### Segment Layer
 
