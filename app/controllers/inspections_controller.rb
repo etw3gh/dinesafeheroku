@@ -58,6 +58,7 @@ class InspectionsController < ApplicationController
     
     if venue_result.blank?
       render :json => {status: 204, message: 'venue not found', vid: vid}
+      return
     end
 
     venue = venue_result.first
