@@ -16,11 +16,11 @@ Rails.application.routes.draw do |map|
     constraints(SegmentRegex.segments) do
       scope path: '/venues', controller: :venues do
         get 'get/:vid' => :get
-        get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
+        get 'nearby/:lat/:lng/:lim/:search' => :nearby
         get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 0, :lim => 50}
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr
        
         get 'find/:term' => :find
         get 'get/:vid/:status' => :get
