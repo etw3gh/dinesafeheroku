@@ -20,7 +20,7 @@ Rails.application.routes.draw do |map|
         get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 500}
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => -1, :lim => 50}
        
         get 'find/:term' => :find
         get 'get/:vid/:status' => :get

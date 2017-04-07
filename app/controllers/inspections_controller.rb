@@ -5,7 +5,7 @@ class InspectionsController < ApplicationController
   def byaddr
     num = params[:num]
     street = params[:street]
-    variance = params[:numvariance].to_i
+    variance = params[:var].to_i
     limit = params[:limit].to_i
     address = nil
     q = nil
@@ -13,7 +13,11 @@ class InspectionsController < ApplicationController
     if num.numeric?
       nint = num.to_i
       vint = variance.to_i
-      q = "lo > #{nint - vint} AND lo < #{nint + vint} AND streetname like '#{street}%'"
+      if vint == -1
+        q = "lo = #{nint} AND streetname like '#{street}%'"
+      else
+        q = "lo >= #{nint - vint} AND lo <= #{nint + vint} AND streetname like '#{street}%'"
+      end
       address = Address.where(q)
     else
       address = Address.where("num='#{num}' AND streetname like '#{street}%'")       
