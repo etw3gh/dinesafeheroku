@@ -54,7 +54,13 @@ class InspectionsController < ApplicationController
     end
 
     vid = params[:vid]
-    venue = Venue.where(:id => vid).first
+    venue_result = Venue.where(:id => vid)
+    
+    if venue_result.nil?
+      render :json => {status: 204, message: 'venue not found', vid: vid}
+    end
+
+    venue = venue_result.first
     eid = venue['eid']
     aid = venue['address_id']
     
