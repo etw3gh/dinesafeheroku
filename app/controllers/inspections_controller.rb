@@ -13,7 +13,7 @@ class InspectionsController < ApplicationController
     if num.numeric?
       nint = num.to_i
       vint = variance.to_i
-      if vint == -1
+      if vint == 0
         q = "lo = #{nint} AND streetname like '#{street}%'"
       else
         q = "lo >= #{nint - vint} AND lo <= #{nint + vint} AND streetname like '#{street}%'"
