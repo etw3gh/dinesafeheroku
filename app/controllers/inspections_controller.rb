@@ -6,7 +6,7 @@ class InspectionsController < ApplicationController
     num = params[:num]
     street = params[:street]
     variance = params[:var].to_i
-    limit = params[:limit].to_i
+    limit = params[:lim].to_i
     address = nil
     q = nil
     acount = 0
