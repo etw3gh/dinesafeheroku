@@ -33,6 +33,21 @@ PostgreSQL reserved keywords are obtained by this query:
     `SELECT word FROM pg_get_keywords() WHERE catdesc='reserved';`
 
 
+### DB notes
+
+#### PostgreSQL (Read Only)
+
+Because the dataset is very large and takes a lot of time to process on a local machine,
+Its written to Heroku via pgpush, which erases existing data.
+
+For this reason it made sense to use another method to store user added data.
+
+#### MongoDB (User Data)
+
+Self hosted on an Ubuntu server, will be connecting via the mongoid gem
+
+See README_MONGO.md for more details
+
 ### Data sources
 
 Restaurant inspections are made available once or twice a month as a zipped XML archive.
