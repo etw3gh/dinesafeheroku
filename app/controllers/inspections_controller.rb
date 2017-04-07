@@ -5,14 +5,13 @@ class InspectionsController < ApplicationController
   def byaddr
     num = params[:num]
     street = params[:street]
-    variance = params[:var].to_i
+    vint = params[:var].to_i
     limit = params[:lim].to_i
     address = nil
     q = nil
     acount = 0
     if num.numeric?
       nint = num.to_i
-      vint = variance.to_i
       if vint == 0
         q = "lo = #{nint} AND streetname like '#{street}%'"
       else
@@ -31,8 +30,12 @@ class InspectionsController < ApplicationController
         a = address.first
         lat = a['lat'].to_f
         lng = a['lng'].to_f
-        results = geoloc(lat, lng, limit.to_i)
-        render :json => {'result': results, 'num': num, 'street': street, 'count': acount}
+        results = geoloc(lat, lng, limit)
+        result_obj = {'result': results, 'num': num, 'street': street, 'count': acount}
+        if variance > 0:
+          result_obj['variance'] = vint
+        end
+        render :json => result_obj
       rescue Exception => e
         render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
       end
