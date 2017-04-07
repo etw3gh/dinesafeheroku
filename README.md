@@ -30,7 +30,7 @@ Apart from locking requests to known client apps, user input will be checked for
 
 PostgreSQL reserved keywords are obtained by this query:
 
-    `SELECT word FROM pg_get_keywords() WHERE catdesc='reserved';`
+    SELECT word FROM pg_get_keywords() WHERE catdesc='reserved';
 
 
 ### DB notes
@@ -87,11 +87,11 @@ A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped fil
 
 Get a list of all archive files. Arrays are sorted in descending order (by timestamp)
 
-    `rake get:filenames`
+    rake get:filenames
 
 Interactive menu of archives with option to do all. Useful if processing is interrupted
 
-    `rake get:menu`
+    rake get:menu
 
 <!-- language: lang-none -->
 
@@ -116,15 +116,15 @@ Interactive menu of archives with option to do all. Useful if processing is inte
 Get all (non interactive). Will iterate over filenames and process if required
 For use in a cron task
 
-    `rake get:all`
+    rake get:all
 
 Process only geographic data
 
-    `rake get:geo`
+    rake get:geo
 
 Process only xml data
 
-    `rake get:xml`
+    rake get:xml
 
 ### Results
 
@@ -142,4 +142,4 @@ Keeping all historical inspections as long as it remains under 10 Million rows
 
 Verify no inspection has a non-existant venue
 
-    `rake ver:venues`
+    rake ver:venues
