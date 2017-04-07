@@ -15,18 +15,20 @@ Rails.application.routes.draw do |map|
     # inner contraint covers url segments
     constraints(SegmentRegex.segments) do
       scope path: '/venues', controller: :venues do
-        get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'get/:vid' => :get
+        get 'nearby/:lat/:lng/:lim/:search' => :nearby, :defaults => {:search => ''}
         get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 500}
+       
         get 'find/:term' => :find
+        get 'get/:vid/:status' => :get
         get 'near/:lat/:lng/:lim' => :near
         get 'nearsearch' => :nearsearch
-        get 'byadddress' => :byadddress
-        get 'get/:vid/:status' => :get
-        get 'statuses' => :statuses     
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr, :defaults => {:var => 10, :lim => 500}
+        
+        
+        get 'statuses' => :statuses
       end
       scope path: '/addresses', controller: :addresses do
         get 'munstreets' => :munstreets 

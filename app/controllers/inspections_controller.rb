@@ -2,19 +2,48 @@ require 'net/http'
 require 'uri'
 
 class InspectionsController < ApplicationController
-  
-  # returns all possible inspection result types
-  def statuses
-    render :json => Inspection.distinct.pluck(:status)
-  end
-  
-  # todo
-  def byaddress
-    address = params[:address].to_f
-    return 'ok'
+  def byaddr
+    num = params[:num]
+    street = params[:street]
+    variance = params[:numvariance].to_i
+    limit = params[:limit].to_i
+    address = nil
+    q = nil
+    acount = 0
+    if num.numeric?
+      nint = num.to_i
+      vint = variance.to_i
+      q = "lo > #{nint - vint} AND lo < #{nint + vint} AND streetname like '#{street}%'"
+      address = Address.where(q)
+    else
+      address = Address.where("num='#{num}' AND streetname like '#{street}%'")       
+    end
+
+    if address.blank?
+      render :json => {'result': 'no results', 'num': num, 'street': street, 'q': q}
+    else
+      begin
+        acount = address.count
+        a = address.first
+        lat = a['lat'].to_f
+        lng = a['lng'].to_f
+        results = geoloc(lat, lng, limit.to_i)
+        render :json => {'result': results, 'num': num, 'street': street, 'count': acount}
+      rescue Exception => e
+        render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
+      end
+      
+    end
   end
 
-  #/inspections?venue_id=7185&limit=5-&status=pass
+
+  def find
+    term = params[:term]
+    query = "SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id WHERE v.venuename like '% #{term} %' and a.version = (select max(version) from addresses)"
+    results = ActiveRecord::Base.connection.execute(query)
+    render :json => {'result': results, 'count': results.count}
+  end  
+
   def get
     json_result = {}
     json_result['inspections'] = []
@@ -38,6 +67,7 @@ class InspectionsController < ApplicationController
     
     address = Address.where(:id=>aid).order('version DESC').first
     json_result['address_id'] = aid
+    json_result['venue_id'] = vid
     json_result['eid'] = eid
     json_result['name'] = venue.venuename
     json_result['address'] = "#{address.num} #{address.streetname}"
@@ -50,6 +80,13 @@ class InspectionsController < ApplicationController
 
     render :json => json_result
   end
+
+  # returns all possible inspection result types
+  def statuses
+    render :json => Inspection.distinct.pluck(:status)
+  end
+  
+
 
   def islocalhost(ip)
     ip.starts_with?('10') || ip.starts_with?('127') || ip.starts_with?('172') || ip.starts_with?('192') || ip.starts_with?('localhost')
@@ -123,47 +160,6 @@ class InspectionsController < ApplicationController
 
   end
   
-  def byaddr
-    num = params[:num]
-    street = params[:street]
-    variance = params[:numvariance].to_i
-    limit = params[:limit].to_i
-    address = nil
-    q = nil
-    acount = 0
-    if num.numeric?
-      nint = num.to_i
-      vint = variance.to_i
-      q = "lo > #{nint - vint} AND lo < #{nint + vint} AND streetname like '#{street}%'"
-      address = Address.where(q)
-    else
-      address = Address.where("num='#{num}' AND streetname like '#{street}%'")       
-    end
-
-    if address.blank?
-      render :json => {'result': 'no results', 'num': num, 'street': street, 'q': q}
-    else
-      begin
-        acount = address.count
-        a = address.first
-        lat = a['lat'].to_f
-        lng = a['lng'].to_f
-        results = geoloc(lat, lng, limit.to_i)
-        render :json => {'result': results, 'num': num, 'street': street, 'count': acount}
-      rescue Exception => e
-        render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
-      end
-      
-    end
-  end
-
-
-  def find
-    term = params[:term]
-    query = "SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id WHERE v.venuename like '% #{term} %' and a.version = (select max(version) from addresses)"
-    results = ActiveRecord::Base.connection.execute(query)
-    render :json => {'result': results, 'count': results.count}
-  end
 
   # try out a direct sql join.....
   def getj
