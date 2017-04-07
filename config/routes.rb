@@ -40,7 +40,7 @@ Rails.application.routes.draw do |map|
 
     get '/ping' => 'welcome#ping'
 
-    root 'welcome#index'
+    
   end
-
+  root 'welcome#index'
 end
