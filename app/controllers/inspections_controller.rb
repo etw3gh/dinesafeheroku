@@ -46,9 +46,14 @@ class InspectionsController < ApplicationController
 
   def find
     term = params[:term]
-    query = "SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id WHERE v.venuename like '% #{term} %' and a.version = (select max(version) from addresses)"
+    query <<-eoq
+      SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
+      WHERE v.venuename like '% #{term} %' or v.venuename like '%#{term} %'  
+      AND a.version = (SELECT MAX(version) FROM addresses)
+    eoq
     results = ActiveRecord::Base.connection.execute(query)
     render :json => {'result': results, 'count': results.count}
+    
   end  
 
   def get
