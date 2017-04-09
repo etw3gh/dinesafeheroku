@@ -32,14 +32,14 @@ class InspectionsController < ApplicationController
         lng = a['lng'].to_f
         results = geoloc(lat, lng, limit)
         result_obj = {'result': results, 'num': num, 'street': street, 'count': acount}
-        if variance > 0:
+        if variance > 0
           result_obj['variance'] = vint
         end
         render :json => result_obj
       rescue Exception => e
         render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
       end
-      
+        
     end
   end
 
