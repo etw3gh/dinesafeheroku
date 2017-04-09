@@ -47,7 +47,9 @@ class InspectionsController < ApplicationController
   def find
     term = params[:term]
     query = %{
-      SELECT * FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
+      SELECT v.id as vid, v.address_id as aid, v.venuename, v.eid, v.createdbyversion as v_version,
+      a.version as a_version, a.lat, a.lng, a.num, a.streetname, a.lo, a.hi, a.losuf, a.mun
+      FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
       WHERE v.venuename like '% #{term} %' or v.venuename like '%#{term} %'  
       AND a.version = (SELECT MAX(version) FROM addresses)
     }
