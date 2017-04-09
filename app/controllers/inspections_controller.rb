@@ -37,7 +37,7 @@ class InspectionsController < ApplicationController
         end
         render :json => result_obj
       rescue Exception => e
-        render :json => {'result': results, 'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
+        render :json => {'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
       end
         
     end
