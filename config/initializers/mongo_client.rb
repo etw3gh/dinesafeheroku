@@ -7,7 +7,8 @@ class MONGODB
     c = ENV['OC_MONGO_COLLECTION']
    
     client = Mongo::Client.new([ host ], :database=>admin, :user=>u, :password=>p)
-    db = client.database = db
+    client.use(db)
+    db = client.database
     db.collection_names
   end 
 end
