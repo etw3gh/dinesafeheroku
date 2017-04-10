@@ -1,3 +1,4 @@
 class MONGODB
-  cattr_accessor :client 
+  cattr_accessor :client
+   
 end

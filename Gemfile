@@ -16,30 +16,13 @@ gem 'mongo', '~> 2.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+
+# https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-#gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-
 gem 'pry-rails', :group => :development
 
 group :development, :test do
@@ -56,12 +39,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# dinesafe requirements
-
-# for web and xml parsing
 gem 'nokogiri'
 
 # wont be needed until we go beyond Toronto....
@@ -75,7 +52,8 @@ gem 'acts_as_singleton', '~> 0.0.8'
 # https://github.com/forgecrafted/finishing_moves
 # for numeric? and possibly more...
 gem 'finishing_moves'
-gem 'react-rails'
+
+#gem 'react-rails'
 
 gem 'rack-cors'
 

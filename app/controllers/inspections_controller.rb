@@ -46,7 +46,7 @@ class InspectionsController < ApplicationController
 
 
   def find
-    term = SqlInjection.sanitize params[:term] 
+    term = SqlInjection.sanitize(params[:term]) 
 
     if SqlInjection.contains_sql term
       render :json => {'status': 406, 'message': 'contains sql', 'term': term}
