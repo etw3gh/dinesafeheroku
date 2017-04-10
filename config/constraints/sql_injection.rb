@@ -1,5 +1,4 @@
-class SqlInjection
-  cattr_accessor :sanitize
+class SqlInjection extend self
 
   @keyword_query ="select word from pg_get_keywords()" 
 
@@ -14,7 +13,7 @@ class SqlInjection
     keywords.any? { |w| s.include? w } 
   end
 
-  def @@sanitize(s)
+  def sanitize(s)
     s.gsub("'", '').gsub("&", '').gsub(";", '').gsub('#', '')  
   end
 end
