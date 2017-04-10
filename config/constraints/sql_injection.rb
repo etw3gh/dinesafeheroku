@@ -14,7 +14,7 @@ class SqlInjection
     keywords.any? { |w| s.include? w } 
   end
 
-  def sanitize(s)
+  def @@sanitize(s)
     s.gsub("'", '').gsub("&", '').gsub(";", '').gsub('#', '')  
   end
 end
