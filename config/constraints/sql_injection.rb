@@ -2,7 +2,7 @@ class SqlInjection
 
   @keyword_query ="select word from pg_get_keywords()" 
 
-  def keywords
+  def self.keywords
     r = ActiveRecord::Base.connection.execute(@keyword_query)
 
     # return just the reserved keywords
