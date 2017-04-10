@@ -1,4 +1,4 @@
-require_relative('../../constraints/sql_injection.rb')
+require_relative('../../config/constraints/sql_injection.rb')
 require 'net/http'
 require 'uri'
 
