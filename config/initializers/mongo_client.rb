@@ -10,6 +10,6 @@ class MONGODB
     client.use(ds)
     db = client.database
     
-    {collections: db.collection_names, cobjs: db.collections, db: db}
+    {collections: db.collection_names, cobjs: db.collections}
   end 
 end
