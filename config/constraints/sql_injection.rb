@@ -1,4 +1,4 @@
-class SqlInjection extend self
+class SqlInjection
 
   @keyword_query ="select word from pg_get_keywords()" 
 
@@ -9,11 +9,11 @@ class SqlInjection extend self
     r.column_values(0)
   end
   
-  def contains_sql(s)
-    keywords.any? { |w| s.include? w } 
+  def self.contains_sql(s)
+    self.keywords.any? { |w| s.include? w } 
   end
 
-  def sanitize(s)
+  def self.sanitize(s)
     s.gsub("'", '').gsub("&", '').gsub(";", '').gsub('#', '')  
   end
 end
