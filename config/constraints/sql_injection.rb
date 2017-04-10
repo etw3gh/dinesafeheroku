@@ -10,11 +10,11 @@ class SqlInjection
     r.column_values(0)
   end
   
-  def contains_sql s
+  def contains_sql(s)
     keywords.any? { |w| s.include? w } 
   end
 
-  def sanitize s
+  def sanitize(s)
     s.gsub("'", '').gsub("&", '').gsub(";", '').gsub('#', '')  
   end
 end
