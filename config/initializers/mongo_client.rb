@@ -1,6 +1,5 @@
 class MONGODB
-  cattr_accessor :client
-  def client
+  def self.client
     host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
     u = ENV['OC_MONGO_USER']
     p = ENV['OC_MONGO_PASSWORD']

@@ -36,7 +36,7 @@ Rails.application.routes.draw do |map|
         get 'numbers'=> :numbers        
       end
     end
-
+    get '/mongo' => 'welcome#mongo'
     get '/ping' => 'welcome#ping'
 
     
