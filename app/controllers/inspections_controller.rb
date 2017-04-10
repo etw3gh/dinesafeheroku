@@ -1,3 +1,4 @@
+require_relative('../../constraints/sql_injection.rb')
 require 'net/http'
 require 'uri'
 
@@ -45,7 +46,12 @@ class InspectionsController < ApplicationController
 
 
   def find
-    term = params[:term]
+    term = SqlInjection.sanitize params[:term] 
+
+    if SqlInjection.contains_sql term
+      render :json => {'status': 406, 'message': 'contains sql', 'term': term}
+      return 
+    end
     query = %{
       SELECT v.id as vid, v.address_id as aid, v.venuename, v.eid, v.createdbyversion as v_version,
       a.version as a_version, a.lat, a.lng, a.num, a.streetname, a.lo, a.hi, a.losuf, a.mun
@@ -53,9 +59,9 @@ class InspectionsController < ApplicationController
       WHERE v.venuename like '% #{term} %' or v.venuename like '%#{term} %'  
       AND a.version = (SELECT MAX(version) FROM addresses)
     }
+
     results = ActiveRecord::Base.connection.execute(query)
     render :json => {'result': results, 'count': results.count}
-    
   end  
 
   def get
