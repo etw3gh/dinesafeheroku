@@ -9,7 +9,7 @@ class MONGODB
     client = Mongo::Client.new([ host ], :database=>db, :user=>u, :password=>p)
     #client.use(ds)
     db = client.database
-    db.collection_names.each |c|
+    db.collection_names.each do |c|
       puts c
     end
     {collections: db.collection_names}
