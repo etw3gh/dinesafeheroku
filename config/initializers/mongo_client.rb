@@ -1,8 +1,7 @@
 class MONGODB
   host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
-  u = ENV['OC_MONGO_USER']
+  u = ENV['OC_DS_USER']
   p = ENV['OC_MONGO_PASSWORD']
-
   c = ENV['OC_MONGO_COLLECTION']
   ds = ENV['OC_MONGO_DS']
   @client = Mongo::Client.new([ host ], :database=>ds, :user=>u, :password=>p)
