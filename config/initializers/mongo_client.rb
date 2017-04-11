@@ -5,9 +5,11 @@ class MONGODB
   db = ENV['OC_MONGO_DB']
   c = ENV['OC_MONGO_COLLECTION']
   ds = ENV['OC_MONGO_DS']
-  @client = Mongo::Client.new([ host ], :database=>db, :user=>u, :password=>p)
+  @client = Mongo::Client.new([ host ], :user=>u, :password=>p)
   
   def self.client
+    puts 'ds'
+    @client.use('dinesafe')
     db = @client.database
     dbs = @client.database_names
     dbs.each_with_index do |d, i|
@@ -16,8 +18,8 @@ class MONGODB
     db.collection_names.each_with_index do |c, i|
       puts "#{i} collection: #{c}"
     end
-
-    @client.use('dinesafe')
+    puts 'admin'
+    @client.use('admin')
     db = @client.database
     dbs = @client.database_names
     dbs.each_with_index do |d, i|
