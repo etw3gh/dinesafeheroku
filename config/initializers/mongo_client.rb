@@ -2,10 +2,10 @@ class MONGODB
   host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
   u = ENV['OC_MONGO_USER']
   p = ENV['OC_MONGO_PASSWORD']
-  db = ENV['OC_MONGO_DB']
+
   c = ENV['OC_MONGO_COLLECTION']
   ds = ENV['OC_MONGO_DS']
-  @client = Mongo::Client.new([ host ], :user=>u, :password=>p)
+  @client = Mongo::Client.new([ host ], :database=>ds, :user=>u, :password=>p)
   
   def self.client
     puts '---------------------ds-db'
@@ -19,16 +19,6 @@ class MONGODB
     db.collections.each_with_index do |c, i|
       puts "#{i} collection: #{c.name}"
     end
-    # puts 'admin'
-    # @client.use('admin')
-    # db = @client.database
-    # dbs = @client.database_names
-    # dbs.each_with_index do |d, i|
-    #   puts "#{i} db: #{d}"
-    # end
-    # db.collection_names.each_with_index do |c, i|
-    #   puts "#{i} collection: #{c}"
-    # end
 
     {collections: db.collection_names}
   end 
