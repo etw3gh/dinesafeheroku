@@ -8,7 +8,7 @@ class MONGODB
   
   def self.client
     puts '---------------------ds-db'
-    @client.use(:dinesafe)
+    #@client.use(:dinesafe)
     db = @client.database
     puts ">>>>>>>>>connected #{todb.name}"
 
