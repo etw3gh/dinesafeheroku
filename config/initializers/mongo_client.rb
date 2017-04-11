@@ -10,11 +10,8 @@ class MONGODB
     puts '---------------------ds-db'
     @client.use(:dinesafe)
     db = @client.database
-    puts db.name
-    dbs = @client.database_names
-    dbs.each_with_index do |d, i|
-      puts "#{i} db: #{d}"
-    end
+    puts ">>>>>>>>>connected #{todb.name}"
+
     db.collections.each_with_index do |c, i|
       puts "#{i} collection: #{c.name}"
     end
