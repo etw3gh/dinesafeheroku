@@ -1,7 +1,4 @@
 source 'https://rubygems.org'
-
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 
 # Use postgresql as the database for Active Record
@@ -9,13 +6,14 @@ gem 'rails', '~> 5.0.0'
 # DB is read only 
 gem 'pg', '~> 0.18'
 
+gem 'brakeman', :require => false
+
 # Use mongo for user settings and modifications
-# gem "mongoid", "~> 6.1.0"
 gem 'mongo', '~> 2.4'
 
-
-# Use Puma as the app server
 gem 'puma', '~> 3.0'
+
+# some views exist....
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -23,10 +21,10 @@ gem 'jquery-rails'
 
 # https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+
 gem 'pry-rails', :group => :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end
 
@@ -53,8 +51,5 @@ gem 'acts_as_singleton', '~> 0.0.8'
 # for numeric? and possibly more...
 gem 'finishing_moves'
 
-#gem 'react-rails'
-
 gem 'rack-cors'
-
 ruby '2.2.2'
