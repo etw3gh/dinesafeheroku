@@ -16,7 +16,7 @@ class MONGODB
     dbs.each_with_index do |d, i|
       puts "#{i} db: #{d}"
     end
-    db.collections.each_with_index do |c, i|
+    db.dinesafe.collections.each_with_index do |c, i|
       puts "#{i} collection: #{c.name}"
     end
     # puts 'admin'
