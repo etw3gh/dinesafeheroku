@@ -6,6 +6,6 @@ class WelcomeController < ApplicationController
     render :json => {status: 200, response: 'PONG'}
   end
   def mongo
-    render :json => {'m': MONGODB.client}
+    render :json => MONGODB.client
   end
 end

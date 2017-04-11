@@ -11,6 +11,7 @@ class MONGODB
     puts '---------------------ds-db'
     @client.use('dinesafe')
     db = @client.database
+    puts db
     dbs = @client.database_names
     dbs.each_with_index do |d, i|
       puts "#{i} db: #{d}"
