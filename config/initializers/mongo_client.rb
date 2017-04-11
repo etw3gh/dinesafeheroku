@@ -8,7 +8,7 @@ class MONGODB
   @client = Mongo::Client.new([ host ], :user=>u, :password=>p)
   
   def self.client
-    puts 'ds'
+    puts '---------------------ds-db'
     @client.use('dinesafe')
     db = @client.database
     dbs = @client.database_names
@@ -18,16 +18,16 @@ class MONGODB
     db.collection_names.each_with_index do |c, i|
       puts "#{i} collection: #{c}"
     end
-    puts 'admin'
-    @client.use('admin')
-    db = @client.database
-    dbs = @client.database_names
-    dbs.each_with_index do |d, i|
-      puts "#{i} db: #{d}"
-    end
-    db.collection_names.each_with_index do |c, i|
-      puts "#{i} collection: #{c}"
-    end
+    # puts 'admin'
+    # @client.use('admin')
+    # db = @client.database
+    # dbs = @client.database_names
+    # dbs.each_with_index do |d, i|
+    #   puts "#{i} db: #{d}"
+    # end
+    # db.collection_names.each_with_index do |c, i|
+    #   puts "#{i} collection: #{c}"
+    # end
 
     {collections: db.collection_names}
   end 
