@@ -18,6 +18,7 @@ class MONGODB
     end
 
     @client.use('dinesafe')
+    db = @client.database
     dbs = @client.database_names
     dbs.each_with_index do |d, i|
       puts "#{i} db: #{d}"
