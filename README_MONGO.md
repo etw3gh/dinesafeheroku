@@ -15,3 +15,46 @@ Add to .bashrc and Heroku settings according to your setup
 ## Connect script
 
     ./localmongo/mongo.sh
+
+## TODO connect params
+
+    ./localmongo/mongo.sh --admin | --ds
+
+## User Role (from admin login)
+
+Grant roles as required
+
+TODO: remove user Admin roles
+
+
+<!-- language: lang-none -->
+
+    db.system.users.find().pretty()
+    {
+        "_id" : "admin.admin" ...   
+    },
+    {
+        "_id" : "admin.ds",
+        "user" : "ds",
+        "db" : "dinesafe",
+        "credentials" : {...
+        },
+        "roles" : [
+            {
+                "role" : "readWrite",
+                "db" : "dinesafe"
+            },
+            {
+                "role" : "userAdminAnyDatabase",
+                "db" : "dinesafe"
+            },
+            {
+                "role" : "dbAdminAnyDatabase",
+                "db" : "dinesafe"
+            },
+            {
+                "role" : "readWriteAnyDatabase",
+                "db" : "dinesafe"
+            }
+        ]
+    }
