@@ -10,9 +10,11 @@ class MONGODB
     #client.use(ds)
     db = client.database
     dbs = client.database_names
-    puts dbs
-    db.collection_names.each do |c|
-      puts c
+    dbs.each_with_index do |d, i|
+      puts "#{i} db: #{d}"
+    end
+    db.collection_names.each_with_index do |c, i|
+      puts "#{i} collection: #{c}"
     end
     {collections: db.collection_names}
   end 
