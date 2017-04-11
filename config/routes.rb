@@ -35,8 +35,10 @@ Rails.application.routes.draw do |map|
         get 'streets' => :streets
         get 'numbers'=> :numbers        
       end
+      scope path: '/mongo', controller: :mongo do
+        get 'collections' => :collections
+      end
     end
-    get '/mongo' => 'welcome#mongo'
     get '/ping' => 'welcome#ping'
 
     

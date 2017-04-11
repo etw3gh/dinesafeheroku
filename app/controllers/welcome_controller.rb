@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   def ping
     render :json => {status: 200, response: 'PONG'}
   end
-  def mongo
-    render :json => MONGODB.client
+  def mongo_collections
+    render :json => MONGODB.collections
   end
 end
