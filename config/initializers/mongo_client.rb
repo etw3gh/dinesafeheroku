@@ -2,7 +2,7 @@ class MONGODB
   cattr_accessor :client, :ds  
   host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
   u = ENV['OC_DS_USER']
-  p = ENV['OC_MONGO_PASSWORD']
+  p = ENV['OC_MONGO_PWD']
   @dsadmin = ENV['OC_MONGO_COLLECTION']
   @@ds = ENV['OC_MONGO_DS']
 
