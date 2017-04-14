@@ -5,7 +5,7 @@ class MONGODB
   p = ENV['OC_MONGO_PWD']
   @dsadmin = ENV['OC_MONGO_COLLECTION']
   @@ds = ENV['OC_MONGO_DS']
-  
+  puts @@ds
   @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
   @db = @@client.database
 
