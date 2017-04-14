@@ -6,7 +6,7 @@ class MONGODB
   @dsadmin = ENV['OC_MONGO_COLLECTION']
   @@ds = ENV['OC_MONGO_DS']
 
-  @@client = Mongo::Client.new([ host ], :database=>ds, :user=>u, :password=>p)
+  @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
   @db = @@client.database
 
   def self.collections
