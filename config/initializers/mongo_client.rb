@@ -5,7 +5,7 @@ class MONGODB
   p = ENV['OC_MONGO_PWD']
   @dsadmin = ENV['OC_MONGO_COLLECTION']
   @@ds = ENV['OC_MONGO_DS']
-
+  
   @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
   @db = @@client.database
 
@@ -22,7 +22,7 @@ class MONGODB
       raise "document is not a Hash object. You sent me: #{doc.class}"
     end
     c = self.dsadmin
-    result = c.insert(doc)
+    result = c.insert_one(doc)
     puts result
     result
   end
