@@ -1,8 +1,8 @@
 # mongodb document naming schema
 # key value pair (:name_key, VALUE)
 # All Docs will have value for :name_key
-# All Docs will be listed as a class atribute(cattr) in this module
-module MongoDocs
+# All Docs will be listed as a class atribute(cattr) in this class
+class MongoDocs
   cattr_accessor :venue_type, :users
   attr_accessor: name_key
   @name_key = 'docname'
