@@ -3,7 +3,8 @@
 # All Docs will have value for :name_key
 # All Docs will be listed as a class atribute(cattr) in this module
 module MongoDocs
-  cattr_accessor :name_key, :venue_type, :users
+  cattr_accessor :venue_type, :users
+  attr_accessor: name_key
   @name_key = 'docname'
   @@venue_type = 'venue_type'
   @@users = 'users'
@@ -11,7 +12,7 @@ module MongoDocs
   def self.name_key
     @name_key
   end
-  def list_names
+  def self.list_names
     MONGODB.collection.class_variables
   end
 end
