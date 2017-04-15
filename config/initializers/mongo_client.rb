@@ -16,14 +16,17 @@ class MONGODB
   def self.dsadmin
     @db.collection(@dsadmin)
   end
+  
+  def self.find(docname)
+    c = self.dsadmin
+    c.find
+  end
 
   def self.insert(doc)
     if !doc.is_a? Hash
       raise "document is not a Hash object. You sent me: #{doc.class}"
     end
     c = self.dsadmin
-    result = c.insert_one(doc)
-    puts result
-    result
+    c.insert_one(doc)
   end
 end

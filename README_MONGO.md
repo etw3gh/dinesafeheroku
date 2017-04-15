@@ -20,11 +20,11 @@ Add to .bashrc and Heroku settings according to your setup
 
     ./localmongo/mongo.sh --admin | --ds
 
-## User Role (from admin login)
+## User Roles
 
 Grant roles as required
 
-TODO: remove user Admin roles
+db.grantRolesToUser({'USER', [{'role': 'roleName', 'db': 'DATABASE'}]})
 
 
 <!-- language: lang-none -->
