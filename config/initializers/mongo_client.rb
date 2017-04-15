@@ -17,7 +17,7 @@ class MONGODB
     @db.collection(@dsadmin)
   end
   
-  def self.find(docname)
+  def self.find(docname=nil)
     c = self.dsadmin
     c.find
   end
