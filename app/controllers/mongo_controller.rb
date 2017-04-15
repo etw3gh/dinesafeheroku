@@ -5,7 +5,7 @@ class MongoController < ApplicationController
       'dsadmin': {
         db: MONGODB.ds,
         count: dsadmin_count,
-        
+        docs: MONGODB.find
       } 
     }
   end
