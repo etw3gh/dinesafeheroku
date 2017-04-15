@@ -8,7 +8,7 @@ module MongoDocs
   @@venue_type = 'venue_type'
   @@users = 'users'
 
-  def self name_key
+  def self.name_key
     @name_key
   end
   def list_names
