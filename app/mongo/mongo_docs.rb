@@ -4,7 +4,6 @@
 # All Docs will be listed as a class atribute(cattr) in this class
 class MongoDocs
   cattr_accessor :venue_type, :users
-  attr_accessor: name_key
   @name_key = 'docname'
   @@venue_type = 'venue_type'
   @@users = 'users'
