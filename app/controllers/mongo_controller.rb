@@ -4,7 +4,8 @@ class MongoController < ApplicationController
     render :json => {
       'dsadmin': {
         db: MONGODB.ds,
-        count: dsadmin_count
+        count: dsadmin_count,
+        
       } 
     }
   end
