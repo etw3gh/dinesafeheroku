@@ -11,7 +11,8 @@ class MongoDocs
   def self.name_key
     @name_key
   end
-  def self.list_names
-    MONGODB.collection.class_variables
+
+  def self.doc_names
+    self.class_variables
   end
 end
