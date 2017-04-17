@@ -16,7 +16,7 @@ For a list of document names
 
 Doc names are stored as a value under key 'docname'
 
-    MongoDocs.name_key
+    MongoDocs.name_key = 'docname'
 
     {docname: 'users', users: [ {}, {}...], some_obj: {}  ...}
 
