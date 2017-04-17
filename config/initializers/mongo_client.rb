@@ -23,12 +23,18 @@ class MONGODB
   end
 
   # finds a document (TODO) or gets all if nill
-  def self.find(collection_name, docname=nil, include_id=false)
+  def self.find(collection_name, docname=nil, show_id=false)
     c = self.collection(collection_name)
+
+    id_obj = {'_id' => 0}
+    if !show_id
+      id_obj = {}
+    end
+
     if docname.nil?
-      c.find({}, {'_id' => include_id})
+      c.find({}, id_obj)
     else
-      c.find({@name_key => docname}, {'_id' => include_id})
+      c.find({}, id_obj)
     end
   end
 
