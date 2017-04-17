@@ -32,6 +32,8 @@ class MONGODB
     c.insert_one(doc)
   end
 
-  def self.initDocs
+  # ensures the required document structure exists
+  def self.init_docs
+    puts MongoDocs.doc_names
   end
 end
