@@ -44,7 +44,9 @@ For this reason it made sense to use another method to store user added data.
 
 #### MongoDB (User Data)
 
-Self hosted on an Ubuntu server, will be connecting via the mongoid gem
+Self hosted on an Ubuntu server
+
+Using the standard mongo gem
 
 See README_MONGO.md for more details
 
