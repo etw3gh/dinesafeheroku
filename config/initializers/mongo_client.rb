@@ -15,18 +15,6 @@ class MONGODB
   
   @name_key = MongoDocs.name_key
 
-
-  puts '-----------------initializing mongo docs'
-  # initialize documents on app load
-
-  MongoDocs.doc_names.each do |doc|
-    puts doc
-    d = self.find(doc)
-    if d.count == 0
-      self.insert({@name_key => doc})
-    end
-  end
-
   def self.collections
     @db.collection_names
   end
@@ -47,4 +35,18 @@ class MONGODB
     @@c.insert_one(doc)
   end
 
+  # ensures the required document structure exists
+  def self.init_docs
+    MongoDocs.doc_names.each do |doc|
+      puts doc
+      d = self.find(doc)
+      if d.count == 0
+        self.insert({@name_key => doc})
+      end
+    end
+  end
 end
+
+## run init statically
+
+MONGODB.init_docs
