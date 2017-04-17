@@ -27,7 +27,7 @@ class MONGODB
     if docname.nil?
       @c.find
     else
-      @c.find(@name_key: docname)
+      @c.find({@name_key: docname})
     end
   end
 
