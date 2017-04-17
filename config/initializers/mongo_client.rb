@@ -14,7 +14,7 @@ class MONGODB
     if MongoCollections.list.include? name
       return @db.collection(name)
     else
-      raise NonStandardCollectionErrror
+      raise NonStandardCollectionError
     end
   end
 

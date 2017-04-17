@@ -10,8 +10,8 @@ class MongoCollections
   cattr_accessor :venue_type, :users
   @@venue_type = 'venue_type'
   @@users = 'users'
-  
-  @collection_names = [@@venue_type, @@users]
+  @@admin = ENV['OC_MONGO_COLLECTION']
+  @collection_names = [@@venue_type, @@users, @@admin]
 
   def self.list
     @collection_names
