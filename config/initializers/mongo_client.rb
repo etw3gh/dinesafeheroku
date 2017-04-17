@@ -28,11 +28,18 @@ class MONGODB
     end
   end
 
+  # use update to add data. this is only used to init docs for now
   def self.insert(doc)
     if !doc.is_a? Hash
       raise "document is not a Hash object. You sent me: #{doc.class}"
     end
     @@c.insert_one(doc)
+  end
+
+  def self.update(docname, update_key, update_data)
+    n = {@name_key => docname}
+    u = {update_key => update_data}
+    @@c.update(n, '$set' => u)
   end
 
   # ensures the required document structure exists
@@ -45,7 +52,3 @@ class MONGODB
     end
   end
 end
-
-## run init statically
-
-MONGODB.init_docs
