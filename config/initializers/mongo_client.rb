@@ -11,6 +11,8 @@ class MONGODB
 
   # using one collection with a known set of documents for this project
   @c = self.collection
+  
+  @name_key = MongoDocs.name_key
 
   def self.collection
     @db.collection(@collection_name)
@@ -22,7 +24,11 @@ class MONGODB
 
   # finds a document (TODO) or gets all if nill
   def self.find(docname=nil)
-    @c.find
+    if docname.nil?
+      @c.find
+    else
+      @c.find(@name_key: docname)
+    end
   end
 
   def self.insert(doc)
@@ -34,6 +40,10 @@ class MONGODB
 
   # ensures the required document structure exists
   def self.init_docs
-    puts MongoDocs.doc_names
+    MongoDocs.doc_names.each do |doc|
+      puts doc
+      d = self.find(doc)
+      puts d.count
+    end
   end
 end
