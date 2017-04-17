@@ -26,7 +26,7 @@ class MONGODB
   def self.find(collection_name)
     c = self.collection(collection_name)
     id_obj = {'_id' => 0}
-    c.find.projection(id_obj)
+    c.find({}).projection(id_obj)
   end
 
   # use update to add data. this is only used to init docs for now
