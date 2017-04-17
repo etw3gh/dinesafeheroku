@@ -27,7 +27,7 @@ class MONGODB
     c = self.collection(collection_name)
 
     id_obj = {'_id' => 0}
-    if !show_id
+    if show_id
       id_obj = {}
     end
 
