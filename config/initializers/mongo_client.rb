@@ -39,7 +39,7 @@ class MONGODB
   def self.update(docname, update_key, update_data)
     n = {@name_key => docname}
     u = {update_key => update_data}
-    @@c.update(n, '$set' => u)
+    @@c.update_one(n, '$set' => u)
   end
 
   # ensures the required document structure exists
