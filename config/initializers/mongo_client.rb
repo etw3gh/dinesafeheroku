@@ -38,7 +38,6 @@ class MONGODB
   # ensures the required document structure exists
   def self.init_docs
     MongoDocs.doc_names.each do |doc|
-      puts doc
       d = self.find(doc)
       if d.count == 0
         self.insert({@name_key => doc})
