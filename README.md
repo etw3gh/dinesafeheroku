@@ -38,7 +38,7 @@ PostgreSQL reserved keywords are obtained by this query:
 #### PostgreSQL (Read Only)
 
 Because the dataset is very large and takes a lot of time to process on a local machine,
-Its written to Heroku via pgpush, which erases existing data.
+it is written to Heroku via pgpush, which erases existing data.
 
 For this reason it made sense to use another method to store user added data.
 
