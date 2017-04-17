@@ -15,7 +15,7 @@ class MONGODB
   @name_key = MongoDocs.name_key
   
   # initialize documents on app load
-  self.init_docs
+  MONGODB.init_docs
 
 
   def self.collections
