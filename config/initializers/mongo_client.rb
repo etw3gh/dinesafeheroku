@@ -1,22 +1,23 @@
 class MONGODB
   cattr_accessor :client, :ds, :c  
-  host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
-  u = ENV['OC_DS_USER']
-  p = ENV['OC_MONGO_PWD']
-  @collection_name = ENV['OC_MONGO_COLLECTION']
-  @@ds = ENV['OC_MONGO_DS']
-  puts @@ds
-  @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
-  @db = @@client.database
+  def initialize
+    host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
+    u = ENV['OC_DS_USER']
+    p = ENV['OC_MONGO_PWD']
+    @collection_name = ENV['OC_MONGO_COLLECTION']
+    @@ds = ENV['OC_MONGO_DS']
+    puts @@ds
+    @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
+    @db = @@client.database
 
-  # using one collection with a known set of documents for this project
-  @@c = @db.collection(@collection_name)
-  
-  @name_key = MongoDocs.name_key
-  
-  # initialize documents on app load
-  MONGODB.init_docs
-
+    # using one collection with a known set of documents for this project
+    @@c = @db.collection(@collection_name)
+    
+    @name_key = MongoDocs.name_key
+    
+    # initialize documents on app load
+    self.init_docs
+  end
 
   def self.collections
     @db.collection_names
