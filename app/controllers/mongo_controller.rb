@@ -1,6 +1,6 @@
 class MongoController < ApplicationController
   def collections
-    dsadmin_count = MONGODB.collection.count
+    dsadmin_count = MONGODB.c.count
     render :json => {
       'dsadmin': {
         db: MONGODB.ds,

@@ -1,5 +1,5 @@
 class MONGODB
-  cattr_accessor :client, :ds  
+  cattr_accessor :client, :ds, :c  
   host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
   u = ENV['OC_DS_USER']
   p = ENV['OC_MONGO_PWD']
@@ -10,13 +10,9 @@ class MONGODB
   @db = @@client.database
 
   # using one collection with a known set of documents for this project
-  @c = self.collection
+  @@c = @db.collection(@collection_name)
   
   @name_key = MongoDocs.name_key
-
-  def self.collection
-    @db.collection(@collection_name)
-  end
   
   def self.collections
     @db.collection_names
@@ -25,9 +21,9 @@ class MONGODB
   # finds a document (TODO) or gets all if nill
   def self.find(docname=nil)
     if docname.nil?
-      @c.find
+      @@c.find
     else
-      @c.find({@name_key=> docname})
+      @@c.find({@name_key=> docname})
     end
   end
 
@@ -35,7 +31,7 @@ class MONGODB
     if !doc.is_a? Hash
       raise "document is not a Hash object. You sent me: #{doc.class}"
     end
-    @c.insert_one(doc)
+    @@c.insert_one(doc)
   end
 
   # ensures the required document structure exists
