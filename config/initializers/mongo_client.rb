@@ -23,26 +23,29 @@ class MONGODB
   end
 
   # finds a document (TODO) or gets all if nill
-  def self.find(collection, docname=nil)
+  def self.find(collection_name, docname=nil)
+    c = self.collection(collection_name)
     if docname.nil?
-      collection.find
+      c.find
     else
-      collection.find({@name_key => docname})
+      c.find({@name_key => docname})
     end
   end
 
   # use update to add data. this is only used to init docs for now
-  def self.insert(collection, doc)
+  def self.insert(collection_name, doc)
+    c = self.collection(collection_name)
     if !doc.is_a? Hash
       raise TypeError, "document is not a Hash object. You sent me: #{doc.class}"
     end
-    collection.insert_one(doc)
+    c.insert_one(doc)
   end
 
-  def self.update(collection, docname, update_key, update_data)
+  def self.update(collection_name, docname, update_key, update_data)
+    c = self.collection(collection_name)  
     n = {@name_key => docname}
     u = {update_key => update_data}
-    collection.update_one(n, '$set' => u)
+    c.update_one(n, '$set' => u)
   end
 
   # ensures the required db structure exists
