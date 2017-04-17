@@ -27,7 +27,7 @@ class MONGODB
     if docname.nil?
       @@c.find
     else
-      @@c.find({@name_key=> docname})
+      @@c.find({@name_key => docname})
     end
   end
 
@@ -44,7 +44,7 @@ class MONGODB
       puts doc
       d = self.find(doc)
       if d.count == 0
-        self.insert({@name_key: doc})
+        self.insert({@name_key => doc})
       end
     end
   end
