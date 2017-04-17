@@ -14,6 +14,10 @@ class MONGODB
   
   @name_key = MongoDocs.name_key
   
+  # initialize documents on app load
+  self.init_docs
+
+
   def self.collections
     @db.collection_names
   end
@@ -39,7 +43,9 @@ class MONGODB
     MongoDocs.doc_names.each do |doc|
       puts doc
       d = self.find(doc)
-      puts d.count
+      if d.count == 0
+        self.insert({@name_key: doc})
+      end
     end
   end
 end
