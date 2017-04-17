@@ -2,23 +2,11 @@
 
 ## Structure 
 
-### Collection
+### Collections (Tables)
 
-ENV['OC_MONGO_COLLECTION']
-
-### Documents (Tables)
-
-See app/mongo/mongo_docs.rb
-
-For a list of document names
-
-    MongoDocs.doc_names
-
-Doc names are stored as a value under key 'docname'
-
-    MongoDocs.name_key = 'docname'
-
-    {docname: 'users', users: [ {}, {}...], some_obj: {}  ...}
+App Admin collection: ENV['OC_MONGO_COLLECTION']
+Venue Types: 'venue_types'
+Users: 'users'
 
 ## ENV variables
 
