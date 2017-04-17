@@ -9,27 +9,27 @@ class MONGODB
   @@client = Mongo::Client.new([ host ], :database=>@@ds, :user=>u, :password=>p)
   @db = @@client.database
 
-  def self.collections
-    @db.collection_names
-  end
+  # using one collection with a known set of documents for this project
+  @c = self.collection
 
-  # using one collection with many documents for this project
   def self.collection
     @db.collection(@collection_name)
   end
   
+  def self.collections
+    @db.collection_names
+  end
+
   # finds a document (TODO) or gets all if nill
   def self.find(docname=nil)
-    c = self.collection
-    c.find
+    @c.find
   end
 
   def self.insert(doc)
     if !doc.is_a? Hash
       raise "document is not a Hash object. You sent me: #{doc.class}"
     end
-    c = self.collection
-    c.insert_one(doc)
+    @c.insert_one(doc)
   end
 
   # ensures the required document structure exists

@@ -39,9 +39,10 @@ Add to .bashrc and Heroku settings according to your setup
 
     ./localmongo/mongo.sh
 
-## TODO connect params
+## admin connection
 
-    ./localmongo/mongo.sh --admin | --ds
+    ./localmongo/mongo.sh --admin [ or -a ] 
+
 
 ## User Roles
 
