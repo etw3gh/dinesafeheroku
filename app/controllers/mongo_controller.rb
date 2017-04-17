@@ -1,3 +1,6 @@
+# helper endpoint for use in Postman
+# shows the content of all app collections with some stats
+
 class MongoController < ApplicationController
   def collections
     col_count = MONGODB.collections.count

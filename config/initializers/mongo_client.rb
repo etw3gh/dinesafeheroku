@@ -25,8 +25,11 @@ class MONGODB
   # finds a document (TODO) or gets all if nill
   def self.find(collection_name)
     c = self.collection(collection_name)
+
+    # TODO construct filter object with params
+    filter_obj = {}
     id_obj = {'_id' => 0}
-    c.find({}).projection(id_obj)
+    c.find(filter_obj).projection(id_obj)
   end
 
   # use update to add data. this is only used to init docs for now
