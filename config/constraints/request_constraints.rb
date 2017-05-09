@@ -16,8 +16,12 @@ module Restrictions
     api_key = request.headers['X-Api-Key']
 
     if r.nil?
+      puts '*************** NIL REFERER ****************'
+      puts r 
       return api_key == Rails.configuration.api_key
     else
+      puts '*************** REFERER FOUND ****************'
+      puts r 
       white_list = Rails.configuration.white_list
       return r.in?(white_list)
     end     
