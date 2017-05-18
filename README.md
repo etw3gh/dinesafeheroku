@@ -6,6 +6,10 @@ Dinesafe is a system for restaurant inspections for the city of Toronto
 
 ### Security
 
+#### HTTPS only
+
+Registered clients (web apps from specific domains) are forced to use https
+
 #### Request Layer
 
 Calling the API by AJAX is locked to certain domains (web apps), which are stored in an environment variable
