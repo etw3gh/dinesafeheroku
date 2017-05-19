@@ -10,6 +10,19 @@ Dinesafe is a system for restaurant inspections for the city of Toronto
 
 Registered clients (web apps from specific domains) are forced to use https
 
+<!-- language: lang-none -->
+
+    // http://stackoverflow.com/a/4723302/6826791
+    forceHttps = () => {
+        const notHttps = location.protocol != 'https:'
+        const notLocal = location.href.indexOf('localhost') === -1
+
+        if (notHttps && notLocal) {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    }
+
+
 #### Request Layer
 
 Calling the API by AJAX is locked to certain domains (web apps), which are stored in an environment variable
