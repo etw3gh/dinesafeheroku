@@ -16,14 +16,19 @@ module Restrictions
     api_key = request.headers['X-Api-Key']
 
     if r.nil?
+      # If a web service url is plugged into a browser, this case will trigger
       puts '*************** NIL REFERER ****************'
       puts r 
       return api_key == Rails.configuration.api_key
     else
       puts '*************** REFERER FOUND ****************'
       puts r 
-      white_list = Rails.configuration.white_list
-      return r.in?(white_list)
+      
+      # With react router, the refering url will now have routes, so we cant check for an exact match 
+      # Instead must check if the referer has a substring starting with any url in the whitelist
+      white_list = Rails.configuration.white_list.split('|').strip
+
+      return white_list.any? { |white_listed_url| r.starts_with?(white_listed_url) }
     end     
   end
 end
