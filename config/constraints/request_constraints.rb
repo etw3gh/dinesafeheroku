@@ -26,9 +26,9 @@ module Restrictions
       
       # With react router, the refering url will now have routes, so we cant check for an exact match 
       # Instead must check if the referer has a substring starting with any url in the whitelist
-      white_list = Rails.configuration.white_list.split('|').strip
+      white_list = Rails.configuration.white_list.split('|')
 
-      return white_list.any? { |white_listed_url| r.starts_with?(white_listed_url) }
+      return white_list.any? { |white_listed_url| r.starts_with?(white_listed_url.strip) }
     end     
   end
 end
