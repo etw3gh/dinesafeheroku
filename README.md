@@ -75,15 +75,27 @@ Geographic data is available as a zipped group of shapefiles.
 
 Since Dinesafe data is restricted to the city of Toronto we can use the shapefiles to get geolocation data without Google Maps.
 
-### Python services
+### Data Aquisition (in progress)
 
-A [linux service](https://github.com/openciti/dinesafemicroservices) monitors the city website for new version of the geo and xml data.
+Replaces python web services
 
-The XML data is unzipped and the file is saved with a timestamp in the filename.
+Shapefiles may still be converted to json by an existing python script
 
-The shapefiles are processed and saved in a more useful JSON format.
+Data is downloaded to a temp directory that is not pushed to github or heroku
 
-A [microservice](https://openciti.ca/cgi-bin/ds/all) exposes the timestamped filenames for the rails rake tasks.
+Acquisiton tasks run on a dev server and not heroku
+
+
+Temp dir structure:
+
+<!-- language: lang-none -->
+downloads/
+├── dinesafe
+│   ├── xml
+│   └── zip
+└── geo
+    ├── xml
+    └── zip
 
 
 ### Local DB and Heroku DB
