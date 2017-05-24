@@ -94,7 +94,7 @@ downloads/
 │   ├── xml
 │   └── zip
 └── geo
-    ├── xml
+    ├── json
     └── zip
 
 
