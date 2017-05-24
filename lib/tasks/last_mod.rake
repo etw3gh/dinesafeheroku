@@ -9,11 +9,11 @@ namespace :header do
     s = Acquisitions.instance.shapefiles
     puts d[:url]
     puts s[:url]
-    #xml_dl = Downloader.new(durl)
-    #shape_dl = Downloader.new(surl)
-    #puts xml_dl.header
-    #puts '------'
-    #puts shape_dl.header
+    xml_dl = Downloader.new(d[:url])
+    shape_dl = Downloader.new(s[:url])
+    puts xml_dl.header
+    puts '------'
+    puts shape_dl.header
   end
 
 end
