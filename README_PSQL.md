@@ -21,3 +21,19 @@ Inspection and geograhic data is processed locally then pushed to heroku.
 ### ENV variables
 
     $DINESAFE_DATABASE_PASSWORD should be defined in ~/.bashrc
+
+### Shell Access
+
+    psql -U ds -d dinesafe_development
+
+### psql users from shell
+
+    \du
+
+<!-- language: lang-none -->
+
+                                    List of roles
+    Role name |                         Attributes                         | Member of 
+    -----------+------------------------------------------------------------+-----------
+    ds        | Superuser, Create role, Create DB                          | {}
+    postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}

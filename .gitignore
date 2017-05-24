@@ -8,10 +8,13 @@
 /.bundle
 
 # Ignore downloaded dinesafe data
+# All paths given here as reference 
 /downloads/dinesafe/zip/*
 /downloads/dinesafe/xml/*
 /downloads/geo/zip/*
-/downloads/dinesafe/json/*
+/downloads/geo/json/*
+/downloads/*
+
 
 # Ignore all logfiles and tempfiles.
 /log/*
