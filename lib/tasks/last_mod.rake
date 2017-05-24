@@ -5,9 +5,12 @@ namespace :header do
 
   desc "get last mod for xml and geo"
   task :lastmods => :environment do
-    a = Acquisitions.instance
-    xml_dl = Downloader.new(a.dinesafe['url'])
-    shape_dl = Downloader.new(a.shapefiles['url'])
+    durl = Acquisitions.instance.dinesafe['url']
+    surl = Acquisitions.instance.shapefiles['url']
+    puts durl
+    puts surl
+    xml_dl = Downloader.new(durl)
+    shape_dl = Downloader.new(surl)
     puts xml_dl.header
     puts '------'
     puts shape_dl.header
