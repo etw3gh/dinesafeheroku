@@ -42,6 +42,9 @@ gem 'nokogiri'
 # wont be needed until we go beyond Toronto....
 # gem 'mechanize'
 
+# for auto downloads (getting rid of python web service)
+gem 'rufus-scheduler'
+
 # for file downloads
 gem 'faraday'
 
