@@ -89,13 +89,13 @@ Acquisiton tasks run on a dev server and not heroku
 Temp dir structure:
 
 <!-- language: lang-none -->
-downloads/
-├── dinesafe
-│   ├── xml
-│   └── zip
-└── geo
-    ├── json
-    └── zip
+    downloads/
+    ├── dinesafe
+    │   ├── xml
+    │   └── zip
+    └── geo
+        ├── json
+        └── zip
 
 
 ### Local DB and Heroku DB
