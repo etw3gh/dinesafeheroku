@@ -1,2 +1,8 @@
 dinesafemicroservices
 localpsql
+
+# Ignore downloaded dinesafe data
+/downloads/dinesafe/zip/*
+/downloads/dinesafe/xml/*
+/downloads/geo/zip/*
+/downloads/dinesafe/json/*

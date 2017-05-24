@@ -7,6 +7,12 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore downloaded dinesafe data
+/downloads/dinesafe/zip/*
+/downloads/dinesafe/xml/*
+/downloads/geo/zip/*
+/downloads/dinesafe/json/*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
