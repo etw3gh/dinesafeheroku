@@ -7,13 +7,13 @@ namespace :header do
   task :lastmods => :environment do
     d = Acquisitions.instance.dinesafe
     s = Acquisitions.instance.shapefiles
-    puts d[:url]
-    puts s[:url]
+    puts 
+    puts 
     xml_dl = Downloader.new(d[:url])
     shape_dl = Downloader.new(s[:url])
-    puts xml_dl.header
+    puts "#{d[:url]}: #{xml_dl.header['last-modified']}"
     puts '------'
-    puts shape_dl.header
+    puts "#{s[:url]}: #{shape_dl.header['last-modified']}"
   end
 
 end
