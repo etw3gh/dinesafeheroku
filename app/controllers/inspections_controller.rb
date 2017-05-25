@@ -186,12 +186,4 @@ class InspectionsController < ApplicationController
 
   end
 
-
-  # try out a direct sql join.....
-  def getj
-    vid = params[:venue_id]
-    query = "SELECT * FROM venues v INNER JOIN inspections i ON v.eid=i.eid INNER JOIN addresses a ON a.id=v.address_id WHERE v.id=#{vid}"
-    results = ActiveRecord::Base.connection.execute(query)
-    render :json => results
-  end
 end
