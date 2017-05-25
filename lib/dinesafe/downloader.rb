@@ -49,7 +49,7 @@ class Downloader
     Net::HTTP.start(u.host) do |http|
         resp = http.get(u.path)
     end
-    open(full_path, 'w') do |f|
+    open(full_path, 'wb') do |f|
       f.puts resp.body
     end
   end
