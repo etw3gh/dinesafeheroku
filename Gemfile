@@ -54,5 +54,7 @@ gem 'acts_as_singleton', '~> 0.0.8'
 # for numeric? and possibly more...
 gem 'finishing_moves'
 
+gem 'rails_best_practices'
+
 gem 'rack-cors'
 ruby '2.2.2'
