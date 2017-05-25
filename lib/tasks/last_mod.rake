@@ -15,4 +15,10 @@ namespace :header do
     puts "#{s[:url]}: #{shape_dl.last_mod}"
   end
 
+  task :dl => :environment do
+    d = Acquisitions.instance.dinesafe
+    fp = "#{d[:path]}/zip/#{d[:filename]}"
+    xml_dl = Downloader.new(d[:url])
+    xml_dl.dl(fp)
+  end
 end

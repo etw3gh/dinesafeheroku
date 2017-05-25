@@ -43,6 +43,16 @@ class Downloader
     resp  
   end
 
+  def dl(full_path)
+    u = URI.parse(:url)
+    resp = nil
+    Net::HTTP.start(u.host) do |http|
+        resp = http.get(u.path)
+    end
+    open(full_path, 'w') do |f|
+      f.puts resp.body
+    end
+  end
 
 
 end
