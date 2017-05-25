@@ -18,7 +18,7 @@ class Downloader
   end
 
   def last_mod
-    self.header['last-modified']
+    self.header['last-modified'].to_datetime.to_i
   end
 
   def get_data_object(service_url)
