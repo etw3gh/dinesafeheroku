@@ -16,5 +16,5 @@ class CreateArchives < ActiveRecord::Migration[5.0]
   end
   def down
     drop_table archivess
-  end  
+  end
 end

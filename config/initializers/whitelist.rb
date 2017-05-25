@@ -14,7 +14,6 @@ Rails.application.config.api_key = ENV['DINESAFE_API_KEY']
 # protocol and trailing / must be present
 # ie: https://hello.com/
 # or: http://localhost:8000/
-# in bashrc or Heroku settings these urls would be 
+# in bashrc or Heroku settings these urls would be
 # export WHITELIST='https://hello.com/|http://localhost:8000/'
-whitelist = 
-Rails.application.config.white_list = ENV['WHITELIST'] || [] 
+whitelist = Rails.application.config.white_list = ENV['WHITELIST'] || []

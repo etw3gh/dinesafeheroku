@@ -2,11 +2,11 @@ require_relative('../dinesafe/downloader')
 require 'json'
 
 # refactor: jsonpath is a url not a filename
-# this will break discontinued code 
+# this will break discontinued code
 class UpdateGeo
   attr_accessor :geo, :verbose, :timestamp
 
-  def initialize(jsonpath, verbose, timestamp)    
+  def initialize(jsonpath, verbose, timestamp)
     downloader = Downloader.new(jsonpath)
     @geo = downloader.get_data_object(jsonpath)
 
@@ -16,15 +16,15 @@ class UpdateGeo
 
   def process
     @geo.keys.each do |street|
-      
+
       address = @geo[street]
-     
+
       address.each do |apoint|
         lat = apoint['lat']
         lng = apoint['lng']
 
-        num = apoint['num'].downcase       
-        
+        num = apoint['num'].downcase
+
         lo = apoint['lo']
         hi = apoint['hi']
 
@@ -37,7 +37,7 @@ class UpdateGeo
         streetcleaner = street.downcase.remove("'")
 
         a = Address.where(:streetname=>streetcleaner, :lat=>lat, :lng=>lng, :num=>num, :lo=>lo, :hi=>hi, :losuf=>los, :hisuf=>his, :mun=>mun, :locname=>loc).first_or_create(version: @timestamp)
-        
+
         puts "#{num} #{street} <---> #{a.id}: locname #{loc}, lat: #{lat} lng: #{lng} saved" if @verbose
       end
     end

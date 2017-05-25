@@ -20,7 +20,7 @@ class InspectionsController < ApplicationController
       end
       address = Address.where(q)
     else
-      address = Address.where("num='#{num}' AND streetname like '#{street}%'")       
+      address = Address.where("num='#{num}' AND streetname like '#{street}%'")
     end
 
     if address.blank?
@@ -40,29 +40,28 @@ class InspectionsController < ApplicationController
       rescue Exception => e
         render :json => {'num': num, 'street': street, 'lat': lat, 'lng': lng, 'e': e}
       end
-        
     end
   end
 
 
   def find
-    term = SqlInjection.sanitize(params[:term]) 
+    term = SqlInjection.sanitize(params[:term])
 
     if SqlInjection.contains_sql term
       render :json => {'status': 406, 'message': 'contains sql', 'term': term}
-      return 
+      return
     end
     query = %{
       SELECT v.id as vid, v.address_id as aid, v.venuename, v.eid, v.createdbyversion as v_version,
       a.version as a_version, a.lat, a.lng, a.num, a.streetname, a.lo, a.hi, a.losuf, a.mun
-      FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
-      WHERE v.venuename like '% #{term} %' or v.venuename like '%#{term} %'  
+      FROM venues v INNER JOIN addresses a ON v.address_id=a.id
+      WHERE v.venuename like '% #{term} %' or v.venuename like '%#{term} %'
       AND a.version = (SELECT MAX(version) FROM addresses)
     }
 
     results = ActiveRecord::Base.connection.execute(query)
     render :json => {'result': results, 'count': results.count}
-  end  
+  end
 
   def get
     json_result = {}
@@ -75,7 +74,7 @@ class InspectionsController < ApplicationController
 
     vid = params[:vid]
     venue_result = Venue.where(:id => vid)
-    
+
     if venue_result.blank?
       render :json => {status: 204, message: 'venue not found', vid: vid}
       return
@@ -84,14 +83,14 @@ class InspectionsController < ApplicationController
     venue = venue_result.first
     eid = venue['eid']
     aid = venue['address_id']
-    
+
     ilist = []
     if status == 'all'
       ilist = Inspection.where(:eid=>eid).order(:date=>:desc)
     else
       ilist = Inspection.where(:eid=>eid, :status=>status).order(:date=>:desc)
     end
-    
+
     address = Address.where(:id=>aid).order('version DESC').first
     json_result['address_id'] = aid
     json_result['venue_id'] = vid
@@ -112,7 +111,7 @@ class InspectionsController < ApplicationController
   def statuses
     render :json => Inspection.distinct.pluck(:status)
   end
-  
+
 
 
   def islocalhost(ip)
@@ -125,12 +124,12 @@ class InspectionsController < ApplicationController
     term = params[:term]
     qlimit = 50
 
-    venue_query = "SELECT lat, lng FROM venues v INNER JOIN addresses a ON v.address_id=a.id 
-                   WHERE 
-                   v.venuename like '%#{term}%' AND a.num='#{num}' AND a.streetname like '#{street}%'  
+    venue_query = "SELECT lat, lng FROM venues v INNER JOIN addresses a ON v.address_id=a.id
+                   WHERE
+                   v.venuename like '%#{term}%' AND a.num='#{num}' AND a.streetname like '#{street}%'
                    AND a.version = (select max(version) from addresses)"
     venue = ActiveRecord::Base.connection.execute(venue_query).first
-    
+
     if venue.nil? || venue.empty?
       render :json => {'result': 'no results', 'vq': venue_query, 'term': term}
       return
@@ -141,7 +140,7 @@ class InspectionsController < ApplicationController
     #nearby_query = "SELECT v.venuename as name, a.num || ' ' || a.streetname as address, #{distance_clause(lat,lng)} FROM addresses a INNER JOIN venues v ON v.address_id=a.id ORDER BY distance ASC LIMIT #{qlimit}"
     results = geoloc(lat,lng,qlimit)
     render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'term': term}}
-    
+
   end
 
   def near
@@ -153,14 +152,14 @@ class InspectionsController < ApplicationController
     dlng = -79.5075579683
 
     lat = params[:lat]
-    lng = params[:lng]  
-    
-    #get lat/lng from ip 
+    lng = params[:lng]
+
+    #get lat/lng from ip
     if !lat.numeric? || !lng.numeric?
       if islocalhost(ip)
         lat = dlat
         lng = dlng
-      else 
+      else
         uri = URI.parse(ipapi)
         http = Net::HTTP.new(uri.host, uri.port)
         request = Net::HTTP::Get.new(uri.request_uri)
@@ -186,12 +185,12 @@ class InspectionsController < ApplicationController
     render :json => {'result': results, 'count': results.count, 'units': 'KM', 'query': {'lat': lat, 'lng': lng, 'limit': qlimit, 'ip': ip}}
 
   end
-  
+
 
   # try out a direct sql join.....
   def getj
     vid = params[:venue_id]
-    query = "SELECT * FROM venues v INNER JOIN inspections i ON v.eid=i.eid INNER JOIN addresses a ON a.id=v.address_id WHERE v.id=#{vid}" 
+    query = "SELECT * FROM venues v INNER JOIN inspections i ON v.eid=i.eid INNER JOIN addresses a ON a.id=v.address_id WHERE v.id=#{vid}"
     results = ActiveRecord::Base.connection.execute(query)
     render :json => results
   end

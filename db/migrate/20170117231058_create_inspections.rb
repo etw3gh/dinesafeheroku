@@ -22,7 +22,7 @@ class CreateInspections < ActiveRecord::Migration[5.0]
   end
 end
 =begin
-    
+
 <ROW>
   <ROW_ID>2</ROW_ID>
   <ESTABLISHMENT_ID>1222579</ESTABLISHMENT_ID>
@@ -40,5 +40,5 @@ end
   <AMOUNT_FINED> </AMOUNT_FINED>
 </ROW>
 
-    
+
 =end

@@ -8,9 +8,9 @@ constraint_list = [Restrictions]
 appContraints = Constraints.new(constraint_list)
 
 Rails.application.routes.draw do |map|
-   
+
   # outer contraint covers request based constraints
-  constraints appContraints do 
+  constraints appContraints do
 
     # inner contraint covers url segments
     constraints(SegmentRegex.segments) do
@@ -20,20 +20,19 @@ Rails.application.routes.draw do |map|
         get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
-        get 'byaddr/:num/:street/:var/:lim' => :byaddr 
+        get 'byaddr/:num/:street/:var/:lim' => :byaddr
         get 'find/:term' => :find
         get 'get/:vid/:status' => :get
         get 'near/:lat/:lng/:lim' => :near
         get 'nearsearch' => :nearsearch
-        
-        
+
         get 'statuses' => :statuses
       end
       scope path: '/addresses', controller: :addresses do
-        get 'munstreets' => :munstreets 
+        get 'munstreets' => :munstreets
         get 'mun' => :mun
         get 'streets' => :streets
-        get 'numbers'=> :numbers        
+        get 'numbers'=> :numbers
       end
       scope path: '/mongo', controller: :mongo do
         get 'collections' => :collections
@@ -41,7 +40,7 @@ Rails.application.routes.draw do |map|
     end
     get '/ping' => 'welcome#ping'
 
-    
+
   end
   root 'welcome#index'
 end

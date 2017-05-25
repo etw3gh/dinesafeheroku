@@ -26,7 +26,7 @@ namespace :trunc do
   desc "trunc error tables"
   task :err => :environment do
     truncate(Notfound)
-    truncate(Multiple)    
+    truncate(Multiple)
   end
 
   desc "truncate venues table"

@@ -7,11 +7,10 @@ class UpdateDinesafe
     # each inspection is a row
 
     @noko = Nokogiri::XML(open(xmlpath)).css('ROWDATA ROW')
-    @timestamp = timestamp 
+    @timestamp = timestamp
 
     @verbose = verbose
   end
-   
 
   def process
     addr = nil
@@ -19,7 +18,7 @@ class UpdateDinesafe
     rid = nil
     eid = nil
     iid = nil
-    etype = nil 
+    etype = nil
     status = nil
     details = nil
     date = nil
@@ -33,7 +32,7 @@ class UpdateDinesafe
       multiple_error = false
       notfound_error = false
       version =  @timestamp
-      rid =      row.xpath('ROW_ID').text.to_i    
+      rid =      row.xpath('ROW_ID').text.to_i
       eid =      row.xpath('ESTABLISHMENT_ID').text.to_i
       iid =      row.xpath('INSPECTION_ID').text.to_i
       name =     row.xpath('ESTABLISHMENT_NAME').text.strip.split.join(' ').downcase
@@ -56,13 +55,13 @@ class UpdateDinesafe
       address_id = nil
       begin
         # strip out hypenated, take lo num. remove non numeric
-        sn = street_number.split('-').first.gsub(/\D/, '') 
+        sn = street_number.split('-').first.gsub(/\D/, '')
 
         # case when street_number is numeric
         if street_number.numeric?
-          orquery = "num='#{street_number}' or lo=#{sn}"          
-          addr = Address.where(:streetname=>street_name).where(orquery).first        
-        else 
+          orquery = "num='#{street_number}' or lo=#{sn}"
+          addr = Address.where(:streetname=>street_name).where(orquery).first
+        else
           if street_number.index('-').nil?
             #split num and letter
             arr = split_alpha_from_numeric(street_number)
@@ -74,7 +73,7 @@ class UpdateDinesafe
               puts "bad split on #{street_number} #{streetname}"
             end
           else
-            puts "found hypenated #{street_number}" 
+            puts "found hypenated #{street_number}"
 
             lo, hi = street_number.split('-')
             if lo.numeric?
@@ -93,7 +92,7 @@ class UpdateDinesafe
         end
 
         # if still no hits, try finding number within range
-        # try to find within range betwen hi and low 
+        # try to find within range betwen hi and low
         if addr.nil?
           range_query = "lo < #{sn} and hi >= #{sn}"
           add = Address.where(:streetname=>street_name).where(range_query)
@@ -134,7 +133,7 @@ class UpdateDinesafe
         venue_id = -1
         msg = "Venue Creation Error for iid #{iid}: a.id #{addr.id}, venue: #{name}, eid: #{eid}\n"
         puts msg if @verbose
-        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create        
+        BadVenue.where(:address_id=>address_id, :venuename=>name, :eid=>eid, :createdbyversion=>@timestamp).first_or_create
       else
         # define venue_id for inspection
         venue_id = venue.id
@@ -143,7 +142,7 @@ class UpdateDinesafe
         end
         if notfound_error
           Notfound.where(:timestamp=>@timestamp, :iid=>iid, :eid=>eid, :num=>street_number, :streetname=>street_name, :lo=>lo, :hi=>hi, :losuf=>losuf, :hisuf=>hisuf).first_or_create
-        end          
+        end
       end
 
       insp = Inspection.where(:rid => rid,
@@ -162,7 +161,7 @@ class UpdateDinesafe
 
       if insp.nil?
         msg = "Inspection Error for iid: #{iid}, rid: #{rid}, venue: #{name}"
-        puts msg if @verbose        
+        puts msg if @verbose
       end
 
     end
@@ -175,7 +174,7 @@ class UpdateDinesafe
       puts "#{multiple} Venues with muliple addresses not found. An approximate one has been assigned"
     end
   end
-  
+
   def split_alpha_from_numeric(s)
     s.scan(/\d+|\D+/)
   end
@@ -187,8 +186,8 @@ class UpdateDinesafe
   def split_address_from_street_number(address)
     street_name = nil
     street_number = nil
-    split_add = address.split  
-    
+    split_add = address.split
+
     split_add.each do |token|
       # allow for hypenated numbers or suffixed values such as 2b
       if token[0].numeric? && street_number.nil?
@@ -196,7 +195,7 @@ class UpdateDinesafe
         split_add.delete(token)
         street_name = split_add.join(' ')
         break
-      end 
+      end
     end
     return street_number.downcase.strip, street_name.downcase.strip
   end

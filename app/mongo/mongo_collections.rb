@@ -2,7 +2,7 @@
 # To perform db operatinons use the MONGODB static class in mongo_client
 
 
-# Collections for User Data 
+# Collections for User Data
 #     Venue Type: venue_type
 #     Users: users
 

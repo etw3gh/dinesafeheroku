@@ -3,7 +3,7 @@ class AddressesController < ApplicationController
   # retuns the municipalities in alpha order
   def mun
     render :json => Address.order(:mun).distinct.pluck(:mun)
-  end 
+  end
 
   def munstreets
     mun = params[:mun]

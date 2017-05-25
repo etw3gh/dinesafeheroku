@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-class Downloader 
+class Downloader
   attr_accessor :url
   def initialize(u = nil)
     @url = u
@@ -40,7 +40,7 @@ class Downloader
     Net::HTTP.start(url.path) do |http|
         resp = http.get(path)
     end
-    resp  
+    resp
   end
 
 

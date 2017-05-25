@@ -1,6 +1,6 @@
 class MONGODB
-  cattr_accessor :client, :ds, :c  
-  
+  cattr_accessor :client, :ds, :c
+
   host = "#{ENV['OC_MONGO_IP']}:#{ENV['OC_MONGO_PORT']}"
   u = ENV['OC_DS_USER']
   p = ENV['OC_MONGO_PWD']
@@ -42,7 +42,7 @@ class MONGODB
   end
 
   def self.update(collection_name, docname, update_key, update_data)
-    c = self.collection(collection_name)  
+    c = self.collection(collection_name)
     n = {@name_key => docname}
     u = {update_key => update_data}
     c.update_one(n, '$set' => u)

@@ -1,10 +1,7 @@
 # as an experiment, split up an address into Street and Address point
 # A Street is the street name and municipality
 # An Address point is street number, latitude and longitude
-# 
 # More info is available from the city provided shapefile
-#
-
 class CreateAddresses < ActiveRecord::Migration[5.0]
   def change
     if !table_exists?('addresses')
@@ -15,7 +12,7 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
 
         t.float   :lat
         t.float   :lng
-        
+
         t.integer :lo
         t.integer :hi
 

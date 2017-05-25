@@ -14,6 +14,6 @@ class MongoController < ApplicationController
       render_obj[c]['count'] = docs.count
       render_obj[c]['documents'] = docs
     end
-    render :json => render_obj 
+    render :json => render_obj
   end
 end

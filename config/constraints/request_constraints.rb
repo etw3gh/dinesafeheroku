@@ -8,27 +8,27 @@
 #
 module Restrictions
   def self.matches? request
-    # 
-    # if referer is null, then check for API KEY  
-    # otherwise, restrict to domains used by web apps on whitelist 
+    #
+    # if referer is null, then check for API KEY
+    # otherwise, restrict to domains used by web apps on whitelist
     r = request.referer
-    
+
     api_key = request.headers['X-Api-Key']
 
     if r.nil?
       # If a web service url is plugged into a browser, this case will trigger
       puts '*************** NIL REFERER ****************'
-      puts r 
+      puts r
       return api_key == Rails.configuration.api_key
     else
       puts '*************** REFERER FOUND ****************'
-      puts r 
-      
-      # With react router, the refering url will now have routes, so we cant check for an exact match 
+      puts r
+
+      # With react router, the refering url will now have routes, so we cant check for an exact match
       # Instead must check if the referer has a substring starting with any url in the whitelist
       white_list = Rails.configuration.white_list.split('|')
 
       return white_list.any? { |white_listed_url| r.starts_with?(white_listed_url.strip) }
-    end     
+    end
   end
 end

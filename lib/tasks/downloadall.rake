@@ -3,7 +3,7 @@ require_relative('../dinesafe/update_dinesafe')
 require_relative('../dinesafe/update_geo')
 require 'open-uri'
 
-namespace :get do 
+namespace :get do
 
   @all_archives_service = 'https://openciti.ca/cgi-bin/ds/all'
   @ocurl = 'https://openciti.ca/ds/'
@@ -23,7 +23,7 @@ namespace :get do
 
   def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
-  end 
+  end
 
   def no_utc(d)
     d.to_s.chomp(' UTC')
@@ -43,13 +43,13 @@ namespace :get do
     else
       raise "Error getting filenames from web service #{@all_archives_service}. status: #{status}\n"
     end
-  end 
+  end
 
   def print_filenames_return_menu_dict(printmenuoptions=true)
     menu_dict = {}
     begin
       xml, geo = get_archive_filenames
-      
+
       # menu indices (add one for filename pos in arrays)
       xml_start = 0
       geo_start = xml.count
@@ -59,16 +59,16 @@ namespace :get do
       puts "XML"
       xml.to_enum.with_index(1) do |xml_file, i|
         xml_archive = Archive.where(:filename => xml_file).first
-        menu_dict[i] = xml_file        
-        if xml_archive.blank? 
+        menu_dict[i] = xml_file
+        if xml_archive.blank?
           puts "#{i}: #{xml_file}, processed: FALSE"
         else
           pstart = no_utc(xml_archive.startprocessing)
           pend = no_utc(xml_archive.endprocessing)
           processed = xml_archive.processed ? "TRUE" : "FALSE"
           count = xml_archive.count
-          puts "#{i}: #{xml_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"          
-        end 
+          puts "#{i}: #{xml_file}, processed: #{processed}, count: #{count}, processed start: #{pstart}, processed end: #{pend}"
+        end
       end
 
       puts "\nGEO"
@@ -77,13 +77,13 @@ namespace :get do
         menu_dict[i] = geo_file
         if geo_archive.blank?
           puts "#{i}: #{geo_file}, processed: FALSE"
-        else          
+        else
           pstart = no_utc(geo_archive.startprocessing)
           pend = no_utc(geo_archive.endprocessing)
           processed = geo_archive.processed ? "TRUE" : "FALSE"
           count = geo_archive.count
           puts "#{i}: #{geo_file}, processed: #{processed}, count: #{count}, start: #{pstart}, end: #{pend}"
-        end 
+        end
 
       end
 
@@ -96,14 +96,14 @@ namespace :get do
         puts menu_dict[all_xml]
         puts menu_dict[all_geo]
         puts menu_dict[all_archives]
-        puts 
+        puts
         puts menu_dict['q']
       end
-      return xml, geo, menu_dict      
+      return xml, geo, menu_dict
     rescue Exception => e
       puts e.message
       puts e.backtrace.inspect
-    end    
+    end
   end
 
 
@@ -120,7 +120,7 @@ namespace :get do
     # if the input is not an array, put wrap it in one
     if !geo.is_a? Array
       geo = [geo]
-    end 
+    end
     geo.each do |geo_file|
       puts geo_file
       geo_path = @ocurl + geo_file
@@ -135,7 +135,7 @@ namespace :get do
         record_count = Address.where(:version => timestamp).count
         begin
           if Archive.where(:filename => geo_file).blank?
-            #insert case 
+            #insert case
             puts 'inserting...'
             Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
@@ -153,10 +153,10 @@ namespace :get do
           end
         rescue ActiveRecord::RecordNotUnique => e
           puts "FAILED TO ADD ARCHIVE RECORD: #{geo_file} #{e.message}"
-        end        
-      end        
+        end
+      end
     end
-  end 
+  end
 
   # accepts an array of URI's or a single URI
   def process_xml(xml)
@@ -178,7 +178,7 @@ namespace :get do
         record_count = Inspection.where(:version => timestamp).count
         begin
           if Archive.where(:filename => xml_file).blank?
-            #insert case 
+            #insert case
             Archive.where(:startprocessing => start_processing,
                           :endprocessing => end_processing,
                           :count => record_count,
@@ -196,32 +196,32 @@ namespace :get do
           puts "FAILED TO ADD ARCHIVE RECORD: #{xml_file} #{e.message}"
         end
       end
-    end    
-  end 
+    end
+  end
 
   desc "update xml files"
   task :xml => :environment do
     xml, geo = get_archive_filenames
-    process_xml(xml)    
+    process_xml(xml)
   end
 
   desc "update geo files"
   task :geo => :environment do
     xml, geo = get_archive_filenames
-    process_geo(geo)    
+    process_geo(geo)
   end
 
   desc "interactive rake task to process one or more archives or archive groups"
   task :menu => :environment do
     bye = "\nBye"
     xml, geo, menu_dict = print_filenames_return_menu_dict
-    
+
     # if input is not an int, then exit
     begin
       input = STDIN.gets.strip.to_i
     rescue
       puts bye
-      return 
+      return
     end
 
     if menu_dict.has_key?(input)
@@ -240,9 +240,9 @@ namespace :get do
         elsif choice.include?('geo.json')
           process_geo(choice)
         else
-          puts 'invalid choice' 
+          puts 'invalid choice'
         end
-      end    
+      end
     else
       puts bye
     end
