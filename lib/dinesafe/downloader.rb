@@ -17,6 +17,9 @@ class Downloader
     connection.get.headers
   end
 
+  def last_mod(header)
+    header['last-modified']
+  end
 
   def get_data_object(service_url)
     uri = URI.parse(service_url)
