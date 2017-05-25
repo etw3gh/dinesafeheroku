@@ -38,9 +38,6 @@ Rails.application.routes.draw do |map|
         get 'collections' => :collections
       end
     end
-    get '/ping' => 'welcome#ping'
-
-
   end
   root 'welcome#index'
 end
