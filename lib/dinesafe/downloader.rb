@@ -17,8 +17,8 @@ class Downloader
     connection.get.headers
   end
 
-  def last_mod(header)
-    header['last-modified']
+  def last_mod
+    self.header['last-modified']
   end
 
   def get_data_object(service_url)
