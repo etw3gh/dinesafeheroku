@@ -1,4 +1,0 @@
-module TwitterHelper
-
-
-end
