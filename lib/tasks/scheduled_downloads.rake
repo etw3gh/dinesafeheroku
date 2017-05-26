@@ -48,12 +48,14 @@ namespace :sched do
     if (ld_lastmod_xml < xml_last_mod)
       md5 = get_file(@xml_url, @xml_zip, xml_dl, xml_last_mod)
       LatestDownload.instance.update(:lastmodxml=>xml_last_mod, :md5xml=>md5)
+      puts ("xml file downloaded")
     end
 
     # repeat for geo data
     if (ld_lastmod_geo < shape_last_mod)
       md5 = get_file(@geo_url, @geo_zip, shape_dl, shape_last_mod)
       LatestDownload.instance.update(:lastmodgeo=>shape_last_mod, :md5geo=>md5)
+      puts ("geo file downloaded")
     end
   end
 
