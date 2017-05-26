@@ -29,7 +29,10 @@ namespace :unzip do
       # form timestamp path
       ts_path = "#{@geo_zip}#{ts}"
 
-      @FH.extract_zip(@geo_zip, ts_path)
+      # form zip path
+      zip_path = "#{@geo_zip}#{f}"
+
+      @FH.extract_zip(zip_path, ts_path)
     end
   end
 end
