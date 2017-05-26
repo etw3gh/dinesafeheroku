@@ -8,6 +8,7 @@ namespace :jsonify do
 
   task :geo => :environment do
     puts ARGV.inspect
+    puts ARGV.count
     # source = '{}{}/{}'.format(@geo_shp, :timestamp, @geo_fn)
     # py = 'python3 ../../python/shaperip.py {} {}'.format(source, @geo_txt)
     # system(py)
