@@ -35,10 +35,13 @@ namespace :unzip do
       # make a directory from the timestamp to hold the shapefiles
       @FH.make_dir(ts_path)
 
-      Zip::File.open(zip_path) do |archive_file|
-        puts "extracting: #{archive_file.name}"
-        dest_path = "#{ts_path}/#{archive_file.name}"
-        archive_file.extract(archive_file, dest_path) unless File.exist?(dest_path)
+      # https://stackoverflow.com/a/37195592/6826791
+      Zip::File.open(zip_path) do |archive|
+        archive.each do |archive_file|
+          puts "extracting: #{archive_file.name}"
+          dest_path = "#{ts_path}/#{archive_file.name}"
+          archive_file.extract(archive_file, dest_path) unless File.exist?(dest_path)
+        end
       end
     end
   end
