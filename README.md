@@ -94,6 +94,7 @@ Temp dir structure:
     │   ├── xml
     │   └── zip
     └── geo
+        ├── shp
         ├── json
         └── zip
 

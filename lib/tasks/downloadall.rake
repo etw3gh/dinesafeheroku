@@ -1,4 +1,6 @@
 require_relative('../dinesafe/downloader')
+require_relative('../acquisitions')
+require_relative('../file_helper')
 require_relative('../dinesafe/update_dinesafe')
 require_relative('../dinesafe/update_geo')
 require 'open-uri'
@@ -31,6 +33,8 @@ namespace :get do
 
   # if status == 200: returns xml, geo arrays of filenames
   # if status != 200: throws exception
+
+  # TODO: MODIFY THIS TO READ FROM LOCAL DIRECTORIES, NOT A WEB SERVICE
   def get_archive_filenames
     downloader = Downloader.new()
     archive_response = downloader.get_data_object(@all_archives_service)
@@ -47,7 +51,32 @@ namespace :get do
   end
 
 
+  # one off task. converting the python service into rails
+  # downloads the files on the helper server to the local rails server
+  # goal is to modify other rake tasks to seek files locally instead of on the server
+  task :getoc => :environment do
+    xml, geo = get_archive_filenames
+    xml_acq = Acquisitions.instance.dinesafe
+    geo_acq = Acquisitions.instance.shapefiles
+    self.dl_list(xml, xml_acq[:textfiles])
+    self.dl_list(geo, geo_acq[:textfiles])
+  end
   
+  # refactored out of :getoc task
+  def dl_list(dl_files, text_path)
+    file_helper = FileHelper.new
+
+    dl_files.each do |dl_file|
+      url = "#{@ocurl}#{dl_file}"
+      d = Downloader.new(url)
+
+      # remove pythyon .0 timestamp artifact from filename
+      filename_zero_stripped = file_helper.rmzero(dl_file)
+
+      local_path = "#{text_path}#{filename_zero_stripped}"
+      d.download(local_path)
+  end
+
   def print_filenames_return_menu_dict(printmenuoptions=true)
     menu_dict = {}
     begin
@@ -109,13 +138,6 @@ namespace :get do
     end
   end
 
- 
-  task :filenames => :environment do
-    xml, geo = get_archive_filenames
-    puts xml
-    puts '---'
-    puts geo
-  end
 
   # an administrative helper
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"

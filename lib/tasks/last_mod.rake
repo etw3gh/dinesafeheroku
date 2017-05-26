@@ -1,6 +1,7 @@
 require_relative('../dinesafe/downloader')
 require_relative('../acquisitions')
 
+
 namespace :header do
 
   desc "get last mod for xml and geo"
@@ -15,6 +16,7 @@ namespace :header do
     puts "#{s[:url]}: #{shape_dl.last_mod}"
   end
 
+  # test method. delete TODO
   task :dl => :environment do
     d = Acquisitions.instance.dinesafe
     fp = "#{d[:path]}/zip/#{d[:filename]}"

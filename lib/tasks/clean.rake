@@ -1,3 +1,4 @@
+require_relative('../file_helper')
 # collection of one off rake tasks
 # used rarely or only one time
 namespace :clean do
@@ -12,8 +13,12 @@ namespace :clean do
 
   desc "remove .0 from timestamped filenames i Archive"
   task :rem0 => :environment do
+    file_helper = FileHelper.new
     Archive.all.each do |a|
-      fn = a.filename.sub('.0', '')
+      
+      #remove .0 from python generated timestamped filename
+      fn = file_helper.rmzero(a.filename)
+      
       a.update_attribute(:filename, fn)
     end
   end

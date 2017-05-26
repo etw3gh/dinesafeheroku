@@ -4,6 +4,19 @@ require 'singleton'
 class Acquisitions
   include Singleton
 
+
+  """
+    downloads
+    ├── dinesafe
+    │   ├── xml
+    │   └── zip
+    │       └── dinesafe.xml
+    └── geo
+        ├── shp
+        ├── json
+        └── zip
+  """
+
   def initialize
     @assets_root = 'downloads/'
   end
@@ -13,22 +26,25 @@ class Acquisitions
   #TODO combine shapefiles into toronto
   #toronto
   def shapefiles
+    geo_root = "#{@assets_root}geo/",
     {
       url: 'http://opendata.toronto.ca/gcc/address_points_wgs84.zip',
-      path: "#{@assets_root}dinesafe/shapefiles",
       filename: 'ADDRESS_POINT_WGS84.shp',
-      archive: "#{@assets_root}dinesafe/shapefiles/archives",
+      archives: "#{@geo_root}zip/",
+      textfiles: "#{@geo_root}json/",
+      shapefiles: "#{@geo_root}shp/",
       category: 'shapefile',
       region: 'Toronto'
     }
   end
 
   def dinesafe
+    ds_root = "#{@assets_root}dinesafe/"
     {
       url: 'http://opendata.toronto.ca/public.health/dinesafe/dinesafe.zip',
-      path: "#{@assets_root}dinesafe",
       filename: 'dinesafe.xml',
-      archive: "#{@assets_root}dinesafe/archives",
+      archives: "#{@ds_root}zip/",
+      textfiles: "#{@ds_root}xml/",
       category: 'dinesafe',
       region: 'Toronto'
     }

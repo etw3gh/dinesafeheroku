@@ -35,7 +35,7 @@ class Downloader
 
   # downloads a file located at @url. Saved to full_path
   # determines if the file is text or binary from its file extension
-  def dl(full_path)
+  def download(full_path)
     fh = FileHelper.new
     file_mode = fh.write_mode(full_path)
     u = URI.parse(@url)

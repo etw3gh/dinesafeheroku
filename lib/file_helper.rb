@@ -13,4 +13,10 @@ class FileHelper
       return 'wb'
     end
   end
+
+  # remove pythyon .0 timestamp artifact from filename
+  # strips whitespace and lowercases filename
+  def rmzero(filename)
+    filename.sub('.0', '').strip.downcase
+  end
 end
