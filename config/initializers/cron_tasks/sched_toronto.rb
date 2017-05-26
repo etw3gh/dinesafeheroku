@@ -5,7 +5,7 @@
 # Rufus Scheduler will execute the code in its block at that time
 
 cron_hour = 16
-cron_min = 30
+cron_min = 45
 cron_job = "#{cron_min} #{cron_hour} * * 1-5"
 #             mm          hh             m-f
 
