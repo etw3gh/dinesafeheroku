@@ -26,7 +26,7 @@ class Acquisitions
   #TODO combine shapefiles into toronto
   #toronto
   def shapefiles
-    geo_root = "#{@assets_root}geo/",
+    geo_root = "#{@assets_root}geo/"
     {
       url: 'http://opendata.toronto.ca/gcc/address_points_wgs84.zip',
       filename: 'ADDRESS_POINT_WGS84.shp',
