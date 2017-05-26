@@ -60,13 +60,12 @@ namespace :sched do
       geo_downloaded = true
     end
 
-
+    xout = xml_downloaded ? '' : 'NOT '
+    gout = geo_downloaded ? '' : 'NOT '
     puts '\n\n----------------'
     puts 'SCHEDULED DL OUTCOME:'
-    xout = 'NOT ' if !xml_downloaded
-    gout = 'NOT ' if !geo_downloaded
-    puts 'xml file #{xout}downloaded'
-    puts 'geo file #{gout}downloaded'
+    puts "xml file #{xout}downloaded"
+    puts "geo file #{gout}downloaded"
     puts '----------------\n'
   end
 
