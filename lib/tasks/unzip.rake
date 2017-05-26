@@ -38,7 +38,7 @@ namespace :unzip do
       Zip::File.open(zip_path) do |archive_file|
         puts "extracting: #{archive_file.name}"
         dest_path = "#{ts_path}/#{archive_file.name}"
-        archive_file.extract(dest_path)
+        archive_file.extract(archive_file, dest_path) unless File.exist?(dest_path)
       end
     end
   end
