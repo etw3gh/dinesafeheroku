@@ -23,9 +23,6 @@ namespace :get do
 
   @file_helper = FileHelper.new
 
-  # make available to all methods
-  @filenames = get_filenames
-
   def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end
@@ -67,7 +64,7 @@ namespace :get do
   end
 
   task :local => :environment do
-    puts filenames
+    puts get_filenames
   end
 
   # refactored out of :getoc task
