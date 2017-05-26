@@ -28,6 +28,7 @@ namespace :get do
   def no_utc(d)
     d.to_s.chomp(' UTC')
   end
+
   # if status == 200: returns xml, geo arrays of filenames
   # if status != 200: throws exception
   def get_archive_filenames
@@ -108,10 +109,14 @@ namespace :get do
     end
   end
 
+ 
+  task :filenames => :environment do
+    puts get_archive_filenames
+  end
 
   # an administrative helper
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
-  task :filenames => :environment do
+  task :fileinfo => :environment do
     #print filenames without menu options (all xml, all geo, quit)
     print_filenames_return_menu_dict(false)
   end

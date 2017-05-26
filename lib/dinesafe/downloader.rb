@@ -1,6 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require_relative('../file_helper')
 
 class Downloader
   attr_accessor :url
@@ -32,14 +33,17 @@ class Downloader
     JSON.parse(res.body)
   end
 
-  # downloads a binary file located at @url. Saved to full_path
+  # downloads a file located at @url. Saved to full_path
+  # determines if the file is text or binary from its file extension
   def dl(full_path)
+    fh = FileHelper.new
+    file_mode = fh.write_mode(full_path)
     u = URI.parse(@url)
     resp = nil
     Net::HTTP.start(u.host) do |http|
         resp = http.get(u.path)
     end
-    open(full_path, 'wb') do |f|
+    open(full_path, file_mode) do |f|
       f.puts resp.body
     end
   end
