@@ -20,11 +20,12 @@ namespace :unzip do
   end
 
   task :geo => :environment do
+    puts(@geo_zip)
     @FH.get_filenames(@geo_zip).each do |f|
-
+      puts(f)
       # retrieve timestamp encoded in filename
       ts = @FH.extract_timestamp(f)
-      
+      puts(ts)
       # form timestamp path
       ts_path = "#{@geo_zip}#{ts}"
 
