@@ -21,9 +21,10 @@ namespace :sched do
   @FH = FileHelper.new
 
   tast :resetdl => :environment do
-    LatestDownload.instance.delete
+    # only seems to work from the console
+    #LatestDownload.instance.delete
+    LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
   end
-
 
   task :dl => :environment do
 
@@ -54,12 +55,14 @@ namespace :sched do
     # if local last mod is less than server last mod, then downloader
     # first run will always download because it is set to zero
     if (ld_lastmod_xml < xml_last_mod)
-      get_file(@xml_url, @xml_zip, xml_dl, xml_last_mod)
+      md5 = get_file(@xml_url, @xml_zip, xml_dl, xml_last_mod)
+      LatestDownload.instance.update(:lastmodxml=>xml_last_mod, :md5xml=>md5)
     end
 
     # repeat for geo data
     if (ld_lastmod_geo < shape_last_mod)
-      get_file(@geo_url, @geo_zip, shape_dl, shape_last_mod)
+      md5 = get_file(@geo_url, @geo_zip, shape_dl, shape_last_mod)
+      LatestDownload.instance.update(:lastmodgeo=>shape_last_mod, :md5geo=>md5)
     end
   end
 
@@ -69,7 +72,7 @@ namespace :sched do
     path = "#{zip_path}#{ts_fn}"
     downloader.download(path)
     md5 = Digest::MD5.file(path).hexdigest
-    LatestDownload.instance.update(:lastmodxml=>last_mod, :md5xml=>md5)
+    md5
   end
 
 end
