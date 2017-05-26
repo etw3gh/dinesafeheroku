@@ -50,18 +50,6 @@ namespace :get do
     end
   end
 
-
-  # one off task. converting the python service into rails
-  # downloads the files on the helper server to the local rails server
-  # goal is to modify other rake tasks to seek files locally instead of on the server
-  task :oc => :environment do
-    xml, geo = get_archive_filenames
-    xml_acq = Acquisitions.instance.dinesafe
-    geo_acq = Acquisitions.instance.shapefiles
-    self.dl_list(xml, xml_acq[:textfiles])
-    self.dl_list(geo, geo_acq[:textfiles])
-  end
-  
   # refactored out of :getoc task
   def dl_list(dl_files, text_path)
     file_helper = FileHelper.new
@@ -77,6 +65,19 @@ namespace :get do
       d.download(local_path)
     end
   end
+  
+  # one off task. converting the python service into rails
+  # downloads the files on the helper server to the local rails server
+  # goal is to modify other rake tasks to seek files locally instead of on the server
+  task :oc => :environment do
+    xml, geo = get_archive_filenames
+    xml_acq = Acquisitions.instance.dinesafe
+    geo_acq = Acquisitions.instance.shapefiles
+    self.dl_list(xml, xml_acq[:textfiles])
+    self.dl_list(geo, geo_acq[:textfiles])
+  end
+  
+
 
   def print_filenames_return_menu_dict(printmenuoptions=true)
     menu_dict = {}
