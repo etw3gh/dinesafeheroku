@@ -30,9 +30,18 @@ class FileHelper
     end
     files
   end
-  
+
   # works for url and filename
   def extract_timestamp(filename)
     filename.split('/').last.split('_').first.split('.').first
+  end
+
+  def extract_filename(url)
+    url.split('/').last.strip.downcase
+  end
+
+  # unique could be a unix timestamp or other unique string
+  def make_unique_filename(unique, s)
+    "#{unique}_#{s}"
   end
 end
