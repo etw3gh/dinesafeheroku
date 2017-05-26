@@ -20,6 +20,6 @@ namespace :sched do
     ld = LatestDownload.instance
     puts ld
     puts ld.blank?
-    puts ld.nil
+    puts ld.nil?
   end
 end
