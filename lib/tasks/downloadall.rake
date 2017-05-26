@@ -60,10 +60,10 @@ namespace :get do
     gtxt = file_helper.get_filenames(geo_acq[:textfiles])
     xarch = file_helper.get_filenames(xml_acq[:archives])
     xtxt = file_helper.get_filenames(xml_acq[:textfiles])
-    data_obj['geo']['archives'].concat(garch)
-    data_obj['geo']['textfiles'].concat(gtxt)
-    data_obj['xml']['archives'].concat(xarch)
-    data_obj['xml']['textfiles'].concat(xtxt)
+    data_obj[:geo][:archives].concat(garch)
+    data_obj[:geo][:textfiles].concat(gtxt)
+    data_obj[:xml][:archives].concat(xarch)
+    data_obj[:xml][:textfiles].concat(xtxt)
 
     data_obj
   end
