@@ -23,10 +23,15 @@ namespace :get do
 
   xml_acq = Acquisitions.instance.dinesafe
   geo_acq = Acquisitions.instance.shapefiles
+
   @xml_txt = xml_acq[:textfiles]
-  @geo_txt = geo_acq[:textfiles]
   @xml_zip = xml_acq[:archives]
-  @geo_zip = geo_acq[:archives]
+  @xml_url = xml_acq[:url]
+
+  @geo_txt = geo_acq[:textfiles]
+  @geo_zip = geo_acq[:archives] 
+  @geo_url = geo_acq[:url]
+
   @FH = FileHelper.new
 
   def no_utc(d)
@@ -54,15 +59,13 @@ namespace :get do
 
   # modified to search local directory instead of remote service
   def get_filenames
-    file_helper = FileHelper.new
-
     fileresult = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
 
-    garch = file_helper.get_filenames(@geo_zip)
-    gtxt = file_helper.get_filenames(@geo_txt)
+    garch = @FH.get_filenames(@geo_zip)
+    gtxt = @FH.get_filenames(@geo_txt)
 
-    xarch = file_helper.get_filenames(@xml_zip)
-    xtxt = file_helper.get_filenames(@xml_txt)
+    xarch = @FH.get_filenames(@xml_zip)
+    xtxt = @FH.get_filenames(@xml_txt)
 
     fileresult[:geo][:archives].concat(garch)
     fileresult[:geo][:textfiles].concat(gtxt)
@@ -78,13 +81,12 @@ namespace :get do
 
   # refactored out of :getoc task
   def dl_list(dl_files, text_path)
-    file_helper = FileHelper.new
     dl_files.each do |dl_file|
       url = "#{@ocurl}#{dl_file}"
       d = Downloader.new(url)
 
       # remove pythyon .0 timestamp artifact from filename
-      filename_zero_stripped = file_helper.rmzero(dl_file)
+      filename_zero_stripped = @FH.rmzero(dl_file)
 
       local_path = "#{text_path}#{filename_zero_stripped}"
       d.download(local_path)
@@ -209,7 +211,7 @@ namespace :get do
     geo.each do |geo_file|
       geo_path = "#{@geo_txt}#{geo_file}"
 
-      timestamp = @FH.extract_timestamp(geo_path)
+      timestamp = @FH.extract_timestamp(geo_file)
       archive_processed = Archive.where(:filename => geo_file, :processed => true).first
       puts archive_processed
       if archive_processed.blank?
