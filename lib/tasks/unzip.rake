@@ -11,6 +11,7 @@ namespace :unzip do
 
   @geo_txt = geo_acq[:textfiles]
   @geo_zip = geo_acq[:archives]
+  @geo_shp = geo_acq[:shapefiles]
 
   @FH = FileHelper.new
 
@@ -27,7 +28,7 @@ namespace :unzip do
       ts = @FH.extract_timestamp(f)
 
       # form timestamp path
-      ts_path = "#{@geo_zip}#{ts}"
+      ts_path = "#{@geo_shp}#{ts}"
 
       # form zip path
       zip_path = "#{@geo_zip}#{f}"

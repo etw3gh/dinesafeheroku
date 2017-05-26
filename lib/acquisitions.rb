@@ -29,7 +29,7 @@ class Acquisitions
     geo_root = "#{@assets_root}geo/"
     {
       url: 'http://opendata.toronto.ca/gcc/address_points_wgs84.zip',
-      filename: 'ADDRESS_POINT_WGS84.shp',
+      filename: 'ADDRESS_POINT_WGS84.dbf',
       archives: "#{geo_root}zip/",
       textfiles: "#{geo_root}json/",
       shapefiles: "#{geo_root}shp/",
