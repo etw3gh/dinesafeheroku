@@ -1,4 +1,8 @@
 #!/bin/bash
 # backs up downloads to raid array
 ts=`date '+%s'`
-zip -r "/media/raid/raa/downloads_backup_$ts.zip" downloads
+bdir="/media/raid/raa"
+zip -r "$bdir/downloads_backup_$ts.zip" downloads
+
+# show result
+ll $bdir -h
