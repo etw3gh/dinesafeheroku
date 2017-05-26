@@ -75,16 +75,13 @@ Geographic data is available as a zipped group of shapefiles.
 
 Since Dinesafe data is restricted to the city of Toronto we can use the shapefiles to get geolocation data without Google Maps.
 
-### Data Aquisition (in progress)
+### Data Aquisition
 
-Replaces python web services
+Shapefiles are converted to json by an existing python script
 
-Shapefiles may still be converted to json by an existing python script
-
-Data is downloaded to a temp directory that is not pushed to github or heroku
+Data is downloaded to a 'downloads' directory that is not pushed to github or heroku
 
 Acquisiton tasks run on a dev server and not heroku
-
 
 Downloads dir structure:
 
