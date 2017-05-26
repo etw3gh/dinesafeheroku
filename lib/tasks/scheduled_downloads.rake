@@ -22,10 +22,6 @@ namespace :sched do
 
 
   task :dl => :environment do
-
-    # get current timestamp in order to set unique filename
-    timestamp = Time.now.to_i
-
     xml_dl = Downloader.new(@xml_url)
     shape_dl = Downloader.new(@geo_url)
 
@@ -70,7 +66,7 @@ namespace :sched do
     md5
   end
 
-  
+
   task :resetdl => :environment do
     LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
   end
