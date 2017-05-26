@@ -26,7 +26,7 @@ class FileHelper
   def get_filenames(dir)
     files = []
     Dir.new(dir).each do |fn|
-      if self.not_dot(fn) then files.push(fn)
+      files.push(fn) if self.not_dot(fn)
     end
     files
   end
