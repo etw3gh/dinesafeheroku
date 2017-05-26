@@ -65,7 +65,7 @@ namespace :get do
       d.download(local_path)
     end
   end
-  
+
   # one off task. converting the python service into rails
   # downloads the files on the helper server to the local rails server
   # goal is to modify other rake tasks to seek files locally instead of on the server
@@ -73,8 +73,8 @@ namespace :get do
     xml, geo = get_archive_filenames
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
-    self.dl_list(xml, xml_acq[:textfiles])
-    self.dl_list(geo, geo_acq[:textfiles])
+    dl_list(xml, xml_acq[:textfiles])
+    dl_list(geo, geo_acq[:textfiles])
   end
   
 
