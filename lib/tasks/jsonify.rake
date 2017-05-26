@@ -13,5 +13,8 @@ namespace :jsonify do
     # py = 'python3 ../../python/shaperip.py {} {}'.format(source, @geo_txt)
     # system(py)
   end
+  task :t, [:a, :b] => :environment do |t, args|
+  puts args
+  end
 
 end
