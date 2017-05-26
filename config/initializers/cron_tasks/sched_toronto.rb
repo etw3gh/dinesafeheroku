@@ -20,5 +20,3 @@ end
 s.every '1d', first: :now do
   puts "rufus now!!!!!!!!!!! but daily!!!!!!!!!!!"
 end
-
-s.join
