@@ -108,9 +108,20 @@ class ShapeRip:
 
 
 # run as main assuming extracted shapefiles are present in folder 'shapefiles'
-# python3 shaperip.py | json_reformat > shapefiles/geo.json
+# option run with -t to prefix a temp file id 
+# python3 shaperip.py source_filepath dest_dir
 if __name__ == '__main__':
-  s = ShapeRip('downloads/geo/shapefiles/ADDRESS_POINT_WGS84.dbf')
+  print(sys.argv)
+  if (len(sys.argv) < 3):
+    sys.stderr.write('usage: python3 shaperip.py source_filepath dest_dir\n')
+    sys.exit(2)
+  
+  source_file = sys.argv[1]
+  dest_dir = sys.argv[2]
+
+  s = ShapeRip(source_file)
   s.rip()
-  j = json.dumps(s.address_dict)
-  print(j)
+  j = json.dumps(s.address_dict, indent=4)
+  dest_file = '{}/{}'.format(dest_dir, 'foobar' )
+  f = open(dest_file, 'w')
+  f.write(j)
