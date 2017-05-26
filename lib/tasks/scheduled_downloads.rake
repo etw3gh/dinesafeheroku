@@ -21,7 +21,7 @@ namespace :sched do
   @FH = FileHelper.new
 
   task :resetdl => :environment do
-    LatestDownload.instance.delete
+    LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
   end
 
   task :dl => :environment do
