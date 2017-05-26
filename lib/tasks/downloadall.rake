@@ -25,7 +25,7 @@ namespace :get do
 
   # make available to all methods
   @filenames = get_filenames
-  puts @filenames
+
   def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end
@@ -62,9 +62,13 @@ namespace :get do
     data_obj[:geo][:textfiles] = @file_helper(geo_acq[:textfiles])
     data_obj[:xml][:archives] = @file_helper(xml_acq[:archives])
     data_obj[:xml][:textfiles] = @file_helper(xml_acq[:textfiles])
+
+    data_obj
   end
 
-  
+  task :local => :environment do
+    puts filenames
+  end
 
   # refactored out of :getoc task
   def dl_list(dl_files, text_path)
