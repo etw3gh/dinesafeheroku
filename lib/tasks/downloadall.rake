@@ -21,9 +21,7 @@ namespace :get do
   @all_geo_menu = "ALL GEO"
   @all_menu = "GET EVERYTHING"
 
-  @file_helper = FileHelper.new
-
-  def extract_timestamp_from_filename(filename)
+ def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end
 
@@ -71,12 +69,13 @@ namespace :get do
 
   # refactored out of :getoc task
   def dl_list(dl_files, text_path)
+    file_helper = FileHelper.new
     dl_files.each do |dl_file|
       url = "#{@ocurl}#{dl_file}"
       d = Downloader.new(url)
 
       # remove pythyon .0 timestamp artifact from filename
-      filename_zero_stripped = @file_helper.rmzero(dl_file)
+      filename_zero_stripped = file_helper.rmzero(dl_file)
 
       local_path = "#{text_path}#{filename_zero_stripped}"
       d.download(local_path)
