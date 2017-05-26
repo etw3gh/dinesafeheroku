@@ -55,10 +55,10 @@ namespace :get do
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
     data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
-    data_obj[:geo][:archives] = @file_helper(geo_acq[:archives])
-    data_obj[:geo][:textfiles] = @file_helper(geo_acq[:textfiles])
-    data_obj[:xml][:archives] = @file_helper(xml_acq[:archives])
-    data_obj[:xml][:textfiles] = @file_helper(xml_acq[:textfiles])
+    data_obj['geo']['archives'] = @file_helper(geo_acq[:archives])
+    data_obj['geo']['textfiles'] = @file_helper(geo_acq[:textfiles])
+    data_obj['xml']['archives'] = @file_helper(xml_acq[:archives])
+    data_obj['xml']['textfiles'] = @file_helper(xml_acq[:textfiles])
 
     data_obj
   end
