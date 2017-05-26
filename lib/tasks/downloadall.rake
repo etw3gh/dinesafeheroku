@@ -28,9 +28,6 @@ namespace :get do
   @xml_zip = xml_acq[:archives]
   @geo_zip = geo_acq[:archives]
   @FH = FileHelper.new
-  puts 'test'
-  puts xml_txt, geo_txt
-
 
   def no_utc(d)
     d.to_s.chomp(' UTC')
@@ -256,7 +253,7 @@ namespace :get do
 
     xml.each do |xml_file|
       xml_path = "#{@xml_txt}#{xml_file}"
-      timestamp = extract_timestamp_from_filename(xml_file)
+      timestamp = @FH.extract_timestamp(xml_file)
 
       if Archive.where(:filename => xml_file, :processed => true).blank?
         start_processing = Time.now
