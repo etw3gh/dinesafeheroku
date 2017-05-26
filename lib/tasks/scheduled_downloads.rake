@@ -20,9 +20,6 @@ namespace :sched do
 
   @FH = FileHelper.new
 
-  task :resetdl => :environment do
-    LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
-  end
 
   task :dl => :environment do
 
@@ -71,6 +68,11 @@ namespace :sched do
     downloader.download(path)
     md5 = Digest::MD5.file(path).hexdigest
     md5
+  end
+
+  
+  task :resetdl => :environment do
+    LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
   end
 
 end
