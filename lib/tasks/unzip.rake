@@ -20,19 +20,22 @@ namespace :unzip do
   end
 
   task :geo => :environment do
-    puts(@geo_zip)
+
     @FH.get_filenames(@geo_zip).each do |f|
-      puts(f)
+
       # retrieve timestamp encoded in filename
       ts = @FH.extract_timestamp(f)
-      puts(ts)
+
       # form timestamp path
       ts_path = "#{@geo_zip}#{ts}"
+
+      # form zip path
+      zip_path = "#{@geo_zip}#{f}"
 
       # make a directory from the timestamp to hold the shapefiles
       @FH.make_dir(ts_path)
 
-      Zip::File.open(f) do |archive_file|
+      Zip::File.open(zip_path) do |archive_file|
         puts "extracting: #{archive_file.name}"
         dest_path = "#{ts_path}/#{archive_file.name}"
         archive_file.extract(dest_path)
