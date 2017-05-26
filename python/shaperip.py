@@ -120,8 +120,18 @@ if __name__ == '__main__':
   dest_dir = sys.argv[2]
 
   s = ShapeRip(source_file)
+
+  timestamp = source_file.split('/')[-2]
+  dest_file = '{}_geo.json'.format(timestamp)
+
+
   s.rip()
-  j = json.dumps(s.address_dict, indent=4)
-  dest_file = '{}/{}'.format(dest_dir, 'foobar' )
-  f = open(dest_file, 'w')
-  f.write(j)
+  j = json.dumps(s.address_dict)
+  dest_file = os.path.join(dest_dir, dest_file)
+
+  # prevent overwriting of file
+  if os.path.exists(dest_file):
+    dest_file = 'dupe_' + dest_file
+
+  with open(dest_file, 'w') as jfile:
+    jfile.write(j)
