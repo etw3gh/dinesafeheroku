@@ -41,7 +41,7 @@ namespace :sched do
 
     # if local xml last mod is less than server last mod, then downloader
     # first run will always download because it is set to zero
-    if (ld_lastmod_xml < xml_dl.lastmod)
+    if (ld_lastmod_xml < xml_dl.last_mod)
       xml_fn = @FH.extract_filename(@xml_url)
       xml_ts_fn = @FH.make_unique_filename(timestamp, xml_fn)
       xml_path = "#{@xml_zip}#{xml_ts_fn}"
@@ -49,7 +49,7 @@ namespace :sched do
       md5 = Digest::MD5.file(xml_path).hexdigest
       LatestDownload.instance.update(:lastmodxml=>timestamp, :md5xml=>md5)
     end
-    if (ld_lastmod_geo < shape_dl.lastmod)
+    if (ld_lastmod_geo < shape_dl.last_mod)
       geo_fn = @FH.extract_filename(@geo_url)
       geo_ts_fn = @FH.make_unique_filename(timestamp, geo_fn)
       geo_path = "#{@geo_zip}#{geo_ts_fn}"
