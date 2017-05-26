@@ -110,7 +110,7 @@ class ShapeRip:
 # run as main assuming extracted shapefiles are present in folder 'shapefiles'
 # python3 shaperip.py | json_reformat > shapefiles/geo.json
 if __name__ == '__main__':
-  s = ShapeRip('shapefiles/ADDRESS_POINT_WGS84.dbf')
+  s = ShapeRip('downloads/geo/shapefiles/ADDRESS_POINT_WGS84.dbf')
   s.rip()
   j = json.dumps(s.address_dict)
   print(j)
