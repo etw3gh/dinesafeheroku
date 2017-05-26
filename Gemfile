@@ -48,6 +48,10 @@ gem 'rufus-scheduler'
 # for file downloads
 gem 'faraday'
 
+# https://github.com/rubyzip/rubyzip
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API.
+
 gem 'acts_as_singleton', '~> 0.0.8'
 
 # https://github.com/forgecrafted/finishing_moves
