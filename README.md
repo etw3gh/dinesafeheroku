@@ -92,20 +92,32 @@ Downloads dir structure:
     downloads/
     ├── dinesafe
     │   ├── xml
+    │   │   ├── 1483469307_dinesafe.xml
+    │   │   ├── 1484577503_dinesafe.xml
+    │   │   ├── 1486579098_dinesafe.xml
+    │   │   ├── 1487001084_dinesafe.xml
+    │   │   ├── 1488832096_dinesafe.xml
+    │   │   ├── 1490721006_dinesafe.xml
+    │   │   ├── 1491832647_dinesafe.xml
+    │   │   └── 1493045091_dinesafe.xml
     │   └── zip
+    │       └── 1493045091_dinesafe.zip
     └── geo
-        ├── shp
-        |   └── 1491231264
-        |       ├── ADDRESS_POINT_WGS84.dbf
-        |       ├── ADDRESS_POINT_WGS84.prj
-        |       ├── ADDRESS_POINT_WGS84_readme.txt
-        |       ├── ADDRESS_POINT_WGS84.shp
-        |       ├── ADDRESS_POINT_WGS84.shp.xml
-        |       ├── ADDRESS_POINT_WGS84.shx
-        |       └── readme_address_points_Jan2013.txt
         ├── json
+        │   ├── 1474461890_geo.json
+        │   ├── 1491231264_geo.json
+        │   └── dupe_1491231264_geo.json
+        ├── shp
+        │   └── 1491231264
+        │       ├── ADDRESS_POINT_WGS84.dbf
+        │       ├── ADDRESS_POINT_WGS84.prj
+        │       ├── ADDRESS_POINT_WGS84_readme.txt
+        │       ├── ADDRESS_POINT_WGS84.shp
+        │       ├── ADDRESS_POINT_WGS84.shp.xml
+        │       ├── ADDRESS_POINT_WGS84.shx
+        │       └── readme_address_points_Jan2013.txt
         └── zip
-
+            └── 1491231264_address_points_wgs84.zip
 
 
 ### Local DB and Heroku DB
