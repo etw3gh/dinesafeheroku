@@ -2,6 +2,7 @@ require_relative('../dinesafe/downloader')
 require 'json'
 
 # refactor: jsonpath is a url not a filename
+# TODO MAKE jsonpath a filename..., should not make a difference 
 # this will break discontinued code
 class UpdateGeo
   attr_accessor :geo, :verbose, :timestamp

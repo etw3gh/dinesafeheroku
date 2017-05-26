@@ -55,11 +55,13 @@ namespace :get do
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
     data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
-    
+
     garch = file_helper.get_filenames(geo_acq[:archives])
     gtxt = file_helper.get_filenames(geo_acq[:textfiles])
+
     xarch = file_helper.get_filenames(xml_acq[:archives])
     xtxt = file_helper.get_filenames(xml_acq[:textfiles])
+
     data_obj[:geo][:archives].concat(garch)
     data_obj[:geo][:textfiles].concat(gtxt)
     data_obj[:xml][:archives].concat(xarch)
@@ -124,13 +126,15 @@ namespace :get do
     dl_list(xml, xml_txt)
     dl_list(geo, geo_txt)
   end
-  
+
 
 
   def print_filenames_return_menu_dict(printmenuoptions=true)
     menu_dict = {}
     begin
-      xml, geo = get_archive_filenames
+      local_files = get_filenames
+      xml = local_files[:xml][:textfiles]
+      geo = local_files[:geo][:textfiles]
 
       # menu indices (add one for filename pos in arrays)
       xml_start = 0
@@ -192,11 +196,13 @@ namespace :get do
   # an administrative helper
   desc "get the archive filenames from openciti.ca helper service and shows if it has been processed"
   task :fileinfo => :environment do
-    #print filenames without menu options (all xml, all geo, quit)
     print_filenames_return_menu_dict(false)
   end
 
+
+
   # accepts an array of URI's or a single URI
+  # TODO should accept a filepath instead
   def process_geo(geo)
 
     # if the input is not an array, put wrap it in one
@@ -206,6 +212,7 @@ namespace :get do
     geo.each do |geo_file|
       puts geo_file
       geo_path = @ocurl + geo_file
+
       timestamp = extract_timestamp_from_filename(geo_path)
       archive_processed = Archive.where(:filename => geo_file, :processed => true).first
       puts archive_processed
@@ -283,13 +290,15 @@ namespace :get do
 
   desc "update xml files"
   task :xml => :environment do
-    xml, geo = get_archive_filenames
+    local_files = get_filenames
+    xml = local_files[:xml][:textfiles]
     process_xml(xml)
   end
 
   desc "update geo files"
   task :geo => :environment do
-    xml, geo = get_archive_filenames
+      local_files = get_filenames
+      geo = local_files[:geo][:textfiles]
     process_geo(geo)
   end
 
@@ -333,7 +342,9 @@ namespace :get do
 
   desc "goes over all archive URIs and will process if required"
   task :all => :environment do
-    xml, geo = get_archive_filenames
+    local_files = get_filenames
+    xml = local_files[:xml][:textfiles]
+    geo = local_files[:geo][:textfiles]
     process_xml(xml)
     process_geo(geo)
   end
