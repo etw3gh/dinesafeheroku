@@ -62,11 +62,11 @@ namespace :sched do
 
     xout = xml_downloaded ? '' : 'NOT '
     gout = geo_downloaded ? '' : 'NOT '
-    puts '\n\n----------------'
+    puts "\n\n----------------"
     puts 'SCHEDULED DL OUTCOME:'
     puts "xml file #{xout}downloaded"
     puts "geo file #{gout}downloaded"
-    puts '----------------\n'
+    puts "----------------\n"
   end
 
   def get_file(url, zip_path, downloader, last_mod)
