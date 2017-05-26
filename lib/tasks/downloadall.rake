@@ -55,6 +55,7 @@ namespace :get do
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
     data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
+    puts data_obj
     garch = file_helper.get_filenames(geo_acq[:archives])
     gtxt = file_helper.get_filenames(geo_acq[:textfiles])
     xarch = file_helper.get_filenames(xml_acq[:archives])
