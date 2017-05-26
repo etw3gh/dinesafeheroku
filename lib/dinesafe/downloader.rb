@@ -47,6 +47,4 @@ class Downloader
       f.puts resp.body
     end
   end
-
-
 end

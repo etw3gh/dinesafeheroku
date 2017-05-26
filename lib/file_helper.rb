@@ -20,10 +20,13 @@ class FileHelper
     filename.sub('.0', '').strip.downcase
   end
 
+  def not_dot(filename)
+    filename != '.' && filename != '..'
+  end
   def get_filenames(dir)
     files = []
     Dir.new(dir).each do |fn|
-      files.push(fn)
+      if self.not_dot(fn) then files.push(fn)
     end
     files
   end
