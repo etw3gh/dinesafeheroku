@@ -21,6 +21,14 @@ namespace :get do
   @all_geo_menu = "ALL GEO"
   @all_menu = "GET EVERYTHING"
 
+  xml_acq = Acquisitions.instance.dinesafe
+  geo_acq = Acquisitions.instance.shapefiles
+
+  xml_txt = xml_acq[:textfiles]
+  geo_txt = geo_acq[:textfiles]
+  puts 'test'
+  puts xml_txt, geo_txt
+
  def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end
