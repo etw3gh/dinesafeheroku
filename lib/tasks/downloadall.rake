@@ -54,7 +54,7 @@ namespace :get do
   # one off task. converting the python service into rails
   # downloads the files on the helper server to the local rails server
   # goal is to modify other rake tasks to seek files locally instead of on the server
-  task :getoc => :environment do
+  task :oc => :environment do
     xml, geo = get_archive_filenames
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
