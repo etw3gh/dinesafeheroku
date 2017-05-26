@@ -30,9 +30,9 @@ class Acquisitions
     {
       url: 'http://opendata.toronto.ca/gcc/address_points_wgs84.zip',
       filename: 'ADDRESS_POINT_WGS84.shp',
-      archives: "#{@geo_root}zip/",
-      textfiles: "#{@geo_root}json/",
-      shapefiles: "#{@geo_root}shp/",
+      archives: "#{geo_root}zip/",
+      textfiles: "#{geo_root}json/",
+      shapefiles: "#{geo_root}shp/",
       category: 'shapefile',
       region: 'Toronto'
     }
@@ -43,8 +43,8 @@ class Acquisitions
     {
       url: 'http://opendata.toronto.ca/public.health/dinesafe/dinesafe.zip',
       filename: 'dinesafe.xml',
-      archives: "#{@ds_root}zip/",
-      textfiles: "#{@ds_root}xml/",
+      archives: "#{ds_root}zip/",
+      textfiles: "#{ds_root}xml/",
       category: 'dinesafe',
       region: 'Toronto'
     }
