@@ -14,7 +14,7 @@ namespace :clean do
   task :rem0 => :environment do
     Archive.all.each do |a|
       fn = a.filename.sub('.0', '')
-      a.update_attribute(:filename, a)
+      a.update_attribute(:filename, fn)
     end
   end
 end
