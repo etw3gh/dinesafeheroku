@@ -6,7 +6,8 @@ namespace :jsonify do
   @geo_shp = geo_acq[:shapefiles]
   @geo_fn  = geo_acq[:filename]
 
-  task :geo, [:timestamp] => :environment do
+  task :geo, [:timestamp] => :environment do |t, args|
+    puts args
     puts :timestamp
     # source = '{}{}/{}'.format(@geo_shp, :timestamp, @geo_fn)
     # py = 'python3 ../../python/shaperip.py {} {}'.format(source, @geo_txt)
