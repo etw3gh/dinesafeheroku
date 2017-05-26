@@ -52,13 +52,15 @@ namespace :get do
 
   # modified to search local directory instead of remote service
   def get_filenames
+    file_helper = FileHelper.new
+
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
     data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
-    data_obj['geo']['archives'] = @file_helper(geo_acq[:archives])
-    data_obj['geo']['textfiles'] = @file_helper(geo_acq[:textfiles])
-    data_obj['xml']['archives'] = @file_helper(xml_acq[:archives])
-    data_obj['xml']['textfiles'] = @file_helper(xml_acq[:textfiles])
+    data_obj['geo']['archives'] = file_helper(geo_acq[:archives])
+    data_obj['geo']['textfiles'] = file_helper(geo_acq[:textfiles])
+    data_obj['xml']['archives'] = file_helper(xml_acq[:archives])
+    data_obj['xml']['textfiles'] = file_helper(xml_acq[:textfiles])
 
     data_obj
   end
