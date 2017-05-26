@@ -20,10 +20,8 @@ namespace :sched do
 
   @FH = FileHelper.new
 
-  tast :resetdl => :environment do
-    # only seems to work from the console
-    #LatestDownload.instance.delete
-    LatestDownload.instance.update(:lastmodxml=>nil, :md5xml=>nil,:lastmodgeo=>nil, :md5geo=>nil)
+  task :resetdl => :environment do
+    LatestDownload.instance.delete
   end
 
   task :dl => :environment do
