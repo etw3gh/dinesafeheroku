@@ -111,7 +111,10 @@ namespace :get do
 
  
   task :filenames => :environment do
-    puts get_archive_filenames
+    xml, geo = get_archive_filenames
+    puts xml
+    puts '---'
+    puts geo
   end
 
   # an administrative helper
