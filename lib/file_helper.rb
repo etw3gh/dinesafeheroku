@@ -19,4 +19,11 @@ class FileHelper
   def rmzero(filename)
     filename.sub('.0', '').strip.downcase
   end
-end
+
+  def get_filenames(dir)
+    files = []
+    Dir.new(dir).each do |fn|
+      files.push(fn)
+    end
+    files
+  end

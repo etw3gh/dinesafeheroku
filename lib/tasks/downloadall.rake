@@ -21,8 +21,11 @@ namespace :get do
   @all_geo_menu = "ALL GEO"
   @all_menu = "GET EVERYTHING"
 
+  @file_helper = FileHelper.new
 
-
+  # make available to all methods
+  @filenames = get_filenames
+  puts @filenames
   def extract_timestamp_from_filename(filename)
     filename.split('/').last.split('_').first.split('.').first
   end
@@ -35,7 +38,7 @@ namespace :get do
   # if status != 200: throws exception
 
   # TODO: MODIFY THIS TO READ FROM LOCAL DIRECTORIES, NOT A WEB SERVICE
-  def get_archive_filenames
+  def get_archive_filenames_old
     downloader = Downloader.new()
     archive_response = downloader.get_data_object(@all_archives_service)
     status = archive_response['status']
@@ -50,16 +53,27 @@ namespace :get do
     end
   end
 
+  # modified to search local directory instead of remote service
+  def get_filenames
+    xml_acq = Acquisitions.instance.dinesafe
+    geo_acq = Acquisitions.instance.shapefiles
+    data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
+    data_obj[:geo][:archives] = @file_helper(geo_acq[:archives])
+    data_obj[:geo][:textfiles] = @file_helper(geo_acq[:textfiles])
+    data_obj[:xml][:archives] = @file_helper(xml_acq[:archives])
+    data_obj[:xml][:textfiles] = @file_helper(xml_acq[:textfiles])
+  end
+
+  
+
   # refactored out of :getoc task
   def dl_list(dl_files, text_path)
-    file_helper = FileHelper.new
-
     dl_files.each do |dl_file|
       url = "#{@ocurl}#{dl_file}"
       d = Downloader.new(url)
 
       # remove pythyon .0 timestamp artifact from filename
-      filename_zero_stripped = file_helper.rmzero(dl_file)
+      filename_zero_stripped = @file_helper.rmzero(dl_file)
 
       local_path = "#{text_path}#{filename_zero_stripped}"
       d.download(local_path)
