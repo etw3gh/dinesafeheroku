@@ -72,33 +72,3 @@ namespace :sched do
   end
 
 end
-"""
-downloads/
-├── dinesafe
-│   ├── xml
-│   │   ├── 1483469307_dinesafe.xml
-│   │   ├── 1484577503_dinesafe.xml
-│   │   ├── 1486579098_dinesafe.xml
-│   │   ├── 1487001084_dinesafe.xml
-│   │   ├── 1488832096_dinesafe.xml
-│   │   ├── 1490721006_dinesafe.xml
-│   │   ├── 1491832647_dinesafe.xml
-│   │   └── 1493045091_dinesafe.xml
-│   └── zip
-│       └── 1493045091_dinesafe.zip
-└── geo
-    ├── json
-    │   ├── 1474461890_geo.json
-    │   └── 1491231264_geo.json
-    ├── shp
-    └── zip
-        └── 1491231264_address_points_wgs84.zip
-
-
-[1] pry(main)> LatestDownload.instance
-  LatestDownload Load (0.5ms)  SELECT  "latest_downloads".* FROM "latest_downloads" ORDER BY "latest_downloads"."id" ASC LIMIT $1  [["LIMIT", 1]]
-=> #<LatestDownload lastmodxml: 1491231264, lastmodgeo: nil, md5xml: "75979c7d11321ec0695cf910b94ef408", md5geo: nil>
-[2] pry(main)> 
-
-
-"""
