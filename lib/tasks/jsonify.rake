@@ -12,7 +12,7 @@ namespace :jsonify do
       puts 'missing arg'
     else
       source = "#{@geo_shp}#{args.timestamp}/#{@geo_fn}"
-      py = "python3 ../../python/shaperip.py #{source} #{@geo_txt}"
+      py = "python3 python/shaperip.py #{source} #{@geo_txt}"
       system(py)
     end
   end
