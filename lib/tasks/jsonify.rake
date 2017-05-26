@@ -14,7 +14,7 @@ namespace :jsonify do
     # system(py)
   end
   task :t, [:a, :b] => :environment do |t, args|
-  puts args
+  puts args.a, args.b
   end
 
 end
