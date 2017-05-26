@@ -111,7 +111,6 @@ class ShapeRip:
 # option run with -t to prefix a temp file id 
 # python3 shaperip.py source_filepath dest_dir
 if __name__ == '__main__':
-  print(sys.argv)
   if (len(sys.argv) < 3):
     sys.stderr.write('usage: python3 shaperip.py source_filepath dest_dir\n')
     sys.exit(2)
