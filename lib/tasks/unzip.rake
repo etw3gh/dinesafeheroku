@@ -1,6 +1,5 @@
 require_relative('../file_helper')
 
-require 'rubygems'
 require 'zip'
 
 namespace :unzip do
@@ -23,8 +22,19 @@ namespace :unzip do
   task :geo => :environment do
     @FH.get_filenames(@geo_zip).each do |f|
 
-      Zip::File.open(f) do |zip_file|
+      # retrieve timestamp encoded in filename
+      ts = @FH.extract_timestamp(f)
+      
+      # form timestamp path
+      ts_path = "#{@geo_zip}#{ts}"
 
+      # make a directory from the timestamp to hold the shapefiles
+      @FH.make_dir(ts_path)
+
+      Zip::File.open(f) do |archive_file|
+        puts "extracting: #{archive_file.name}"
+        dest_path = "#{ts_path}/#{archive_file.name}"
+        archive_file.extract(dest_path)
       end
     end
   end

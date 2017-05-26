@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class FileHelper
   # true if filepath_or_name ends with one of the formats in Rails.application.config.text_formats
   # see config/text_formats.rb
@@ -23,7 +25,7 @@ class FileHelper
   def not_dot(filename)
     filename != '.' && filename != '..'
   end
-  
+
   def get_filenames(dir)
     files = []
     Dir.new(dir).each do |fn|
@@ -44,5 +46,11 @@ class FileHelper
   # unique could be a unix timestamp or other unique string
   def make_unique_filename(unique, s)
     "#{unique}_#{s}"
+  end
+
+  def make_dir(path)
+    unless File.directory?(path)
+      FileUtils.mkdir_p(path)
+    end
   end
 end
