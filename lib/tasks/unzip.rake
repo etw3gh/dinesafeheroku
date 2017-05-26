@@ -17,5 +17,5 @@ namespace :unzip do
 
   task :geo => :environment do
     puts @FH.get_filenames(@geo_zip)
-
   end
+end
