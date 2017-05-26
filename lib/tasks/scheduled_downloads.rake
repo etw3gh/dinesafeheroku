@@ -24,6 +24,8 @@ namespace :sched do
   task :dl => :environment do
     xml_dl = Downloader.new(@xml_url)
     shape_dl = Downloader.new(@geo_url)
+    xml_downloaded = false
+    geo_downloaded = false
 
     # store last mods to prevent duplicate header calls
     shape_last_mod = shape_dl.last_mod
@@ -48,15 +50,24 @@ namespace :sched do
     if (ld_lastmod_xml < xml_last_mod)
       md5 = get_file(@xml_url, @xml_zip, xml_dl, xml_last_mod)
       LatestDownload.instance.update(:lastmodxml=>xml_last_mod, :md5xml=>md5)
-      puts ("xml file downloaded")
+      xml_downloaded = true
     end
 
     # repeat for geo data
     if (ld_lastmod_geo < shape_last_mod)
       md5 = get_file(@geo_url, @geo_zip, shape_dl, shape_last_mod)
       LatestDownload.instance.update(:lastmodgeo=>shape_last_mod, :md5geo=>md5)
-      puts ("geo file downloaded")
+      geo_downloaded = true
     end
+
+
+    puts '\n\n----------------'
+    puts 'SCHEDULED DL OUTCOME:'
+    xout = 'NOT ' if !xml_downloaded
+    gout = 'NOT ' if !geo_downloaded
+    puts 'xml file #{xout}downloaded' if xml_downloaded
+    puts 'geo file #{gout}downloaded' if geo_downloaded
+    puts '----------------\n'
   end
 
   def get_file(url, zip_path, downloader, last_mod)
