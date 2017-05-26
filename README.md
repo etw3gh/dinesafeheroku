@@ -86,7 +86,7 @@ Data is downloaded to a temp directory that is not pushed to github or heroku
 Acquisiton tasks run on a dev server and not heroku
 
 
-Temp dir structure:
+Downloads dir structure:
 
 <!-- language: lang-none -->
     downloads/
@@ -95,6 +95,14 @@ Temp dir structure:
     │   └── zip
     └── geo
         ├── shp
+        |   └── 1491231264
+        |       ├── ADDRESS_POINT_WGS84.dbf
+        |       ├── ADDRESS_POINT_WGS84.prj
+        |       ├── ADDRESS_POINT_WGS84_readme.txt
+        |       ├── ADDRESS_POINT_WGS84.shp
+        |       ├── ADDRESS_POINT_WGS84.shp.xml
+        |       ├── ADDRESS_POINT_WGS84.shx
+        |       └── readme_address_points_Jan2013.txt
         ├── json
         └── zip
 
