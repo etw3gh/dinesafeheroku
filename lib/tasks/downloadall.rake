@@ -73,6 +73,8 @@ namespace :get do
     xml, geo = get_archive_filenames
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
+    puts xml_acq
+    puts geo_acq
     xml_txt = xml_acq[:textfiles]
     geo_txt = geo_acq[:textfiles]
     puts xml_txt, geo_txt
