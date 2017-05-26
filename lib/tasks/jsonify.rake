@@ -16,3 +16,4 @@ namespace :jsonify do
       system(py)
     end
   end
+end
