@@ -30,5 +30,9 @@ class FileHelper
     end
     files
   end
-
+  
+  # works for url and filename
+  def extract_timestamp(filename)
+    filename.split('/').last.split('_').first.split('.').first
+  end
 end

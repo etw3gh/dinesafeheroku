@@ -23,15 +23,14 @@ namespace :get do
 
   xml_acq = Acquisitions.instance.dinesafe
   geo_acq = Acquisitions.instance.shapefiles
-
-  xml_txt = xml_acq[:textfiles]
-  geo_txt = geo_acq[:textfiles]
+  @xml_txt = xml_acq[:textfiles]
+  @geo_txt = geo_acq[:textfiles]
+  @xml_zip = xml_acq[:archives]
+  @geo_zip = geo_acq[:archives]
+  @FH = FileHelper.new
   puts 'test'
   puts xml_txt, geo_txt
 
- def extract_timestamp_from_filename(filename)
-    filename.split('/').last.split('_').first.split('.').first
-  end
 
   def no_utc(d)
     d.to_s.chomp(' UTC')
@@ -60,22 +59,20 @@ namespace :get do
   def get_filenames
     file_helper = FileHelper.new
 
-    xml_acq = Acquisitions.instance.dinesafe
-    geo_acq = Acquisitions.instance.shapefiles
-    data_obj = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
+    fileresult = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
 
-    garch = file_helper.get_filenames(geo_acq[:archives])
-    gtxt = file_helper.get_filenames(geo_acq[:textfiles])
+    garch = file_helper.get_filenames(@geo_zip)
+    gtxt = file_helper.get_filenames(@geo_txt)
 
-    xarch = file_helper.get_filenames(xml_acq[:archives])
-    xtxt = file_helper.get_filenames(xml_acq[:textfiles])
+    xarch = file_helper.get_filenames(@xml_zip)
+    xtxt = file_helper.get_filenames(@xml_txt)
 
-    data_obj[:geo][:archives].concat(garch)
-    data_obj[:geo][:textfiles].concat(gtxt)
-    data_obj[:xml][:archives].concat(xarch)
-    data_obj[:xml][:textfiles].concat(xtxt)
+    fileresult[:geo][:archives].concat(garch)
+    fileresult[:geo][:textfiles].concat(gtxt)
+    fileresult[:xml][:archives].concat(xarch)
+    fileresult[:xml][:textfiles].concat(xtxt)
 
-    data_obj
+    fileresult
   end
 
   task :local => :environment do
@@ -124,15 +121,8 @@ namespace :get do
   """
   task :oc => :environment do
     xml, geo = get_archive_filenames
-
-    xml_acq = Acquisitions.instance.dinesafe
-    geo_acq = Acquisitions.instance.shapefiles
-
-    xml_txt = xml_acq[:textfiles]
-    geo_txt = geo_acq[:textfiles]
-
-    dl_list(xml, xml_txt)
-    dl_list(geo, geo_txt)
+    dl_list(xml, @xml_txt)
+    dl_list(geo, @geo_txt)
   end
 
 
@@ -207,7 +197,9 @@ namespace :get do
     print_filenames_return_menu_dict(false)
   end
 
-
+  task :testfh => :environment do
+    puts @FH.extract_timestamp("1484577503_dinesafe.xml")
+  end
 
   # accepts an array of URI's or a single URI
   # TODO should accept a filepath instead
@@ -218,10 +210,9 @@ namespace :get do
       geo = [geo]
     end
     geo.each do |geo_file|
-      puts geo_file
-      geo_path = @ocurl + geo_file
+      geo_path = "#{@geo_txt}#{geo_file}"
 
-      timestamp = extract_timestamp_from_filename(geo_path)
+      timestamp = @FH.extract_timestamp(geo_path)
       archive_processed = Archive.where(:filename => geo_file, :processed => true).first
       puts archive_processed
       if archive_processed.blank?
@@ -264,8 +255,8 @@ namespace :get do
     end
 
     xml.each do |xml_file|
-      xml_path = @ocurl + xml_file
-      timestamp = extract_timestamp_from_filename(xml_path)
+      xml_path = "#{@xml_txt}#{xml_file}"
+      timestamp = extract_timestamp_from_filename(xml_file)
 
       if Archive.where(:filename => xml_file, :processed => true).blank?
         start_processing = Time.now
