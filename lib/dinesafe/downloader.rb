@@ -21,6 +21,7 @@ class Downloader
     self.header['last-modified'].to_datetime.to_i
   end
 
+  # returns an xml or json object by reading a remote file
   def get_data_object(service_url)
     uri = URI.parse(service_url)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -31,7 +32,7 @@ class Downloader
     JSON.parse(res.body)
   end
 
-
+  # downloads a binary file located at @url. Saved to full_path
   def dl(full_path)
     u = URI.parse(@url)
     resp = nil
