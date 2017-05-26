@@ -23,6 +23,7 @@ class FileHelper
   def not_dot(filename)
     filename != '.' && filename != '..'
   end
+  
   def get_filenames(dir)
     files = []
     Dir.new(dir).each do |fn|
