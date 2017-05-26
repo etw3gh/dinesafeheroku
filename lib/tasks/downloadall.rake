@@ -71,13 +71,13 @@ namespace :get do
   # goal is to modify other rake tasks to seek files locally instead of on the server
   task :oc => :environment do
     xml, geo = get_archive_filenames
+
     xml_acq = Acquisitions.instance.dinesafe
     geo_acq = Acquisitions.instance.shapefiles
-    puts xml_acq
-    puts geo_acq
+
     xml_txt = xml_acq[:textfiles]
     geo_txt = geo_acq[:textfiles]
-    puts xml_txt, geo_txt
+
     dl_list(xml, xml_txt)
     dl_list(geo, geo_txt)
   end
