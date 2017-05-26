@@ -69,6 +69,28 @@ namespace :get do
   # one off task. converting the python service into rails
   # downloads the files on the helper server to the local rails server
   # goal is to modify other rake tasks to seek files locally instead of on the server
+  # moving forward, the zip files and shape files will be stored as well
+  # result after task is run:
+  """
+    downloads
+    ├── dinesafe
+    │   ├── xml
+    │   │   ├── 1483469307_dinesafe.xml
+    │   │   ├── 1484577503_dinesafe.xml
+    │   │   ├── 1486579098_dinesafe.xml
+    │   │   ├── 1487001084_dinesafe.xml
+    │   │   ├── 1488832096_dinesafe.xml
+    │   │   ├── 1490721006_dinesafe.xml
+    │   │   ├── 1491832647_dinesafe.xml
+    │   │   └── 1493045091_dinesafe.xml
+    │   └── zip
+    └── geo
+        ├── json
+        │   ├── 1474461890_geo.json
+        │   └── 1491231264_geo.json
+        ├── shp
+        └── zip
+  """
   task :oc => :environment do
     xml, geo = get_archive_filenames
 
