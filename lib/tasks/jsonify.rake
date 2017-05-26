@@ -11,11 +11,9 @@ namespace :jsonify do
     if args.timestamp.nil?
       puts 'missing arg'
     else
-      puts args.timestamp
+      source = '{}{}/{}'.format(@geo_shp, args.timestamp, @geo_fn)
+      py = 'python3 ../../python/shaperip.py {} {}'.format(source, @geo_txt)
+      system(py)
     end
-    # source = '{}{}/{}'.format(@geo_shp, :timestamp, @geo_fn)
-    # py = 'python3 ../../python/shaperip.py {} {}'.format(source, @geo_txt)
-    # system(py)
   end
-
 end
