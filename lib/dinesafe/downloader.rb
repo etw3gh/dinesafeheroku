@@ -32,18 +32,6 @@ class Downloader
   end
 
 
-  def download(domain, path)
-    url = URI.parse(domain)
-    puts url
-    puts path
-    resp = nil
-    Net::HTTP.start(url.path) do |http|
-        resp = http.get(path)
-    end
-    resp
-  end
-
-
   def dl(full_path)
     u = URI.parse(@url)
     resp = nil
