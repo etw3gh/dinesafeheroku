@@ -75,6 +75,7 @@ namespace :get do
 
       local_path = "#{text_path}#{filename_zero_stripped}"
       d.download(local_path)
+    end
   end
 
   def print_filenames_return_menu_dict(printmenuoptions=true)
