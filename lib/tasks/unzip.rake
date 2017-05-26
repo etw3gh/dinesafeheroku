@@ -1,3 +1,8 @@
+require_relative('../file_helper')
+
+require 'rubygems'
+require 'zip'
+
 namespace :unzip do
   xml_acq = Acquisitions.instance.dinesafe
   geo_acq = Acquisitions.instance.shapefiles
@@ -16,6 +21,11 @@ namespace :unzip do
   end
 
   task :geo => :environment do
-    puts @FH.get_filenames(@geo_zip)
+    @FH.get_filenames(@geo_zip).each do |f|
+
+      Zip::File.open(f) do |zip_file|
+
+      end
+    end
   end
 end

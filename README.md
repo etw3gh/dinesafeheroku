@@ -99,6 +99,7 @@ Temp dir structure:
         └── zip
 
 
+
 ### Local DB and Heroku DB
 
   Rake tasks are database intensive so heroku pg:push is used to push data from the local psql db instead of writing directly to production
