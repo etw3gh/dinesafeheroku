@@ -5,4 +5,4 @@ bdir="/media/raid/raa"
 zip -r "$bdir/downloads_backup_$ts.zip" downloads
 
 # show result
-ll $bdir -h
+ls -lah $bdir
