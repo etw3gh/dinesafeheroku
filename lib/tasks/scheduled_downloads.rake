@@ -65,8 +65,8 @@ namespace :sched do
     puts 'SCHEDULED DL OUTCOME:'
     xout = 'NOT ' if !xml_downloaded
     gout = 'NOT ' if !geo_downloaded
-    puts 'xml file #{xout}downloaded' if xml_downloaded
-    puts 'geo file #{gout}downloaded' if geo_downloaded
+    puts 'xml file #{xout}downloaded'
+    puts 'geo file #{gout}downloaded'
     puts '----------------\n'
   end
 
