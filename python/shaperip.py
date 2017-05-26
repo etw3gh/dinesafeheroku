@@ -127,11 +127,11 @@ if __name__ == '__main__':
 
   s.rip()
   j = json.dumps(s.address_dict)
-  dest_file = os.path.join(dest_dir, dest_file)
+  dest = os.path.join(dest_dir, dest_file)
 
   # prevent overwriting of file
-  if os.path.exists(dest_file):
-    dest_file = 'dupe_' + dest_file
+  if os.path.exists(dest):
+    dest = os.path.join(dest_dir, 'dupe_' + dest_file)
 
-  with open(dest_file, 'w') as jfile:
+  with open(dest, 'w') as jfile:
     jfile.write(j)
