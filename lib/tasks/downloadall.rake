@@ -26,11 +26,9 @@ namespace :get do
 
   @xml_txt = xml_acq[:textfiles]
   @xml_zip = xml_acq[:archives]
-  @xml_url = xml_acq[:url]
 
   @geo_txt = geo_acq[:textfiles]
   @geo_zip = geo_acq[:archives] 
-  @geo_url = geo_acq[:url]
 
   @FH = FileHelper.new
 
