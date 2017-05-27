@@ -20,3 +20,12 @@ end
 s.every '1d', first: :now do
   puts "rufus now!!!!!!!!!!! but daily!!!!!!!!!!!"
 end
+
+s.every '1h', first: :now do
+  puts 'rufus hourly'
+end
+
+s.every '15m', first: :now do
+  puts 'rufus 15m'
+end
+
