@@ -7,7 +7,7 @@ s = Rufus::Scheduler.new
 
 s.every '1d', first: :now do
   puts '*** Checking remote server with rufus scheluler....'
-  #system('rake sched:dl')
+  system('rake sched:dl')
 end
 
 s.every '2d', first: :now do
