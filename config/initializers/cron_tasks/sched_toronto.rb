@@ -1,5 +1,5 @@
 require 'rake/dsl_definition'
-
+require 'rake'
 
 # NOTE: A rails server must be running locally at all times 
 # `rails s &` for background operation 
