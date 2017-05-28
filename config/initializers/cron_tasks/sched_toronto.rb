@@ -12,5 +12,5 @@ end
 
 s.every '2d' do
   puts 'Backing up downloads directory to raid array...'
-  system('./backup.sh')
+  #system('./backup.sh')
 end
