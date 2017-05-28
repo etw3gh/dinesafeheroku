@@ -19,7 +19,8 @@ unless defined?(Rails::Console) || File.split($0).last == 'rake'
     system('rake sched:dl')
   end
 
-  s.every '2d', first: :now do
+  # prevent overlap with above task (gets messy in console output)
+  s.every '23h' do
     puts "\n+++ *** Backing up downloads directory to raid array +++ *** \n\n"
     system('./backup.sh')
   end
