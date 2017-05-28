@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0'
-
+gem 'rake'
 # Use postgresql as the database for Active Record
 # This is pushed to the app from a local server
 # DB is read only
