@@ -2,4 +2,4 @@
 
 # stops puma server running in background
 
-pgrep -f puma | xargs kill
+pgrep -f puma | xargs kill 2>/dev/null
