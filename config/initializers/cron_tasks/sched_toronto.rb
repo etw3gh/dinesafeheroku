@@ -1,31 +1,17 @@
 # NOTE: A rails server must be running locally at all times 
+# `rails s &` for background operation 
+
 # WARNING: not for heroku, the data will be pushed by pgpush after processing
+ 
 
-# starts a 'cron' task as per the directives in cron_job
-# Rufus Scheduler will execute the code in its block at that time
-
-cron_hour = 16
-cron_min = 45
-cron_job = "#{cron_min} #{cron_hour} * * 1-5"
-#             mm          hh             m-f
-
-puts "Starting Cron task. Will check for a new dinesafe archive every weekday at #{cron_hour}:#{cron_min}"
 s = Rufus::Scheduler.new
 
-s.cron cron_job do
-  puts ('rufus')
-  system('rake sched:dl')
-end
-
 s.every '1d', first: :now do
-  puts "rufus now!!!!!!!!!!! but daily!!!!!!!!!!!"
+  puts '*** Checking remote server with rufus scheluler....'
+  Rake::Task('rake sched:dl').invoke
 end
 
-s.every '1h', first: :now do
-  puts 'rufus hourly'
+s.every '2d', first: :now do
+  puts 'Backing up downloads directory to raid array...'
+  system('./backup.sh')
 end
-
-s.every '15m', first: :now do
-  puts 'rufus 15m'
-end
-
