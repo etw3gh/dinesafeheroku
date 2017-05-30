@@ -32,6 +32,3 @@ lib/assets/*.json
 *.dump
 
 .vscode
-
-# conflicts with server 
-Gemfile.lock
