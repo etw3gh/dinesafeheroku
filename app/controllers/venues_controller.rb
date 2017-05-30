@@ -7,6 +7,15 @@ class VenuesController < ApplicationController
     render :json => {result: result, count: result.count}
   end
 
+  # nearby without a search clause
+  def near
+    lat = params[:lat]
+    lng = params[:lng]
+    limit = params[:lim]
+    results = geoloc(lat, lng, limit)
+    render :json => results
+  end
+  
   def nearby
     lat = params[:lat]
     lng = params[:lng]
