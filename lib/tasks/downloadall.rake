@@ -73,8 +73,10 @@ namespace :get do
     fileresult
   end
   task :xmlfiles => :environment do
-    puts get_filenames[:textfiles]
+    xtxt = @FH.get_filenames(@xml_txt)
+    puts xtxt
   end 
+
   task :local => :environment do
     puts get_filenames
   end
