@@ -17,6 +17,7 @@ Rails.application.routes.draw do |map|
       scope path: '/venues', controller: :venues do
         get 'get/:vid' => :get
         get 'nearby/:lat/:lng/:lim/:search' => :nearby
+        get 'near/:lat/:lng/:lim' => :near
         get 'pho/:lat/:lng/:lim' => :pho
       end
       scope path: '/inspections', controller: :inspections do
