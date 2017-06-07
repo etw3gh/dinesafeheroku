@@ -59,14 +59,26 @@ namespace :sched do
       LatestDownload.instance.update(:lastmodgeo=>shape_last_mod, :md5geo=>md5)
       geo_downloaded = true
     end
+    
+    open('log/scheduled_downloads.log', 'a') do |f|
+      xout = xml_downloaded ? '' : 'NOT '
+      gout = geo_downloaded ? '' : 'NOT '
+      
+      f.puts "\n\n----------------"
+      f.puts "#{Time.now} or ${Time.now.to_i}"
+      f.puts "ld_lastmod_xml: #{ld_lastmod_xml}"
+      f.puts "ld_lastmod_geo: #{ld_lastmod_geo}"
+      f.puts "xml_last_mod: #{xml_last_mod}"
+      f.puts "shape_last_mod: #{shape_last_mod}"
+      f.puts "Current LatestDownload instance: #{LatestDownload.instance}"
+      f.puts 'SCHEDULED DL OUTCOME:'
+      f.puts "xml file #{xout}downloaded"
+      f.puts "geo file #{gout}downloaded"
+      f.puts "----------------\n"
+    end
+    
 
-    xout = xml_downloaded ? '' : 'NOT '
-    gout = geo_downloaded ? '' : 'NOT '
-    puts "\n\n----------------"
-    puts 'SCHEDULED DL OUTCOME:'
-    puts "xml file #{xout}downloaded"
-    puts "geo file #{gout}downloaded"
-    puts "----------------\n"
+
   end
 
   def get_file(url, zip_path, downloader, last_mod)
