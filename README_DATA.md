@@ -83,7 +83,7 @@ Downloads dir structure:
 
     rake unzip:geo
 
-#### Log File Samle Entry
+#### Log File Sample Entry
 
 <!-- language: lang-none -->
 
