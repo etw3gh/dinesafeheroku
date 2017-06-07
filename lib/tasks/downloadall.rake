@@ -59,7 +59,7 @@ namespace :get do
   def get_filenames
     fileresult = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
 
-    garch = @FH.get_filenames(@geo_zip)
+    garch = @FH.get_filenames(@geo_zip).
     gtxt = @FH.get_filenames(@geo_txt)
 
     xarch = @FH.get_filenames(@xml_zip)
@@ -73,7 +73,7 @@ namespace :get do
     fileresult
   end
   task :xmlfiles => :environment do
-    xtxt = @FH.get_filenames(@xml_txt)
+    xtxt = @FH.get_filenames(@xml_txt).sort.reverse
     puts xtxt
   end 
 
