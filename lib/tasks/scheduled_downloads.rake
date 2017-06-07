@@ -70,7 +70,12 @@ namespace :sched do
       f.puts "ld_lastmod_geo: #{ld_lastmod_geo}"
       f.puts "xml_last_mod: #{xml_last_mod}"
       f.puts "shape_last_mod: #{shape_last_mod}"
-      f.puts "Current LatestDownload instance: #{LatestDownload.instance}"
+      ld = LatestDownload.instance
+      f.puts "Current LatestDownload instance:"
+      f.puts "  -lastmodxml: #{ld.lastmodxml}"
+      f.puts "  -lastmodgeo: #{ld.lastmodgeo}"
+      f.puts "  -md5xml: #{ld.md5xml}"
+      f.puts "  -md5geo: #{ld.md5geo}"
       f.puts 'SCHEDULED DL OUTCOME:'
       f.puts "xml file #{xout}downloaded"
       f.puts "geo file #{gout}downloaded"
