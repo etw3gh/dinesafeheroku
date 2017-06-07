@@ -65,7 +65,7 @@ namespace :sched do
       gout = geo_downloaded ? '' : 'NOT '
       
       f.puts "\n\n----------------"
-      f.puts "#{Time.now} or ${Time.now.to_i}"
+      f.puts "Current Time is #{Time.now} / #{Time.now.to_i}"
       f.puts "ld_lastmod_xml: #{ld_lastmod_xml}"
       f.puts "ld_lastmod_geo: #{ld_lastmod_geo}"
       f.puts "xml_last_mod: #{xml_last_mod}"
@@ -74,7 +74,7 @@ namespace :sched do
       f.puts 'SCHEDULED DL OUTCOME:'
       f.puts "xml file #{xout}downloaded"
       f.puts "geo file #{gout}downloaded"
-      f.puts "----------------\n"
+      f.puts "----------------\n\n"
     end
     
 
