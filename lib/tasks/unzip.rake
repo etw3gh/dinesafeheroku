@@ -44,9 +44,6 @@ namespace :unzip do
       # form timestamp path
       ts_path = "#{@geo_shp}#{ts}"
 
-      # only proceed if the dir does not exist
-      # TODO
-
       # form zip path (source file)
       zip_path = "#{@geo_zip}#{f}"
 
