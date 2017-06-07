@@ -72,7 +72,9 @@ namespace :get do
 
     fileresult
   end
-
+  task :xmlfiles => :environment do
+    puts get_filenames[:textfiles]
+  end 
   task :local => :environment do
     puts get_filenames
   end
