@@ -59,11 +59,11 @@ namespace :get do
   def get_filenames
     fileresult = { geo: { archives: [], textfiles: []}, xml: { archives: [], textfiles: []} }
 
-    garch = @FH.get_filenames(@geo_zip).
-    gtxt = @FH.get_filenames(@geo_txt)
+    garch = @FH.get_filenames(@geo_zip).sort.reverse
+    gtxt = @FH.get_filenames(@geo_txt).sort.reverse
 
-    xarch = @FH.get_filenames(@xml_zip)
-    xtxt = @FH.get_filenames(@xml_txt)
+    xarch = @FH.get_filenames(@xml_zip).sort.reverse
+    xtxt = @FH.get_filenames(@xml_txt).sort.reverse
 
     fileresult[:geo][:archives].concat(garch)
     fileresult[:geo][:textfiles].concat(gtxt)
