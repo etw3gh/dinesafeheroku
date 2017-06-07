@@ -101,3 +101,24 @@ namespace :sched do
   end
 
 end
+
+
+"""
+log entry
+
+----------------
+Current Time is 2017-06-07 12:41:23 -0400 / 1496853683
+ld_lastmod_xml: 1496065999
+ld_lastmod_geo: 1491231264
+xml_last_mod: 1496065999
+shape_last_mod: 1491231264
+Current LatestDownload instance:
+  -lastmodxml: 1496065999
+  -lastmodgeo: 1491231264
+  -md5xml: 3db88d4bb57123219e05dcba1c6c8a1a
+  -md5geo: 75979c7d11321ec0695cf910b94ef408
+SCHEDULED DL OUTCOME:
+xml file NOT downloaded
+geo file NOT downloaded
+----------------
+""""
