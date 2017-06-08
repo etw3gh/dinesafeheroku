@@ -62,6 +62,11 @@ class InspectionsController < ApplicationController
     results = ActiveRecord::Base.connection.execute(query)
     render :json => {'result': results, 'count': results.count}
   end
+  
+  def byvid
+    inspections = Inspection.where(:id => :vid)..order(:date=>:desc)
+    render :json => inspections
+  end
 
   def get
     json_result = {}
