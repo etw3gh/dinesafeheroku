@@ -64,7 +64,8 @@ class InspectionsController < ApplicationController
   end
   
   def byvid
-    inspections = Inspection.where(:venue_id => :vid).order(:date=>:desc)
+    vid = params[:vid]
+    inspections = Inspection.where(:venue_id => vid).order(:date=>:desc)
     render :json => inspections
   end
 
