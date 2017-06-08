@@ -24,6 +24,7 @@ Rails.application.routes.draw do |map|
         get 'byaddr/:num/:street/:var/:lim' => :byaddr
         get 'find/:term' => :find
         get 'get/:vid/:status' => :get
+        get 'get/:vid' => :byvid
         get 'near/:lat/:lng/:lim' => :near
         get 'nearsearch' => :nearsearch
 
