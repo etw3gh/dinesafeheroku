@@ -63,13 +63,17 @@ class InspectionsController < ApplicationController
     render :json => {'result': results, 'count': results.count}
   end
   
-  def byvid
+  def byvidlatest
     vid = params[:vid]
     maxversion = Inspection.maximum(:version)
     inspections = Inspection.where(:venue_id => vid, :version => maxversion).order(:date=>:desc, :id=>:asc)
     render :json => inspections
   end
-
+  def byvid
+    vid = params[:vid]
+    inspections = Inspection.where(:venue_id => vid).order(:date=>:desc, :id=>:asc)
+    render :json => inspections
+  end
   def get
     json_result = {}
     json_result['inspections'] = []

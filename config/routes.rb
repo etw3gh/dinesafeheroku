@@ -25,6 +25,8 @@ Rails.application.routes.draw do |map|
         get 'find/:term' => :find
         get 'get/:vid/:status' => :get
         get 'get/:vid' => :byvid
+        get 'getlatest/:vid' => :byvidlatest
+
         get 'near/:lat/:lng/:lim' => :near
         get 'nearsearch' => :nearsearch
 
