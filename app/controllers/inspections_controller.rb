@@ -66,7 +66,7 @@ class InspectionsController < ApplicationController
   def byvid
     vid = params[:vid]
     maxversion = Inspection.maximum(:version)
-    inspections = Inspection.where(:venue_id => vid, :version => max).order(:date=>:desc, :id=>:asc)
+    inspections = Inspection.where(:venue_id => vid, :version => maxversion).order(:date=>:desc, :id=>:asc)
     render :json => inspections
   end
 
