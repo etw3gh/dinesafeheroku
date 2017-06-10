@@ -6,14 +6,12 @@ class UpdateGeo
   attr_accessor :geo, :verbose, :timestamp
 
   def initialize(jsonpath, verbose, timestamp)
-    puts jsonpath
-    @geo = File.read(jsonpath)
+    @geo = JSON.parse(File.read(jsonpath))
     @verbose = verbose
     @timestamp = timestamp
   end
 
   def process
-    puts @geo
     @geo.keys.each do |street|
 
       address = @geo[street]
