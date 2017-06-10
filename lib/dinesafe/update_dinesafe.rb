@@ -15,7 +15,6 @@ class UpdateDinesafe
   def process
     addr = nil
     version = nil
-    rid = nil
     eid = nil
     iid = nil
     etype = nil
@@ -32,7 +31,6 @@ class UpdateDinesafe
       multiple_error = false
       notfound_error = false
       version =  @timestamp
-      rid =      row.xpath('ROW_ID').text.to_i
       eid =      row.xpath('ESTABLISHMENT_ID').text.to_i
       iid =      row.xpath('INSPECTION_ID').text.to_i
       name =     row.xpath('ESTABLISHMENT_NAME').text.strip.split.join(' ').downcase
@@ -145,8 +143,7 @@ class UpdateDinesafe
         end
       end
 
-      insp = Inspection.where(:rid => rid,
-                              :eid => eid,
+      insp = Inspection.where(:eid => eid,
                               :iid => iid,
                               :etype => etype.downcase,
                               :status => status.downcase.gsub('conditional pass', 'condpass'),
@@ -160,7 +157,7 @@ class UpdateDinesafe
 
 
       if insp.nil?
-        msg = "Inspection Error for iid: #{iid}, rid: #{rid}, venue: #{name}"
+        msg = "Inspection Error for iid: #{iid}, venue: #{name}"
         puts msg if @verbose
       end
 
