@@ -32,3 +32,4 @@ lib/assets/*.json
 *.dump
 
 .vscode
+snapshot.txt
