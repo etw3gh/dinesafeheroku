@@ -297,8 +297,8 @@ namespace :get do
 
   desc "update geo files"
   task :geo => :environment do
-      local_files = get_filenames
-      geo = local_files[:geo][:textfiles]
+    local_files = get_filenames
+    geo = local_files[:geo][:textfiles]
     process_geo(geo)
   end
 
