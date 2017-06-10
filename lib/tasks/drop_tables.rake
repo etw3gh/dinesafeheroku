@@ -8,7 +8,7 @@ namespace :drop do
     insp_tables.each do |t|
       begin
         ActiveRecord::Migration.drop_table(t)
-      rescue PG::UndefinedTable
+      rescue ActiveRecord::StatementInvalid
         puts("--- #{t} is undefined ---")
       end
     end
