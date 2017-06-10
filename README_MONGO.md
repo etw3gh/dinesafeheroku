@@ -25,11 +25,11 @@ Add to .bashrc and Heroku settings according to your setup
 
 ## Connect script
 
-    ./localmongo/mongo.sh
+    ./scripts/mongo.sh
 
 ## admin connection
 
-    ./localmongo/mongo.sh --admin [ or -a ] 
+    ./scripts/mongo.sh --admin [ or -a ] 
 
 
 ## User Roles

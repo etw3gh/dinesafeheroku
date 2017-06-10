@@ -20,7 +20,7 @@ or for interactive:
 
 ### push to heroku by script
 
-    ./localpsql/pgpush.sh
+    ./scripts/pgpush.sh
 
 ### ENV variables
 
