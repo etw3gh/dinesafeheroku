@@ -141,13 +141,25 @@ Downloads dir structure:
 
 Keeping all historical inspections as long as it remains under 10 Million rows
 
+Each xml file has about 87000 entries, but most are duplicates as most
+establishments are only inspected 2 or 3 times a year
+
 <!-- language: lang-none -->
 
     from `rails c` or `heroku run rails c`
 
     Inspection.all.group(:version).count
 
-    => {1488832096=>86772, 1483469307=>85638, 1487001084=>86555, 1484577503=>86712, 1486579098=>86253}
+    => {1491832647=>3586,
+    1488832096=>6877,
+    1487001084=>3598,
+    1496065999=>86718,
+    1490721006=>3548,
+    1484577503=>5420,
+    1486579098=>484,
+    1493045091=>6448,
+    1483469307=>1908}
+
 
 ### Verify Venues
 
