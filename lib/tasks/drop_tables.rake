@@ -6,6 +6,7 @@ namespace :drop do
     insp_tables = [:inspections, :notfounds, :multiples, :venues, :bad_venues]
 
     insp_tables.each do |t|
+      puts t
       if ActiveRecord::Base.connection.table_exists? t
         ActiveRecord::Migration.drop_table(t)
       else
