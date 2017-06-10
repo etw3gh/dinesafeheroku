@@ -9,3 +9,4 @@ namespace :drop do
     ActiveRecord::Migration.drop_table(:venues)
     ActiveRecord::Migration.drop_table(:bad_venues)
   end
+end
