@@ -2,7 +2,6 @@ class CreateInspections < ActiveRecord::Migration[5.0]
   def change
     if !table_exists?('inspections')
       create_table :inspections do |t|
-        t.integer :rid
         t.integer :eid
         t.integer :iid
         t.string  :etype
