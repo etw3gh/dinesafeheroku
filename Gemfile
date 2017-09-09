@@ -62,3 +62,5 @@ gem 'rails_best_practices'
 
 gem 'rack-cors'
 ruby '2.2.2'
+
+gem 'yelp'

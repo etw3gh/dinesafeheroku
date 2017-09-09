@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314214414) do
+ActiveRecord::Schema.define(version: 20170524165109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 20170314214414) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["eid"], name: "index_inspections_on_eid", using: :btree
+  end
+
+  create_table "latest_downloads", force: :cascade do |t|
+    t.integer "lastmodxml"
+    t.integer "lastmodgeo"
+    t.string  "md5xml"
+    t.string  "md5geo"
   end
 
   create_table "multiples", force: :cascade do |t|
